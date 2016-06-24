@@ -1,0 +1,9 @@
+sudo: false
+git:
+  submodules: false
+language: python
+python:
+  - "2.7"
+before_install: scripts/travis/before_install.sh
+install: scripts/travis/install.sh
+script: scripts/travis/script.sh

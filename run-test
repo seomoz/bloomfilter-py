@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd /vagrant
+source venv/bin/activate
+tests=$(find test -iname "*$1*.py")
+if [ -z "$tests" ]; then
+  echo -e "\e[31;1mno tests found...\e[0m"
+  exit 1
+fi
+nosetests --rednose --exe --logging-clear-handlers $tests -v

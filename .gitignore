@@ -1,0 +1,20 @@
+# Python build stuff
+*.pyc
+build
+dist
+*.egg-info
+
+# Virtualenv
+venv
+
+# Mac things
+.DS_Store
+
+# Test things
+.coverage
+
+# Vagrant
+.vagrant/
+
+# If you keep a local copy of dlcli.yaml
+dlcli.yaml

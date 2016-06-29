@@ -44,6 +44,16 @@ class TestBloomFilterCreate(unittest.TestCase):
         '''BloomFilter() creates filter with required parameters'''
         BloomFilter(5, 0.5)
 
+    def test_creates_filter_with_non_integral_capacity(self):
+        '''BloomFilter() creates filter with non-integral capacity'''
+        float_filter = BloomFilter(capacity=1000.2, error_rate=1e-3)
+        int_filter = BloomFilter(capacity=1000, error_rate=1e-3)
+
+        bit_count = int_filter.bit_count
+        self.assertGreaterEqual(float_filter.bit_count, bit_count)
+        self.assertLess(float_filter.bit_count, bit_count + 10)
+        self.assertEqual(int_filter.hash_count, float_filter.hash_count)
+
     def test_creates_filter_with_randomized_hash_seeds(self):
         '''BloomFilter() creates filter with randomized hash seeds'''
         filter_1 = BloomFilter(5, 0.5)

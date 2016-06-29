@@ -72,7 +72,7 @@ cdef class BloomFilter:
         return self.cbf.bit_count
 
     def add_hash(self, x):
-        '''Add item's hast to the filter'''
+        '''Add item's hash to the filter'''
         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
 
     def test_hash(self, x):

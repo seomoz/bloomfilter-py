@@ -1950,13 +1950,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
  *         return self.cbf.bit_count
  * 
  *     def add_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item's hast to the filter'''
+ *         '''Add item's hash to the filter'''
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash[] = "Add item's hast to the filter";
+static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash[] = "Add item's hash to the filter";
 static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1977,7 +1977,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(s
 
   /* "bloomfilter/_bloomfilter.pyx":76
  *     def add_hash(self, x):
- *         '''Add item's hast to the filter'''
+ *         '''Add item's hash to the filter'''
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))             # <<<<<<<<<<<<<<
  * 
  *     def test_hash(self, x):
@@ -1994,7 +1994,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(s
  *         return self.cbf.bit_count
  * 
  *     def add_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item's hast to the filter'''
+ *         '''Add item's hash to the filter'''
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  */
 

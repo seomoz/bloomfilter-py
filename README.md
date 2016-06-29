@@ -57,6 +57,12 @@ Tests are run with the top-level `Makefile`:
 make test
 ```
 
+It is also possible to run then as 
+
+```bash
+python setup.py test
+```
+
 Contribution
 ============
 Refer to the

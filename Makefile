@@ -9,7 +9,7 @@ build:
 
 .PHONY: test
 test: build
-	nosetests --with-coverage --rednose test/unit
+	nosetests --with-coverage --with-timer --rednose test
 
 .PHONY: install
 install:

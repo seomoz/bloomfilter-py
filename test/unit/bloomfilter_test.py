@@ -54,6 +54,12 @@ class TestBloomFilterCreate(unittest.TestCase):
         self.assertLess(float_filter.bit_count, bit_count + 10)
         self.assertEqual(int_filter.hash_count, float_filter.hash_count)
 
+    def test_always_creates_filter_with_odd_bit_count(self):
+        '''BloomFilter() creates filter with non-integral capacity'''
+        bloom_filter = BloomFilter(capacity=1000, error_rate=1e-3)
+
+        self.assertEqual(bloom_filter.bit_count & 1, 1)
+
     def test_creates_filter_with_randomized_hash_seeds(self):
         '''BloomFilter() creates filter with randomized hash seeds'''
         filter_1 = BloomFilter(5, 0.5)
@@ -90,7 +96,8 @@ class TestBloomFilterBitCount(unittest.TestCase):
         '''BloomFilter.bit_count returns expected value'''
         bloom_filter = BloomFilter(1000000, 1e-3)
         # 14377640 bits, 10 hashes
-        self.assertEqual(bloom_filter.bit_count, 14377640)
+        # added 1, since we want it always odd
+        self.assertEqual(bloom_filter.bit_count, 14377641)
 
 
 class TestBloomFilterAddAndTest(unittest.TestCase):

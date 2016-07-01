@@ -38,6 +38,10 @@ cdef class BloomFilter:
         log_error_rate = log(error_rate)
         hash_count = max(round(- log_error_rate / log2), 1)
         bit_count = ceil(- hash_count / log(1 - exp(log_error_rate / hash_count)) * capacity)
+        # Since we are using very simplistic re-hash algorithm, we have a pathological
+        # case when `bit_count` is power of 2. We alleviate it by making `bit_count` always
+        # an odd number.
+        bit_count |= 1
         acc = ''
         for i in xrange(hash_count):
             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))

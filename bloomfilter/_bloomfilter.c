@@ -496,7 +496,7 @@ struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter {
 };
 
 
-/* "bloomfilter/_bloomfilter.pyx":43
+/* "bloomfilter/_bloomfilter.pyx":47
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
@@ -1001,7 +1001,7 @@ static int __pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_1__cinit__(PyObje
 }
 static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___2generator(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "bloomfilter/_bloomfilter.pyx":43
+/* "bloomfilter/_bloomfilter.pyx":47
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
@@ -1021,7 +1021,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___
   }
   __Pyx_GOTREF(__pyx_cur_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___2generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_cinit___locals_genexpr); if (unlikely(!gen)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___2generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_cinit___locals_genexpr); if (unlikely(!gen)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -1054,23 +1054,23 @@ static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 47, __pyx_L1_error)
   for (__pyx_t_1 = 0; __pyx_t_1 < 8; __pyx_t_1+=1) {
     __pyx_cur_scope->__pyx_v_j = __pyx_t_1;
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randrange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randrange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_r = __pyx_t_2;
@@ -1083,7 +1083,7 @@ static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___
     return __pyx_r;
     __pyx_L6_resume_from_yield:;
     __pyx_t_1 = __pyx_cur_scope->__pyx_t_0;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 43, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 47, __pyx_L1_error)
   }
 
   /* function exit code */
@@ -1334,7 +1334,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  *         log_error_rate = log(error_rate)
  *         hash_count = max(round(- log_error_rate / log2), 1)             # <<<<<<<<<<<<<<
  *         bit_count = ceil(- hash_count / log(1 - exp(log_error_rate / hash_count)) * capacity)
- *         acc = ''
+ *         # Since we are using very simplistic re-hash algorithm, we have a pathological
  */
   __pyx_t_8 = 1;
   __pyx_t_3 = (-__pyx_v_log_error_rate);
@@ -1376,8 +1376,8 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  *         log_error_rate = log(error_rate)
  *         hash_count = max(round(- log_error_rate / log2), 1)
  *         bit_count = ceil(- hash_count / log(1 - exp(log_error_rate / hash_count)) * capacity)             # <<<<<<<<<<<<<<
- *         acc = ''
- *         for i in xrange(hash_count):
+ *         # Since we are using very simplistic re-hash algorithm, we have a pathological
+ *         # case when `bit_count` is power of 2. We alleviate it by making `bit_count` always
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ceil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1485,9 +1485,18 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_bit_count = __pyx_t_8;
 
-  /* "bloomfilter/_bloomfilter.pyx":41
- *         hash_count = max(round(- log_error_rate / log2), 1)
- *         bit_count = ceil(- hash_count / log(1 - exp(log_error_rate / hash_count)) * capacity)
+  /* "bloomfilter/_bloomfilter.pyx":44
+ *         # case when `bit_count` is power of 2. We alleviate it by making `bit_count` always
+ *         # an odd number.
+ *         bit_count |= 1             # <<<<<<<<<<<<<<
+ *         acc = ''
+ *         for i in xrange(hash_count):
+ */
+  __pyx_v_bit_count = (__pyx_v_bit_count | 1);
+
+  /* "bloomfilter/_bloomfilter.pyx":45
+ *         # an odd number.
+ *         bit_count |= 1
  *         acc = ''             # <<<<<<<<<<<<<<
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))
@@ -1495,8 +1504,8 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   __Pyx_INCREF(__pyx_kp_s__3);
   __pyx_v_acc = __pyx_kp_s__3;
 
-  /* "bloomfilter/_bloomfilter.pyx":42
- *         bit_count = ceil(- hash_count / log(1 - exp(log_error_rate / hash_count)) * capacity)
+  /* "bloomfilter/_bloomfilter.pyx":46
+ *         bit_count |= 1
  *         acc = ''
  *         for i in xrange(hash_count):             # <<<<<<<<<<<<<<
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))
@@ -1506,47 +1515,47 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_8; __pyx_t_15+=1) {
     __pyx_v_i = __pyx_t_15;
 
-    /* "bloomfilter/_bloomfilter.pyx":43
+    /* "bloomfilter/_bloomfilter.pyx":47
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')
  */
-    __pyx_t_1 = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___genexpr(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_1 = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___genexpr(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s__3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s__3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_random_string, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "bloomfilter/_bloomfilter.pyx":45
+    /* "bloomfilter/_bloomfilter.pyx":49
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')             # <<<<<<<<<<<<<<
  *             hasher.update(random_string)
  *             acc += hasher.digest()
  */
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_hashlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_hashlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_new); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_new); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_hasher, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "bloomfilter/_bloomfilter.pyx":46
+    /* "bloomfilter/_bloomfilter.pyx":50
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')
  *             hasher.update(random_string)             # <<<<<<<<<<<<<<
  *             acc += hasher.digest()
  *         seeds = acc
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_update); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_update); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_6 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -1559,30 +1568,30 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_random_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_random_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
     } else {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 46, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 50, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_INCREF(__pyx_v_random_string);
       __Pyx_GIVEREF(__pyx_v_random_string);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_random_string);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "bloomfilter/_bloomfilter.pyx":47
+    /* "bloomfilter/_bloomfilter.pyx":51
  *             hasher = hashlib.new('md5')
  *             hasher.update(random_string)
  *             acc += hasher.digest()             # <<<<<<<<<<<<<<
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_digest); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_digest); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -1595,31 +1604,31 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_acc, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_acc, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF_SET(__pyx_v_acc, __pyx_t_1);
     __pyx_t_1 = 0;
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":48
+  /* "bloomfilter/_bloomfilter.pyx":52
  *             hasher.update(random_string)
  *             acc += hasher.digest()
  *         seeds = acc             # <<<<<<<<<<<<<<
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:
  */
-  __pyx_t_16 = __Pyx_PyObject_AsString(__pyx_v_acc); if (unlikely((!__pyx_t_16) && PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_AsString(__pyx_v_acc); if (unlikely((!__pyx_t_16) && PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L1_error)
   __pyx_v_seeds = __pyx_t_16;
 
-  /* "bloomfilter/_bloomfilter.pyx":49
+  /* "bloomfilter/_bloomfilter.pyx":53
  *             acc += hasher.digest()
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)             # <<<<<<<<<<<<<<
@@ -1628,7 +1637,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   __pyx_v_cbf = CBloomFilter_Create(__pyx_v_hash_count, __pyx_v_bit_count, __pyx_v_seeds);
 
-  /* "bloomfilter/_bloomfilter.pyx":50
+  /* "bloomfilter/_bloomfilter.pyx":54
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:             # <<<<<<<<<<<<<<
@@ -1638,14 +1647,14 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   __pyx_t_5 = ((__pyx_v_cbf == NULL) != 0);
   if (__pyx_t_5) {
 
-    /* "bloomfilter/_bloomfilter.pyx":51
+    /* "bloomfilter/_bloomfilter.pyx":55
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:
  *             raise ValueError("BloomFilter cannot allocate memory for capacity=%s and error_rate=%s", capacity, error_rate)             # <<<<<<<<<<<<<<
  *         self.cbf = cbf
  * 
  */
-    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_kp_s_BloomFilter_cannot_allocate_memo);
     __Pyx_GIVEREF(__pyx_kp_s_BloomFilter_cannot_allocate_memo);
@@ -1656,14 +1665,14 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     __Pyx_INCREF(__pyx_v_error_rate);
     __Pyx_GIVEREF(__pyx_v_error_rate);
     PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_error_rate);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 51, __pyx_L1_error)
+    __PYX_ERR(0, 55, __pyx_L1_error)
 
-    /* "bloomfilter/_bloomfilter.pyx":50
+    /* "bloomfilter/_bloomfilter.pyx":54
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:             # <<<<<<<<<<<<<<
@@ -1672,7 +1681,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":52
+  /* "bloomfilter/_bloomfilter.pyx":56
  *         if cbf == NULL:
  *             raise ValueError("BloomFilter cannot allocate memory for capacity=%s and error_rate=%s", capacity, error_rate)
  *         self.cbf = cbf             # <<<<<<<<<<<<<<
@@ -1713,7 +1722,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":54
+/* "bloomfilter/_bloomfilter.pyx":58
  *         self.cbf = cbf
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1736,7 +1745,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":56
+  /* "bloomfilter/_bloomfilter.pyx":60
  *     def __dealloc__(self):
  *         '''Free up filter's data'''
  *         cbloomfilter.CBloomFilter_Destroy(self.cbf)             # <<<<<<<<<<<<<<
@@ -1745,7 +1754,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
  */
   CBloomFilter_Destroy(__pyx_v_self->cbf);
 
-  /* "bloomfilter/_bloomfilter.pyx":57
+  /* "bloomfilter/_bloomfilter.pyx":61
  *         '''Free up filter's data'''
  *         cbloomfilter.CBloomFilter_Destroy(self.cbf)
  *         self.cbf = NULL             # <<<<<<<<<<<<<<
@@ -1754,7 +1763,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
  */
   __pyx_v_self->cbf = NULL;
 
-  /* "bloomfilter/_bloomfilter.pyx":54
+  /* "bloomfilter/_bloomfilter.pyx":58
  *         self.cbf = cbf
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1766,7 +1775,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
   __Pyx_RefNannyFinishContext();
 }
 
-/* "bloomfilter/_bloomfilter.pyx":60
+/* "bloomfilter/_bloomfilter.pyx":64
  * 
  *     @property
  *     def byte_size(self):             # <<<<<<<<<<<<<<
@@ -1793,7 +1802,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9byte_size_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":62
+  /* "bloomfilter/_bloomfilter.pyx":66
  *     def byte_size(self):
  *         '''Size of the filter in bytes'''
  *         return cbloomfilter.CBloomFilter_ByteSize(self.cbf)             # <<<<<<<<<<<<<<
@@ -1801,13 +1810,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9byte_size_
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_FromSize_t(CBloomFilter_ByteSize(__pyx_v_self->cbf)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_FromSize_t(CBloomFilter_ByteSize(__pyx_v_self->cbf)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":60
+  /* "bloomfilter/_bloomfilter.pyx":64
  * 
  *     @property
  *     def byte_size(self):             # <<<<<<<<<<<<<<
@@ -1826,7 +1835,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9byte_size_
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":65
+/* "bloomfilter/_bloomfilter.pyx":69
  * 
  *     @property
  *     def hash_count(self):             # <<<<<<<<<<<<<<
@@ -1853,7 +1862,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_coun
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":67
+  /* "bloomfilter/_bloomfilter.pyx":71
  *     def hash_count(self):
  *         '''Number of hashes in the filter'''
  *         return self.cbf.hash_count             # <<<<<<<<<<<<<<
@@ -1861,13 +1870,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_coun
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->hash_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->hash_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":65
+  /* "bloomfilter/_bloomfilter.pyx":69
  * 
  *     @property
  *     def hash_count(self):             # <<<<<<<<<<<<<<
@@ -1886,7 +1895,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_coun
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":70
+/* "bloomfilter/_bloomfilter.pyx":74
  * 
  *     @property
  *     def bit_count(self):             # <<<<<<<<<<<<<<
@@ -1913,7 +1922,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":72
+  /* "bloomfilter/_bloomfilter.pyx":76
  *     def bit_count(self):
  *         '''Number of bits in the filter'''
  *         return self.cbf.bit_count             # <<<<<<<<<<<<<<
@@ -1921,13 +1930,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
  *     def add_hash(self, x):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->bit_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->bit_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":70
+  /* "bloomfilter/_bloomfilter.pyx":74
  * 
  *     @property
  *     def bit_count(self):             # <<<<<<<<<<<<<<
@@ -1946,7 +1955,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":74
+/* "bloomfilter/_bloomfilter.pyx":78
  *         return self.cbf.bit_count
  * 
  *     def add_hash(self, x):             # <<<<<<<<<<<<<<
@@ -1975,7 +1984,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(s
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("add_hash", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":76
+  /* "bloomfilter/_bloomfilter.pyx":80
  *     def add_hash(self, x):
  *         '''Add item's hash to the filter'''
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))             # <<<<<<<<<<<<<<
@@ -1983,14 +1992,14 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(s
  *     def test_hash(self, x):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 76, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_void_to_None(CBloomFilter_AddHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_void_to_None(CBloomFilter_AddHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":74
+  /* "bloomfilter/_bloomfilter.pyx":78
  *         return self.cbf.bit_count
  * 
  *     def add_hash(self, x):             # <<<<<<<<<<<<<<
@@ -2009,7 +2018,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(s
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":78
+/* "bloomfilter/_bloomfilter.pyx":82
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  * 
  *     def test_hash(self, x):             # <<<<<<<<<<<<<<
@@ -2039,7 +2048,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("test_hash", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":80
+  /* "bloomfilter/_bloomfilter.pyx":84
  *     def test_hash(self, x):
  *         '''Test whether item hash is in the filter'''
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))             # <<<<<<<<<<<<<<
@@ -2047,18 +2056,18 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(
  *     def to_base64(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 80, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_From_int(CBloomFilter_TestHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(CBloomFilter_TestHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_3))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_3))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":78
+  /* "bloomfilter/_bloomfilter.pyx":82
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  * 
  *     def test_hash(self, x):             # <<<<<<<<<<<<<<
@@ -2077,7 +2086,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":82
+/* "bloomfilter/_bloomfilter.pyx":86
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  * 
  *     def to_base64(self):             # <<<<<<<<<<<<<<
@@ -2110,7 +2119,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("to_base64", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":84
+  /* "bloomfilter/_bloomfilter.pyx":88
  *     def to_base64(self):
  *         '''Serialize the filter'''
  *         return zlib.compress((<char*>self.cbf)[:self.byte_size], 9).encode('base64')             # <<<<<<<<<<<<<<
@@ -2118,16 +2127,16 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
  *     @classmethod
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_compress); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_compress); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_4 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_4 - 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_4 - 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = NULL;
   __pyx_t_4 = 0;
@@ -2141,7 +2150,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_6 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -2152,21 +2161,21 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
   __Pyx_GIVEREF(__pyx_int_9);
   PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_4, __pyx_int_9);
   __pyx_t_2 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":82
+  /* "bloomfilter/_bloomfilter.pyx":86
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  * 
  *     def to_base64(self):             # <<<<<<<<<<<<<<
@@ -2189,7 +2198,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":87
+/* "bloomfilter/_bloomfilter.pyx":91
  * 
  *     @classmethod
  *     def from_base64(self, serialized_filter):             # <<<<<<<<<<<<<<
@@ -2226,21 +2235,21 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("from_base64", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":89
+  /* "bloomfilter/_bloomfilter.pyx":93
  *     def from_base64(self, serialized_filter):
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(serialized_filter.decode('base64'))             # <<<<<<<<<<<<<<
  * 
  *         cbf = BloomFilter(_build=False)
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_decompress); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_decompress); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_serialized_filter, __pyx_n_s_decode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_serialized_filter, __pyx_n_s_decode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -2254,17 +2263,17 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
@@ -2272,34 +2281,34 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   __pyx_v_data = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "bloomfilter/_bloomfilter.pyx":91
+  /* "bloomfilter/_bloomfilter.pyx":95
  *         data = zlib.decompress(serialized_filter.decode('base64'))
  * 
  *         cbf = BloomFilter(_build=False)             # <<<<<<<<<<<<<<
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_build, Py_False) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_build, Py_False) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_cbf = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "bloomfilter/_bloomfilter.pyx":92
+  /* "bloomfilter/_bloomfilter.pyx":96
  * 
  *         cbf = BloomFilter(_build=False)
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))             # <<<<<<<<<<<<<<
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")
  */
-  __pyx_t_6 = __Pyx_PyObject_AsString(__pyx_v_data); if (unlikely((!__pyx_t_6) && PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L1_error)
-  __pyx_t_7 = PyObject_Length(__pyx_v_data); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_AsString(__pyx_v_data); if (unlikely((!__pyx_t_6) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_7 = PyObject_Length(__pyx_v_data); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 96, __pyx_L1_error)
   __pyx_v_cbf->cbf = CBloomFilter_FromData(((char *)__pyx_t_6), __pyx_t_7);
 
-  /* "bloomfilter/_bloomfilter.pyx":93
+  /* "bloomfilter/_bloomfilter.pyx":97
  *         cbf = BloomFilter(_build=False)
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:             # <<<<<<<<<<<<<<
@@ -2309,20 +2318,20 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   __pyx_t_8 = ((__pyx_v_cbf->cbf == NULL) != 0);
   if (__pyx_t_8) {
 
-    /* "bloomfilter/_bloomfilter.pyx":94
+    /* "bloomfilter/_bloomfilter.pyx":98
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")             # <<<<<<<<<<<<<<
  *         return cbf
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 98, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 94, __pyx_L1_error)
+    __PYX_ERR(0, 98, __pyx_L1_error)
 
-    /* "bloomfilter/_bloomfilter.pyx":93
+    /* "bloomfilter/_bloomfilter.pyx":97
  *         cbf = BloomFilter(_build=False)
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:             # <<<<<<<<<<<<<<
@@ -2331,7 +2340,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
  */
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":95
+  /* "bloomfilter/_bloomfilter.pyx":99
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")
  *         return cbf             # <<<<<<<<<<<<<<
@@ -2343,7 +2352,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   __pyx_r = ((PyObject *)__pyx_v_cbf);
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":87
+  /* "bloomfilter/_bloomfilter.pyx":91
  * 
  *     @classmethod
  *     def from_base64(self, serialized_filter):             # <<<<<<<<<<<<<<
@@ -2368,7 +2377,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":98
+/* "bloomfilter/_bloomfilter.pyx":102
  * 
  * 
  *     def raw_data(self):             # <<<<<<<<<<<<<<
@@ -2397,24 +2406,24 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(
   Py_ssize_t __pyx_t_2;
   __Pyx_RefNannySetupContext("raw_data", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":100
+  /* "bloomfilter/_bloomfilter.pyx":104
  *     def raw_data(self):
  *         '''Raw filter data, primary for debug purpose'''
  *         return (<char*>self.cbf)[:self.byte_size]             # <<<<<<<<<<<<<<
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_2 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_2 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_2 - 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_2 - 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":98
+  /* "bloomfilter/_bloomfilter.pyx":102
  * 
  * 
  *     def raw_data(self):             # <<<<<<<<<<<<<<
@@ -2704,11 +2713,11 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 33, __pyx_L1_error)
   __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 39, __pyx_L1_error)
   #if PY_MAJOR_VERSION >= 3
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) __PYX_ERR(0, 46, __pyx_L1_error)
   #else
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) __PYX_ERR(0, 46, __pyx_L1_error)
   #endif
-  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 47, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2718,14 +2727,14 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":43
+  /* "bloomfilter/_bloomfilter.pyx":47
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_256); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_256); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
@@ -2740,47 +2749,47 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "bloomfilter/_bloomfilter.pyx":45
+  /* "bloomfilter/_bloomfilter.pyx":49
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')             # <<<<<<<<<<<<<<
  *             hasher.update(random_string)
  *             acc += hasher.digest()
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_md5); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_md5); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "bloomfilter/_bloomfilter.pyx":84
+  /* "bloomfilter/_bloomfilter.pyx":88
  *     def to_base64(self):
  *         '''Serialize the filter'''
  *         return zlib.compress((<char*>self.cbf)[:self.byte_size], 9).encode('base64')             # <<<<<<<<<<<<<<
  * 
  *     @classmethod
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_base64); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_base64); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "bloomfilter/_bloomfilter.pyx":89
+  /* "bloomfilter/_bloomfilter.pyx":93
  *     def from_base64(self, serialized_filter):
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(serialized_filter.decode('base64'))             # <<<<<<<<<<<<<<
  * 
  *         cbf = BloomFilter(_build=False)
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_n_s_base64); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_n_s_base64); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "bloomfilter/_bloomfilter.pyx":94
+  /* "bloomfilter/_bloomfilter.pyx":98
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")             # <<<<<<<<<<<<<<
  *         return cbf
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_BloomFilter_serialized_data_are); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_BloomFilter_serialized_data_are); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
@@ -2902,7 +2911,7 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
   __pyx_type_11bloomfilter_12_bloomfilter_BloomFilter.tp_print = 0;
   if (PyObject_SetAttrString(__pyx_m, "BloomFilter", (PyObject *)&__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter = &__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter;
-  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
   __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr.tp_print = 0;
   __pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr = &__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr;
   /*--- Type import code ---*/
@@ -2993,27 +3002,27 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_tuple__8) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
 
-  /* "bloomfilter/_bloomfilter.pyx":87
+  /* "bloomfilter/_bloomfilter.pyx":91
  * 
  *     @classmethod
  *     def from_base64(self, serialized_filter):             # <<<<<<<<<<<<<<
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(serialized_filter.decode('base64'))
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter, __pyx_n_s_from_base64); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter, __pyx_n_s_from_base64); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "bloomfilter/_bloomfilter.pyx":86
+  /* "bloomfilter/_bloomfilter.pyx":90
  *         return zlib.compress((<char*>self.cbf)[:self.byte_size], 9).encode('base64')
  * 
  *     @classmethod             # <<<<<<<<<<<<<<
  *     def from_base64(self, serialized_filter):
  *         '''Create a filter from previously serialized data'''
  */
-  __pyx_t_1 = __Pyx_Method_ClassMethod(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Method_ClassMethod(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter->tp_dict, __pyx_n_s_from_base64, __pyx_t_1) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter->tp_dict, __pyx_n_s_from_base64, __pyx_t_1) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter);
 

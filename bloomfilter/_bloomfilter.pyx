@@ -1,5 +1,6 @@
 '''Simple and fast implementation of Bloom filter'''
 
+import base64
 import hashlib
 import random
 import zlib
@@ -85,12 +86,12 @@ cdef class BloomFilter:
 
     def to_base64(self):
         '''Serialize the filter'''
-        return zlib.compress((<char*>self.cbf)[:self.byte_size], 9).encode('base64')
+        return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))
 
     @classmethod
     def from_base64(self, serialized_filter):
         '''Create a filter from previously serialized data'''
-        data = zlib.decompress(serialized_filter.decode('base64'))
+        data = zlib.decompress(base64.b64decode(serialized_filter))
 
         cbf = BloomFilter(_build=False)
         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))

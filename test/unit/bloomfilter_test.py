@@ -3,7 +3,6 @@
 
 # pylint: disable=invalid-name
 
-import binascii
 import unittest
 import zlib
 from bloomfilter import BloomFilter
@@ -147,9 +146,18 @@ class TestBloomFilterToAndFromBase64(unittest.TestCase):
         restored_filter = BloomFilter.from_base64(serialized_filter)
         self.assertEqual(bloom_filter.raw_data(), restored_filter.raw_data())
 
+    def test_serializes_filter_to_base64_without_line_feeds(self):
+        '''BloomFilter serializes to base64 without line feeds'''
+        bloom_filter = BloomFilter(100, 0.1)
+        bloom_filter.add_hash('abcdef')
+
+        serialized_filter = bloom_filter.to_base64()
+
+        self.assertEqual(serialized_filter.find('\n'), -1)
+
     def test_raises_error_on_invalid_input(self):
         '''from_base64() raises on invalid input'''
-        with self.assertRaises(binascii.Error):
+        with self.assertRaises(TypeError):
             BloomFilter.from_base64('abc')
 
         with self.assertRaises(zlib.error):

@@ -81,7 +81,7 @@ class TestBloomFilterByteSize(unittest.TestCase):
 class TestBloomFilterHashCount(unittest.TestCase):
     '''Bloom filter hash count test'''
 
-    def test_hash_count_expected(self):
+    def test_by_hash_count_expected(self):
         '''BloomFilter.hash_count returns expected value'''
         bloom_filter = BloomFilter(1000000, 1e-3)
         # 14377640 bits, 10 hashes
@@ -91,7 +91,7 @@ class TestBloomFilterHashCount(unittest.TestCase):
 class TestBloomFilterBitCount(unittest.TestCase):
     '''Bloom filter bit count test'''
 
-    def test_hash_count_expected(self):
+    def test_by_hash_count_expected(self):
         '''BloomFilter.bit_count returns expected value'''
         bloom_filter = BloomFilter(1000000, 1e-3)
         # 14377640 bits, 10 hashes
@@ -103,34 +103,34 @@ class TestBloomFilterAddAndTest(unittest.TestCase):
     '''Bloom filter add / test test'''
 
     def test_all_test_negative_when_filter_empty(self):
-        '''BloomFilter.test_hash() returns False when filter is empty'''
+        '''BloomFilter.test_by_hash() returns False when filter is empty'''
         bloom_filter = BloomFilter(1000000, 1e-3)
 
-        self.assertEqual(bloom_filter.test_hash('abc'), False)
+        self.assertEqual(bloom_filter.test_by_hash('abc'), False)
 
     def test_returns_true_positive_when_value_had_been_added(self):
-        '''BloomFilter.test_hash() returns True after the item added'''
+        '''BloomFilter.test_by_hash() returns True after the item added'''
         bloom_filter = BloomFilter(1000000, 1e-3)
 
-        bloom_filter.add_hash('abc')
+        bloom_filter.add_by_hash('abc')
 
-        self.assertEqual(bloom_filter.test_hash('abc'), True)
+        self.assertEqual(bloom_filter.test_by_hash('abc'), True)
 
     def test_returns_positive_when_hashes_collide(self):
-        '''BloomFilter.test_hash() returns True when hashes collide'''
+        '''BloomFilter.test_by_hash() returns True when hashes collide'''
         bloom_filter = BloomFilter(1000000, 1e-3)
 
-        bloom_filter.add_hash('abc')
+        bloom_filter.add_by_hash('abc')
 
-        self.assertEqual(bloom_filter.test_hash(u'abc'), True)
+        self.assertEqual(bloom_filter.test_by_hash(u'abc'), True)
 
     def test_all_test_positive_when_hashes_collide(self):
-        '''BloomFilter.test_hash() returns False when filter is empty'''
+        '''BloomFilter.test_by_hash() returns False when filter is empty'''
         bloom_filter = BloomFilter(1000000, 1e-3)
 
-        bloom_filter.add_hash('abc')
+        bloom_filter.add_by_hash('abc')
 
-        self.assertEqual(bloom_filter.test_hash('def'), False)
+        self.assertEqual(bloom_filter.test_by_hash('def'), False)
 
 
 class TestBloomFilterSerializeDeserialize(unittest.TestCase):
@@ -139,7 +139,7 @@ class TestBloomFilterSerializeDeserialize(unittest.TestCase):
     def test_serializes_filter_serialize(self):
         '''BloomFilter can round trip serialize() -> deserialize()'''
         bloom_filter = BloomFilter(100, 0.1)
-        bloom_filter.add_hash('abcdef')
+        bloom_filter.add_by_hash('abcdef')
 
         serialized_filter = bloom_filter.serialize()
 
@@ -149,7 +149,7 @@ class TestBloomFilterSerializeDeserialize(unittest.TestCase):
     def test_serializes_filter_serialize_without_line_feeds(self):
         '''BloomFilter serializes with base64 shield without line feeds'''
         bloom_filter = BloomFilter(100, 0.1)
-        bloom_filter.add_hash('abcdef')
+        bloom_filter.add_by_hash('abcdef')
 
         serialized_filter = bloom_filter.serialize()
 

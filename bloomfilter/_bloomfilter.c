@@ -898,8 +898,8 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9byte_size___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_count___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize(CYTHON_UNUSED PyTypeObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
@@ -1925,7 +1925,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
  *         '''Number of bits in the filter'''
  *         return self.cbf.bit_count             # <<<<<<<<<<<<<<
  * 
- *     def add_hash(self, x):
+ *     def add_by_hash(self, x):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->bit_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
@@ -1956,38 +1956,38 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
 /* "bloomfilter/_bloomfilter.pyx":79
  *         return self.cbf.bit_count
  * 
- *     def add_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item's hash to the filter'''
+ *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Add item using its Python hash to the filter'''
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash[] = "Add item's hash to the filter";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash[] = "Add item using its Python hash to the filter";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("add_hash (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_v_self), ((PyObject *)__pyx_v_x));
+  __Pyx_RefNannySetupContext("add_by_hash (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_v_self), ((PyObject *)__pyx_v_x));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   Py_hash_t __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
-  __Pyx_RefNannySetupContext("add_hash", 0);
+  __Pyx_RefNannySetupContext("add_by_hash", 0);
 
   /* "bloomfilter/_bloomfilter.pyx":81
- *     def add_hash(self, x):
- *         '''Add item's hash to the filter'''
+ *     def add_by_hash(self, x):
+ *         '''Add item using its Python hash to the filter'''
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))             # <<<<<<<<<<<<<<
  * 
- *     def test_hash(self, x):
+ *     def test_by_hash(self, x):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 81, __pyx_L1_error)
@@ -2000,15 +2000,15 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(s
   /* "bloomfilter/_bloomfilter.pyx":79
  *         return self.cbf.bit_count
  * 
- *     def add_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item's hash to the filter'''
+ *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Add item using its Python hash to the filter'''
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.add_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.add_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2019,36 +2019,36 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(s
 /* "bloomfilter/_bloomfilter.pyx":83
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  * 
- *     def test_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Test whether item hash is in the filter'''
+ *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Test whether item is in the filter using its Python hash'''
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_7test_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash[] = "Test whether item hash is in the filter";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_7test_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_hash[] = "Test whether item is in the filter using its Python hash";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("test_hash (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_v_self), ((PyObject *)__pyx_v_x));
+  __Pyx_RefNannySetupContext("test_by_hash (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_v_self), ((PyObject *)__pyx_v_x));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   Py_hash_t __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   int __pyx_t_3;
-  __Pyx_RefNannySetupContext("test_hash", 0);
+  __Pyx_RefNannySetupContext("test_by_hash", 0);
 
   /* "bloomfilter/_bloomfilter.pyx":85
- *     def test_hash(self, x):
- *         '''Test whether item hash is in the filter'''
+ *     def test_by_hash(self, x):
+ *         '''Test whether item is in the filter using its Python hash'''
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))             # <<<<<<<<<<<<<<
  * 
  *     def serialize(self):
@@ -2068,15 +2068,15 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(
   /* "bloomfilter/_bloomfilter.pyx":83
  *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
  * 
- *     def test_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Test whether item hash is in the filter'''
+ *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Test whether item is in the filter using its Python hash'''
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.test_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.test_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2540,8 +2540,8 @@ static PyObject *__pyx_getprop_11bloomfilter_12_bloomfilter_11BloomFilter_bit_co
 }
 
 static PyMethodDef __pyx_methods_11bloomfilter_12_bloomfilter_BloomFilter[] = {
-  {"add_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash},
-  {"test_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_7test_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash},
+  {"add_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash},
+  {"test_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_7test_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_hash},
   {"serialize", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_9serialize, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize},
   {"deserialize", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_11deserialize, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize},
   {"raw_data", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_13raw_data, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data},

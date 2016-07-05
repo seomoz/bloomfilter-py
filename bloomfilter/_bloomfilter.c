@@ -842,7 +842,7 @@ static const char __pyx_k_randrange[] = "randrange";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_decompress[] = "decompress";
 static const char __pyx_k_error_rate[] = "error_rate";
-static const char __pyx_k_from_base64[] = "from_base64";
+static const char __pyx_k_deserialize[] = "deserialize";
 static const char __pyx_k_cinit___locals_genexpr[] = "__cinit__.<locals>.genexpr";
 static const char __pyx_k_BloomFilter_serialized_data_are[] = "BloomFilter: serialized data are corrupted, or cannot allocate memory";
 static const char __pyx_k_BloomFilter_cannot_allocate_memo[] = "BloomFilter cannot allocate memory for capacity=%s and error_rate=%s";
@@ -868,10 +868,10 @@ static PyObject *__pyx_n_s_cinit___locals_genexpr;
 static PyObject *__pyx_n_s_close;
 static PyObject *__pyx_n_s_compress;
 static PyObject *__pyx_n_s_decompress;
+static PyObject *__pyx_n_s_deserialize;
 static PyObject *__pyx_n_s_digest;
 static PyObject *__pyx_n_s_error_rate;
 static PyObject *__pyx_n_s_exp;
-static PyObject *__pyx_n_s_from_base64;
 static PyObject *__pyx_n_s_genexpr;
 static PyObject *__pyx_n_s_hashlib;
 static PyObject *__pyx_n_s_import;
@@ -900,8 +900,8 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_coun
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base64(CYTHON_UNUSED PyTypeObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize(CYTHON_UNUSED PyTypeObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_BloomFilter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -2051,7 +2051,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(
  *         '''Test whether item hash is in the filter'''
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))             # <<<<<<<<<<<<<<
  * 
- *     def to_base64(self):
+ *     def serialize(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 85, __pyx_L1_error)
@@ -2087,26 +2087,26 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash(
 /* "bloomfilter/_bloomfilter.pyx":87
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  * 
- *     def to_base64(self):             # <<<<<<<<<<<<<<
+ *     def serialize(self):             # <<<<<<<<<<<<<<
  *         '''Serialize the filter'''
  *         return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_9to_base64(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64[] = "Serialize the filter";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_9to_base64(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_9serialize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize[] = "Serialize the filter";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_9serialize(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("to_base64 (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("serialize (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2117,10 +2117,10 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
   Py_ssize_t __pyx_t_6;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  __Pyx_RefNannySetupContext("to_base64", 0);
+  __Pyx_RefNannySetupContext("serialize", 0);
 
   /* "bloomfilter/_bloomfilter.pyx":89
- *     def to_base64(self):
+ *     def serialize(self):
  *         '''Serialize the filter'''
  *         return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))             # <<<<<<<<<<<<<<
  * 
@@ -2203,7 +2203,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
   /* "bloomfilter/_bloomfilter.pyx":87
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  * 
- *     def to_base64(self):             # <<<<<<<<<<<<<<
+ *     def serialize(self):             # <<<<<<<<<<<<<<
  *         '''Serialize the filter'''
  *         return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))
  */
@@ -2217,7 +2217,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.to_base64", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.serialize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2228,26 +2228,26 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64(
 /* "bloomfilter/_bloomfilter.pyx":92
  * 
  *     @classmethod
- *     def from_base64(self, serialized_filter):             # <<<<<<<<<<<<<<
+ *     def deserialize(self, serialized_filter):             # <<<<<<<<<<<<<<
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(base64.b64decode(serialized_filter))
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_11from_base64(PyObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base64[] = "Create a filter from previously serialized data";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_11from_base64(PyObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_11deserialize(PyObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize[] = "Create a filter from previously serialized data";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_11deserialize(PyObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("from_base64 (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base64(((PyTypeObject*)__pyx_v_self), ((PyObject *)__pyx_v_serialized_filter));
+  __Pyx_RefNannySetupContext("deserialize (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize(((PyTypeObject*)__pyx_v_self), ((PyObject *)__pyx_v_serialized_filter));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base64(CYTHON_UNUSED PyTypeObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize(CYTHON_UNUSED PyTypeObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter) {
   PyObject *__pyx_v_data = NULL;
   struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_cbf = NULL;
   PyObject *__pyx_r = NULL;
@@ -2261,10 +2261,10 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   char *__pyx_t_7;
   Py_ssize_t __pyx_t_8;
   int __pyx_t_9;
-  __Pyx_RefNannySetupContext("from_base64", 0);
+  __Pyx_RefNannySetupContext("deserialize", 0);
 
   /* "bloomfilter/_bloomfilter.pyx":94
- *     def from_base64(self, serialized_filter):
+ *     def deserialize(self, serialized_filter):
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(base64.b64decode(serialized_filter))             # <<<<<<<<<<<<<<
  * 
@@ -2408,7 +2408,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   /* "bloomfilter/_bloomfilter.pyx":92
  * 
  *     @classmethod
- *     def from_base64(self, serialized_filter):             # <<<<<<<<<<<<<<
+ *     def deserialize(self, serialized_filter):             # <<<<<<<<<<<<<<
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(base64.b64decode(serialized_filter))
  */
@@ -2421,7 +2421,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.from_base64", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.deserialize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_data);
@@ -2542,8 +2542,8 @@ static PyObject *__pyx_getprop_11bloomfilter_12_bloomfilter_11BloomFilter_bit_co
 static PyMethodDef __pyx_methods_11bloomfilter_12_bloomfilter_BloomFilter[] = {
   {"add_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_hash},
   {"test_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_7test_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_6test_hash},
-  {"to_base64", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_9to_base64, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_8to_base64},
-  {"from_base64", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_11from_base64, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_10from_base64},
+  {"serialize", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_9serialize, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize},
+  {"deserialize", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_11deserialize, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize},
   {"raw_data", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_13raw_data, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data},
   {0, 0, 0, 0}
 };
@@ -2737,10 +2737,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
   {&__pyx_n_s_compress, __pyx_k_compress, sizeof(__pyx_k_compress), 0, 0, 1, 1},
   {&__pyx_n_s_decompress, __pyx_k_decompress, sizeof(__pyx_k_decompress), 0, 0, 1, 1},
+  {&__pyx_n_s_deserialize, __pyx_k_deserialize, sizeof(__pyx_k_deserialize), 0, 0, 1, 1},
   {&__pyx_n_s_digest, __pyx_k_digest, sizeof(__pyx_k_digest), 0, 0, 1, 1},
   {&__pyx_n_s_error_rate, __pyx_k_error_rate, sizeof(__pyx_k_error_rate), 0, 0, 1, 1},
   {&__pyx_n_s_exp, __pyx_k_exp, sizeof(__pyx_k_exp), 0, 0, 1, 1},
-  {&__pyx_n_s_from_base64, __pyx_k_from_base64, sizeof(__pyx_k_from_base64), 0, 0, 1, 1},
   {&__pyx_n_s_genexpr, __pyx_k_genexpr, sizeof(__pyx_k_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_hashlib, __pyx_k_hashlib, sizeof(__pyx_k_hashlib), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -3049,24 +3049,24 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
   /* "bloomfilter/_bloomfilter.pyx":92
  * 
  *     @classmethod
- *     def from_base64(self, serialized_filter):             # <<<<<<<<<<<<<<
+ *     def deserialize(self, serialized_filter):             # <<<<<<<<<<<<<<
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(base64.b64decode(serialized_filter))
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter, __pyx_n_s_from_base64); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter, __pyx_n_s_deserialize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "bloomfilter/_bloomfilter.pyx":91
  *         return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))
  * 
  *     @classmethod             # <<<<<<<<<<<<<<
- *     def from_base64(self, serialized_filter):
+ *     def deserialize(self, serialized_filter):
  *         '''Create a filter from previously serialized data'''
  */
   __pyx_t_1 = __Pyx_Method_ClassMethod(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter->tp_dict, __pyx_n_s_from_base64, __pyx_t_1) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter->tp_dict, __pyx_n_s_deserialize, __pyx_t_1) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter);
 

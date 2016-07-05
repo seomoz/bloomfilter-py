@@ -133,38 +133,38 @@ class TestBloomFilterAddAndTest(unittest.TestCase):
         self.assertEqual(bloom_filter.test_hash('def'), False)
 
 
-class TestBloomFilterToAndFromBase64(unittest.TestCase):
-    '''Bloom filter to_base64 / from_base64 test'''
+class TestBloomFilterSerializeDeserialize(unittest.TestCase):
+    '''Bloom filter serialize / deserialize test'''
 
-    def test_serializes_filter_to_base64(self):
-        '''BloomFilter can round trip to_base64() -> from_base64()'''
+    def test_serializes_filter_serialize(self):
+        '''BloomFilter can round trip serialize() -> deserialize()'''
         bloom_filter = BloomFilter(100, 0.1)
         bloom_filter.add_hash('abcdef')
 
-        serialized_filter = bloom_filter.to_base64()
+        serialized_filter = bloom_filter.serialize()
 
-        restored_filter = BloomFilter.from_base64(serialized_filter)
+        restored_filter = BloomFilter.deserialize(serialized_filter)
         self.assertEqual(bloom_filter.raw_data(), restored_filter.raw_data())
 
-    def test_serializes_filter_to_base64_without_line_feeds(self):
-        '''BloomFilter serializes to base64 without line feeds'''
+    def test_serializes_filter_serialize_without_line_feeds(self):
+        '''BloomFilter serializes with base64 shield without line feeds'''
         bloom_filter = BloomFilter(100, 0.1)
         bloom_filter.add_hash('abcdef')
 
-        serialized_filter = bloom_filter.to_base64()
+        serialized_filter = bloom_filter.serialize()
 
         self.assertEqual(serialized_filter.find('\n'), -1)
 
     def test_raises_error_on_invalid_input(self):
-        '''from_base64() raises on invalid input'''
+        '''deserialize() raises on invalid input'''
         with self.assertRaises(TypeError):
-            BloomFilter.from_base64('abc')
+            BloomFilter.deserialize('abc')
 
         with self.assertRaises(zlib.error):
-            BloomFilter.from_base64('abc'.encode('base64'))
+            BloomFilter.deserialize('abc'.encode('base64'))
 
         with self.assertRaises(ValueError):
-            BloomFilter.from_base64(zlib.compress('abc').encode('base64'))
+            BloomFilter.deserialize(zlib.compress('abc').encode('base64'))
 
 
 if __name__ == '__main__':

@@ -84,12 +84,12 @@ cdef class BloomFilter:
         '''Test whether item hash is in the filter'''
         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
 
-    def to_base64(self):
+    def serialize(self):
         '''Serialize the filter'''
         return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))
 
     @classmethod
-    def from_base64(self, serialized_filter):
+    def deserialize(self, serialized_filter):
         '''Create a filter from previously serialized data'''
         data = zlib.decompress(base64.b64decode(serialized_filter))
 

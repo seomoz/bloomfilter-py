@@ -76,12 +76,12 @@ cdef class BloomFilter:
         '''Number of bits in the filter'''
         return self.cbf.bit_count
 
-    def add_hash(self, x):
-        '''Add item's hash to the filter'''
+    def add_by_hash(self, x):
+        '''Add item using its Python hash to the filter'''
         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
 
-    def test_hash(self, x):
-        '''Test whether item hash is in the filter'''
+    def test_by_hash(self, x):
+        '''Test whether item is in the filter using its Python hash'''
         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
 
     def serialize(self):

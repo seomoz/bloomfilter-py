@@ -28,6 +28,38 @@ Goals
     * Use standard `Vagrant` / `make` based workflow.
 
 
+Usage
+=====
+
+```py
+from bloomfilter import BloomFilter
+
+# basic use
+bf = BloomFilter(capacity=100, error_rate=1e-4)
+
+bf.add_by_hash('abc')
+bf.add_by_hash(u'def')
+
+assert bf.test_by_hash('abc')
+assert bf.test_by_hash(u'def')
+
+# Because in Python `'abc' == u'abc'`, 
+# this means the following are also true:
+assert bf.test_by_hash(u'abc')
+assert bf.test_by_hash('def')
+
+# serialization and deserialization
+serialized = bf.serialize()
+
+new_bf = BloomFilter.deserialize(serialized)
+
+assert new_bf.test_by_hash('abc')
+assert new_bf.test_by_hash(u'def')
+assert new_bf.test_by_hash(u'abc')
+assert new_bf.test_by_hash('def')
+```
+
+
 Development
 ===========
 

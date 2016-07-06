@@ -16,10 +16,10 @@ class TestCollisions(unittest.TestCase):
         bloom_filter = BloomFilter(1000000, 1e-5)
         collision_count = 0
         for ix in range(1000000):
-            if bloom_filter.test_hash(ix):
+            if bloom_filter.test_by_hash(ix):
                 collision_count += 1
             else:
-                bloom_filter.add_hash(ix)
+                bloom_filter.add_by_hash(ix)
         self.assertEqual(collision_count, 0)
 
     def test_objects(self):
@@ -38,10 +38,10 @@ class TestCollisions(unittest.TestCase):
         collision_count = 0
         objects = [object() for _ in range(1000000)]
         for obj in objects:
-            if bloom_filter.test_hash(obj):
+            if bloom_filter.test_by_hash(obj):
                 collision_count += 1
             else:
-                bloom_filter.add_hash(obj)
+                bloom_filter.add_by_hash(obj)
         self.assertEqual(collision_count, 0)
 
     def test_words(self):
@@ -54,20 +54,20 @@ class TestCollisions(unittest.TestCase):
 
         setup_collision_count = 0
         for word in vocabulary:
-            if bloom_filter.test_hash(word):
+            if bloom_filter.test_by_hash(word):
                 setup_collision_count += 1
             else:
-                bloom_filter.add_hash(word)
+                bloom_filter.add_by_hash(word)
         self.assertLess(setup_collision_count, 5)
 
         false_positive_count = 0
         false_negative_count = 0
         for word in test_words:
             if word in intersection:
-                if not bloom_filter.test_hash(word):
+                if not bloom_filter.test_by_hash(word):
                     false_negative_count += 1
             else:
-                if bloom_filter.test_hash(word):
+                if bloom_filter.test_by_hash(word):
                     false_positive_count += 1
         self.assertEqual(false_negative_count, 0)
         self.assertLessEqual(false_positive_count, 6)

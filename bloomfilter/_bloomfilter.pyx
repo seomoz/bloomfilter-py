@@ -1,13 +1,16 @@
 '''Simple and fast implementation of Bloom filter'''
 
 import base64
+from collections import deque
 import hashlib
+import itertools
 import random
 import zlib
 
 cimport cython.math as math
 from math import ceil, exp, log
 cimport cbloomfilter
+from libc.stdint cimport uint64_t
 
 
 __version__ = (0, 1, 0)
@@ -104,3 +107,65 @@ cdef class BloomFilter:
         '''Raw filter data, primary for debug purpose'''
         return (<char*>self.cbf)[:self.byte_size]
 
+
+cdef class Rotating:
+    '''
+    Use `count` bloom filters, each configured with `capacity` and `error`. As the
+    combined capacity is reached, the oldest bloom filter is removed and a new one is
+    created. As such, it keeps track of roughly the most recent `count * capacity` unique
+    objects:
+
+        (count - 1) * capacity <= remembered entries <= count * capacity
+    '''
+
+    cdef uint64_t capacity
+    cdef double error_rate
+    cdef uint64_t count
+    cdef uint64_t remaining
+    cdef object blooms
+    cdef object bloom
+
+    def __init__(self, capacity, error_rate, count):
+        self.capacity = capacity
+        self.error_rate = error_rate
+        self.count = count
+        self.remaining = 0
+        self.blooms = deque()
+        self.bloom = None
+        self.rotate()
+
+    property blooms:
+        def __get__(self):
+            return self.blooms
+
+    def rotate(self):
+        '''Add a new bloom filter to our deque and remove any old bloom filters.'''
+        self.bloom = BloomFilter(self.capacity, self.error_rate)
+        self.blooms.append(self.bloom)
+        while len(self.blooms) > self.count:
+            self.blooms.popleft()
+        self.remaining = self.capacity
+
+    def add_by_hash(self, x):
+        '''Add item using its Python hash to the filter.'''
+        if self.test_by_hash(x):
+            return False
+
+        self.bloom.add_by_hash(x)
+        self.remaining -= 1
+        if self.remaining <= 0:
+            self.rotate()
+        return True
+
+    def test_by_hash(self, x):
+        '''Test whether item is in the filter using its Python hash.'''
+        return any(bloom.test_by_hash(x) for bloom in self.blooms)
+
+    def dedup(self, items, key=None):
+        '''Generator of the unique items.'''
+        predicate = self.add_by_hash
+        if key is not None:
+            def predicate(item):
+                return self.add_by_hash(key(item))
+
+        return itertools.ifilter(predicate, items)

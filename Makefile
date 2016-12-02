@@ -21,6 +21,6 @@ build-egg:
 
 .PHONY: clean
 clean:
-	rm -rf build dist *.egg-info
+	rm -rf build dist *.egg-info bloomfilter/_bloomfilter.c
 	find . -name '*.pyc' | xargs --no-run-if-empty rm
 	find . -name '*.so' | xargs --no-run-if-empty rm

@@ -116,6 +116,19 @@ class TestBloomFilterAddAndTest(unittest.TestCase):
 
         self.assertEqual(bloom_filter.test_by_hash('abc'), True)
 
+    def test_returns_true_when_first_adding_hash(self):
+        '''BloomFilter.add_by_hash() returns True when first adding hash.'''
+        bloom_filter = BloomFilter(1000000, 1e-3)
+
+        self.assertTrue(bloom_filter.add_by_hash('abc'))
+
+    def test_returns_false_when_readding_hash(self):
+        '''BloomFilter.add_by_hash() returns False when readding hash.'''
+        bloom_filter = BloomFilter(1000000, 1e-3)
+
+        bloom_filter.add_by_hash('abc')
+        self.assertFalse(bloom_filter.add_by_hash('abc'))
+
     def test_returns_positive_when_hashes_collide(self):
         '''BloomFilter.test_by_hash() returns True when hashes collide'''
         bloom_filter = BloomFilter(1000000, 1e-3)

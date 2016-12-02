@@ -1957,13 +1957,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
  *         return self.cbf.bit_count
  * 
  *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item using its Python hash to the filter'''
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+ *         '''Add item using its Python hash to the filter, return True if added'''
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash[] = "Add item using its Python hash to the filter";
+static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash[] = "Add item using its Python hash to the filter, return True if added";
 static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1980,18 +1980,23 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_has
   __Pyx_RefNannyDeclarations
   Py_hash_t __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_3;
   __Pyx_RefNannySetupContext("add_by_hash", 0);
 
   /* "bloomfilter/_bloomfilter.pyx":81
  *     def add_by_hash(self, x):
- *         '''Add item using its Python hash to the filter'''
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))             # <<<<<<<<<<<<<<
+ *         '''Add item using its Python hash to the filter, return True if added'''
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))             # <<<<<<<<<<<<<<
  * 
  *     def test_by_hash(self, x):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 81, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_void_to_None(CBloomFilter_AddHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(CBloomFilter_AddHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_3))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -2001,8 +2006,8 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_has
  *         return self.cbf.bit_count
  * 
  *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item using its Python hash to the filter'''
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+ *         '''Add item using its Python hash to the filter, return True if added'''
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  */
 
   /* function exit code */
@@ -2017,7 +2022,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_has
 }
 
 /* "bloomfilter/_bloomfilter.pyx":83
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  * 
  *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
  *         '''Test whether item is in the filter using its Python hash'''
@@ -2066,7 +2071,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_ha
   goto __pyx_L0;
 
   /* "bloomfilter/_bloomfilter.pyx":83
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  * 
  *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
  *         '''Test whether item is in the filter using its Python hash'''

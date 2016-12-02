@@ -77,8 +77,8 @@ cdef class BloomFilter:
         return self.cbf.bit_count
 
     def add_by_hash(self, x):
-        '''Add item using its Python hash to the filter'''
-        return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+        '''Add item using its Python hash to the filter, return True if added'''
+        return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
 
     def test_by_hash(self, x):
         '''Test whether item is in the filter using its Python hash'''

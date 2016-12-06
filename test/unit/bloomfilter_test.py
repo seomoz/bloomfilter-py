@@ -3,9 +3,11 @@
 
 # pylint: disable=invalid-name
 
+import itertools
+import operator
 import unittest
 import zlib
-from bloomfilter import BloomFilter
+from bloomfilter import BloomFilter, Rotating
 
 
 class TestBloomFilterCreate(unittest.TestCase):
@@ -116,6 +118,19 @@ class TestBloomFilterAddAndTest(unittest.TestCase):
 
         self.assertEqual(bloom_filter.test_by_hash('abc'), True)
 
+    def test_returns_true_when_first_adding_hash(self):
+        '''BloomFilter.add_by_hash() returns True when first adding hash.'''
+        bloom_filter = BloomFilter(1000000, 1e-3)
+
+        self.assertTrue(bloom_filter.add_by_hash('abc'))
+
+    def test_returns_false_when_readding_hash(self):
+        '''BloomFilter.add_by_hash() returns False when readding hash.'''
+        bloom_filter = BloomFilter(1000000, 1e-3)
+
+        bloom_filter.add_by_hash('abc')
+        self.assertFalse(bloom_filter.add_by_hash('abc'))
+
     def test_returns_positive_when_hashes_collide(self):
         '''BloomFilter.test_by_hash() returns True when hashes collide'''
         bloom_filter = BloomFilter(1000000, 1e-3)
@@ -165,6 +180,41 @@ class TestBloomFilterSerializeDeserialize(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             BloomFilter.deserialize(zlib.compress('abc').encode('base64'))
+
+
+class TestRotating(unittest.TestCase):
+    '''Test rotating bloom filter'''
+
+    def setUp(self):
+        self.rotating = Rotating(100, 0.00001, 5)
+
+    def test_non_repeating(self):
+        '''Can identifiy non-repeating things.'''
+        self.assertEqual(list(self.rotating.dedup(xrange(100))), range(100))
+
+    def test_repeating(self):
+        '''Can identify repeating things.'''
+        items = itertools.islice(itertools.cycle(xrange(100)), 0, 500)
+        self.assertEqual(list(self.rotating.dedup(items)), range(100))
+
+    def test_rotate(self):
+        '''Can rotate out the oldest bloom filter.'''
+        rotating = Rotating(10, 0.00001, 5)
+        list(rotating.dedup(xrange(100)))
+        self.assertEqual(len(rotating.blooms), 5)
+
+    def test_forgetfulness(self):
+        '''Forgets items that it has seen eventually.'''
+        rotating = Rotating(10, 0.00001, 5)
+        list(rotating.dedup(xrange(100)))
+        included = [i for i in xrange(100) if rotating.test_by_hash(i)]
+        self.assertEqual(included, range(60, 100))
+
+    def test_dedup_key(self):
+        '''Can provide an alternate key function for deduping.'''
+        items = [{'id': i} for i in xrange(100)]
+        found = self.rotating.dedup(items, key=operator.itemgetter('id'))
+        self.assertEqual(list(found), items)
 
 
 if __name__ == '__main__':

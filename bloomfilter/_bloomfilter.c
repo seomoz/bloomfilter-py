@@ -261,6 +261,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #define __PYX_HAVE__bloomfilter___bloomfilter
 #define __PYX_HAVE_API__bloomfilter___bloomfilter
 #include "cbloomfilter.h"
+#include "stdint.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -481,9 +482,13 @@ static const char *__pyx_f[] = {
 
 /*--- Type declarations ---*/
 struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter;
+struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating;
 struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr;
+struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash;
+struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr;
+struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup;
 
-/* "bloomfilter/_bloomfilter.pyx":16
+/* "bloomfilter/_bloomfilter.pyx":19
  * 
  * 
  * cdef class BloomFilter:             # <<<<<<<<<<<<<<
@@ -496,7 +501,25 @@ struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter {
 };
 
 
-/* "bloomfilter/_bloomfilter.pyx":48
+/* "bloomfilter/_bloomfilter.pyx":111
+ * 
+ * 
+ * cdef class Rotating:             # <<<<<<<<<<<<<<
+ *     '''
+ *     Use `count` bloom filters, each configured with `capacity` and `error`. As the
+ */
+struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating {
+  PyObject_HEAD
+  uint64_t capacity;
+  double error_rate;
+  uint64_t count;
+  uint64_t remaining;
+  PyObject *blooms;
+  PyObject *bloom;
+};
+
+
+/* "bloomfilter/_bloomfilter.pyx":51
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
@@ -507,6 +530,48 @@ struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr {
   PyObject_HEAD
   long __pyx_v_j;
   long __pyx_t_0;
+};
+
+
+/* "bloomfilter/_bloomfilter.pyx":160
+ *         return True
+ * 
+ *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Test whether item is in the filter using its Python hash.'''
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ */
+struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash {
+  PyObject_HEAD
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self;
+  PyObject *__pyx_v_x;
+};
+
+
+/* "bloomfilter/_bloomfilter.pyx":162
+ *     def test_by_hash(self, x):
+ *         '''Test whether item is in the filter using its Python hash.'''
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)             # <<<<<<<<<<<<<<
+ * 
+ *     def dedup(self, items, key=None):
+ */
+struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr {
+  PyObject_HEAD
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *__pyx_outer_scope;
+  PyObject *__pyx_v_bloom;
+};
+
+
+/* "bloomfilter/_bloomfilter.pyx":164
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ * 
+ *     def dedup(self, items, key=None):             # <<<<<<<<<<<<<<
+ *         '''Generator of the unique items.'''
+ *         predicate = self.add_by_hash
+ */
+struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup {
+  PyObject_HEAD
+  PyObject *__pyx_v_key;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self;
 };
 
 
@@ -683,6 +748,89 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
 #define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
 #endif
 
+/* ListAppend.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
+#endif
+
+/* PyObjectCallMethod1.proto */
+static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
+
+/* append.proto */
+static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
+
+/* None.proto */
+static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname);
+
+/* FetchCommonType.proto */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
+
+/* CythonFunction.proto */
+#define __Pyx_CyFunction_USED 1
+#include <structmember.h>
+#define __Pyx_CYFUNCTION_STATICMETHOD  0x01
+#define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
+#define __Pyx_CYFUNCTION_CCLASS        0x04
+#define __Pyx_CyFunction_GetClosure(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_closure)
+#define __Pyx_CyFunction_GetClassObj(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_classobj)
+#define __Pyx_CyFunction_Defaults(type, f)\
+    ((type *)(((__pyx_CyFunctionObject *) (f))->defaults))
+#define __Pyx_CyFunction_SetDefaultsGetter(f, g)\
+    ((__pyx_CyFunctionObject *) (f))->defaults_getter = (g)
+typedef struct {
+    PyCFunctionObject func;
+#if PY_VERSION_HEX < 0x030500A0
+    PyObject *func_weakreflist;
+#endif
+    PyObject *func_dict;
+    PyObject *func_name;
+    PyObject *func_qualname;
+    PyObject *func_doc;
+    PyObject *func_globals;
+    PyObject *func_code;
+    PyObject *func_closure;
+    PyObject *func_classobj;
+    void *defaults;
+    int defaults_pyobjects;
+    int flags;
+    PyObject *defaults_tuple;
+    PyObject *defaults_kwdict;
+    PyObject *(*defaults_getter)(PyObject *);
+    PyObject *func_annotations;
+} __pyx_CyFunctionObject;
+static PyTypeObject *__pyx_CyFunctionType = 0;
+#define __Pyx_CyFunction_NewEx(ml, flags, qualname, self, module, globals, code)\
+    __Pyx_CyFunction_New(__pyx_CyFunctionType, ml, flags, qualname, self, module, globals, code)
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *, PyMethodDef *ml,
+                                      int flags, PyObject* qualname,
+                                      PyObject *self,
+                                      PyObject *module, PyObject *globals,
+                                      PyObject* code);
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *m,
+                                                         size_t size,
+                                                         int pyobjects);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *m,
+                                                            PyObject *tuple);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
+                                                             PyObject *dict);
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
+                                                              PyObject *dict);
+static int __pyx_CyFunction_init(void);
+
 /* IncludeStringH.proto */
 #include <string.h>
 
@@ -720,6 +868,9 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_uint64_t(uint64_t value);
+
 /* ClassMethod.proto */
 #include "descrobject.h"
 static PyObject* __Pyx_Method_ClassMethod(PyObject *method);
@@ -728,10 +879,10 @@ static PyObject* __Pyx_Method_ClassMethod(PyObject *method);
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
 /* CIntFromPy.proto */
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
+static CYTHON_INLINE uint64_t __Pyx_PyInt_As_uint64_t(PyObject *);
 
-/* FetchCommonType.proto */
-static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
+/* CIntFromPy.proto */
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 /* SwapException.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
@@ -740,9 +891,6 @@ static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject *
 #else
 static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
 #endif
-
-/* PyObjectCallMethod1.proto */
-static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
 
 /* CoroutineBase.proto */
 typedef PyObject *(*__pyx_coroutine_body_t)(PyObject *, PyObject *);
@@ -794,9 +942,15 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'bloomfilter.cbloomfilter' */
 
+/* Module declarations from 'libc.stdint' */
+
 /* Module declarations from 'bloomfilter._bloomfilter' */
 static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter = 0;
+static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter_Rotating = 0;
 static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr = 0;
+static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash = 0;
+static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr = 0;
+static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup = 0;
 #define __Pyx_MODULE_NAME "bloomfilter._bloomfilter"
 int __pyx_module_is_main_bloomfilter___bloomfilter = 0;
 
@@ -808,11 +962,13 @@ static PyObject *__pyx_builtin_chr;
 static const char __pyx_k__3[] = "";
 static const char __pyx_k_chr[] = "chr";
 static const char __pyx_k_exp[] = "exp";
+static const char __pyx_k_key[] = "key";
 static const char __pyx_k_log[] = "log";
 static const char __pyx_k_md5[] = "md5";
 static const char __pyx_k_new[] = "new";
 static const char __pyx_k_args[] = "args";
 static const char __pyx_k_ceil[] = "ceil";
+static const char __pyx_k_item[] = "item";
 static const char __pyx_k_join[] = "join";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_math[] = "math";
@@ -821,30 +977,46 @@ static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_zlib[] = "zlib";
 static const char __pyx_k_build[] = "_build";
 static const char __pyx_k_close[] = "close";
+static const char __pyx_k_count[] = "count";
+static const char __pyx_k_deque[] = "deque";
+static const char __pyx_k_items[] = "items";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_round[] = "round";
 static const char __pyx_k_throw[] = "throw";
+static const char __pyx_k_append[] = "append";
 static const char __pyx_k_base64[] = "base64";
 static const char __pyx_k_digest[] = "digest";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_random[] = "random";
+static const char __pyx_k_rotate[] = "rotate";
 static const char __pyx_k_update[] = "update";
 static const char __pyx_k_xrange[] = "xrange";
 static const char __pyx_k_genexpr[] = "genexpr";
 static const char __pyx_k_hashlib[] = "hashlib";
+static const char __pyx_k_ifilter[] = "ifilter";
+static const char __pyx_k_popleft[] = "popleft";
 static const char __pyx_k_version[] = "__version__";
 static const char __pyx_k_capacity[] = "capacity";
 static const char __pyx_k_compress[] = "compress";
 static const char __pyx_k_b64decode[] = "b64decode";
 static const char __pyx_k_b64encode[] = "b64encode";
 static const char __pyx_k_byte_size[] = "byte_size";
+static const char __pyx_k_itertools[] = "itertools";
+static const char __pyx_k_predicate[] = "predicate";
 static const char __pyx_k_randrange[] = "randrange";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_decompress[] = "decompress";
 static const char __pyx_k_error_rate[] = "error_rate";
+static const char __pyx_k_add_by_hash[] = "add_by_hash";
+static const char __pyx_k_collections[] = "collections";
 static const char __pyx_k_deserialize[] = "deserialize";
+static const char __pyx_k_test_by_hash[] = "test_by_hash";
 static const char __pyx_k_cinit___locals_genexpr[] = "__cinit__.<locals>.genexpr";
+static const char __pyx_k_dedup_locals_predicate[] = "dedup.<locals>.predicate";
+static const char __pyx_k_bloomfilter__bloomfilter[] = "bloomfilter._bloomfilter";
+static const char __pyx_k_test_by_hash_locals_genexpr[] = "test_by_hash.<locals>.genexpr";
 static const char __pyx_k_BloomFilter_serialized_data_are[] = "BloomFilter: serialized data are corrupted, or cannot allocate memory";
+static const char __pyx_k_vagrant_bloomfilter__bloomfilte[] = "/vagrant/bloomfilter/_bloomfilter.pyx";
 static const char __pyx_k_BloomFilter_cannot_allocate_memo[] = "BloomFilter cannot allocate memory for capacity=%s and error_rate=%s";
 static const char __pyx_k_BloomFilter_capacity_must_be_a_p[] = "BloomFilter capacity must be a positive number (%s passed)";
 static const char __pyx_k_BloomFilter_error_rate_must_be_i[] = "BloomFilter error rate must be in the range 0 < error rate < 1 (%s passed)";
@@ -855,10 +1027,13 @@ static PyObject *__pyx_kp_s_BloomFilter_error_rate_must_be_i;
 static PyObject *__pyx_kp_s_BloomFilter_serialized_data_are;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_s__3;
+static PyObject *__pyx_n_s_add_by_hash;
+static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_b64decode;
 static PyObject *__pyx_n_s_b64encode;
 static PyObject *__pyx_n_s_base64;
+static PyObject *__pyx_n_s_bloomfilter__bloomfilter;
 static PyObject *__pyx_n_s_build;
 static PyObject *__pyx_n_s_byte_size;
 static PyObject *__pyx_n_s_capacity;
@@ -866,29 +1041,44 @@ static PyObject *__pyx_n_s_ceil;
 static PyObject *__pyx_n_s_chr;
 static PyObject *__pyx_n_s_cinit___locals_genexpr;
 static PyObject *__pyx_n_s_close;
+static PyObject *__pyx_n_s_collections;
 static PyObject *__pyx_n_s_compress;
+static PyObject *__pyx_n_s_count;
 static PyObject *__pyx_n_s_decompress;
+static PyObject *__pyx_n_s_dedup_locals_predicate;
+static PyObject *__pyx_n_s_deque;
 static PyObject *__pyx_n_s_deserialize;
 static PyObject *__pyx_n_s_digest;
 static PyObject *__pyx_n_s_error_rate;
 static PyObject *__pyx_n_s_exp;
 static PyObject *__pyx_n_s_genexpr;
 static PyObject *__pyx_n_s_hashlib;
+static PyObject *__pyx_n_s_ifilter;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_item;
+static PyObject *__pyx_n_s_items;
+static PyObject *__pyx_n_s_itertools;
 static PyObject *__pyx_n_s_join;
+static PyObject *__pyx_n_s_key;
 static PyObject *__pyx_n_s_log;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_math;
 static PyObject *__pyx_n_s_md5;
 static PyObject *__pyx_n_s_new;
+static PyObject *__pyx_n_s_popleft;
+static PyObject *__pyx_n_s_predicate;
 static PyObject *__pyx_n_s_random;
 static PyObject *__pyx_n_s_randrange;
 static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_rotate;
 static PyObject *__pyx_n_s_round;
 static PyObject *__pyx_n_s_send;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_test_by_hash;
+static PyObject *__pyx_n_s_test_by_hash_locals_genexpr;
 static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_update;
+static PyObject *__pyx_kp_s_vagrant_bloomfilter__bloomfilte;
 static PyObject *__pyx_n_s_version;
 static PyObject *__pyx_n_s_xrange;
 static PyObject *__pyx_n_s_zlib;
@@ -903,8 +1093,20 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_ha
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize(CYTHON_UNUSED PyTypeObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
+static int __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_capacity, PyObject *__pyx_v_error_rate, PyObject *__pyx_v_count); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6blooms___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_genexpr(PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicate(PyObject *__pyx_self, PyObject *__pyx_v_item); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_items, PyObject *__pyx_v_key); /* proto */
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_BloomFilter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_Rotating(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_float_2_0;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
@@ -915,8 +1117,10 @@ static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
+static PyObject *__pyx_tuple__8;
+static PyObject *__pyx_codeobj__7;
 
-/* "bloomfilter/_bloomfilter.pyx":20
+/* "bloomfilter/_bloomfilter.pyx":23
  *     cdef cbloomfilter.CBloomFilter* cbf
  * 
  *     def __cinit__(self, capacity=0, error_rate=0, _build=True):             # <<<<<<<<<<<<<<
@@ -968,7 +1172,7 @@ static int __pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_1__cinit__(PyObje
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -985,7 +1189,7 @@ static int __pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_1__cinit__(PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -999,7 +1203,7 @@ static int __pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_1__cinit__(PyObje
 }
 static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___2generator(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "bloomfilter/_bloomfilter.pyx":48
+/* "bloomfilter/_bloomfilter.pyx":51
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
@@ -1019,7 +1223,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___
   }
   __Pyx_GOTREF(__pyx_cur_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___2generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_cinit___locals_genexpr); if (unlikely(!gen)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___2generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_cinit___locals_genexpr); if (unlikely(!gen)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -1052,23 +1256,23 @@ static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 51, __pyx_L1_error)
   for (__pyx_t_1 = 0; __pyx_t_1 < 8; __pyx_t_1+=1) {
     __pyx_cur_scope->__pyx_v_j = __pyx_t_1;
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randrange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randrange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_r = __pyx_t_2;
@@ -1081,7 +1285,7 @@ static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___
     return __pyx_r;
     __pyx_L6_resume_from_yield:;
     __pyx_t_1 = __pyx_cur_scope->__pyx_t_0;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 48, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 51, __pyx_L1_error)
   }
 
   /* function exit code */
@@ -1099,7 +1303,7 @@ static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":20
+/* "bloomfilter/_bloomfilter.pyx":23
  *     cdef cbloomfilter.CBloomFilter* cbf
  * 
  *     def __cinit__(self, capacity=0, error_rate=0, _build=True):             # <<<<<<<<<<<<<<
@@ -1138,23 +1342,23 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   char *__pyx_t_16;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":23
+  /* "bloomfilter/_bloomfilter.pyx":26
  *         cdef long hash_count
  *         cdef long bit_count
  *         cdef double log2 = log(2.0)             # <<<<<<<<<<<<<<
  *         cdef double log_error_rate
  *         cdef cbloomfilter.CBloomFilter* cbf
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_log2 = __pyx_t_3;
 
-  /* "bloomfilter/_bloomfilter.pyx":28
+  /* "bloomfilter/_bloomfilter.pyx":31
  *         cdef char* seeds
  * 
  *         self.cbf = NULL             # <<<<<<<<<<<<<<
@@ -1163,18 +1367,18 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   __pyx_v_self->cbf = NULL;
 
-  /* "bloomfilter/_bloomfilter.pyx":30
+  /* "bloomfilter/_bloomfilter.pyx":33
  *         self.cbf = NULL
  * 
  *         if not _build:             # <<<<<<<<<<<<<<
  *             return
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v__build); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_v__build); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 33, __pyx_L1_error)
   __pyx_t_5 = ((!__pyx_t_4) != 0);
   if (__pyx_t_5) {
 
-    /* "bloomfilter/_bloomfilter.pyx":31
+    /* "bloomfilter/_bloomfilter.pyx":34
  * 
  *         if not _build:
  *             return             # <<<<<<<<<<<<<<
@@ -1184,7 +1388,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "bloomfilter/_bloomfilter.pyx":30
+    /* "bloomfilter/_bloomfilter.pyx":33
  *         self.cbf = NULL
  * 
  *         if not _build:             # <<<<<<<<<<<<<<
@@ -1193,26 +1397,26 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":33
+  /* "bloomfilter/_bloomfilter.pyx":36
  *             return
  * 
  *         if capacity <= 0:             # <<<<<<<<<<<<<<
  *             raise ValueError("BloomFilter capacity must be a positive number (%s passed)", capacity)
  * 
  */
-  __pyx_t_2 = PyObject_RichCompare(__pyx_v_capacity, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_v_capacity, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_5) {
 
-    /* "bloomfilter/_bloomfilter.pyx":34
+    /* "bloomfilter/_bloomfilter.pyx":37
  * 
  *         if capacity <= 0:
  *             raise ValueError("BloomFilter capacity must be a positive number (%s passed)", capacity)             # <<<<<<<<<<<<<<
  * 
  *         if error_rate <= 0 or error_rate >= 1:
  */
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_kp_s_BloomFilter_capacity_must_be_a_p);
     __Pyx_GIVEREF(__pyx_kp_s_BloomFilter_capacity_must_be_a_p);
@@ -1220,14 +1424,14 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     __Pyx_INCREF(__pyx_v_capacity);
     __Pyx_GIVEREF(__pyx_v_capacity);
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_capacity);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 34, __pyx_L1_error)
+    __PYX_ERR(0, 37, __pyx_L1_error)
 
-    /* "bloomfilter/_bloomfilter.pyx":33
+    /* "bloomfilter/_bloomfilter.pyx":36
  *             return
  * 
  *         if capacity <= 0:             # <<<<<<<<<<<<<<
@@ -1236,36 +1440,36 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":36
+  /* "bloomfilter/_bloomfilter.pyx":39
  *             raise ValueError("BloomFilter capacity must be a positive number (%s passed)", capacity)
  * 
  *         if error_rate <= 0 or error_rate >= 1:             # <<<<<<<<<<<<<<
  *             raise ValueError("BloomFilter error rate must be in the range 0 < error rate < 1 (%s passed)", error_rate)
  * 
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_error_rate, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_error_rate, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (!__pyx_t_4) {
   } else {
     __pyx_t_5 = __pyx_t_4;
     goto __pyx_L6_bool_binop_done;
   }
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_error_rate, __pyx_int_1, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_error_rate, __pyx_int_1, Py_GE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5 = __pyx_t_4;
   __pyx_L6_bool_binop_done:;
   if (__pyx_t_5) {
 
-    /* "bloomfilter/_bloomfilter.pyx":37
+    /* "bloomfilter/_bloomfilter.pyx":40
  * 
  *         if error_rate <= 0 or error_rate >= 1:
  *             raise ValueError("BloomFilter error rate must be in the range 0 < error rate < 1 (%s passed)", error_rate)             # <<<<<<<<<<<<<<
  * 
  *         log_error_rate = log(error_rate)
  */
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_kp_s_BloomFilter_error_rate_must_be_i);
     __Pyx_GIVEREF(__pyx_kp_s_BloomFilter_error_rate_must_be_i);
@@ -1273,14 +1477,14 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     __Pyx_INCREF(__pyx_v_error_rate);
     __Pyx_GIVEREF(__pyx_v_error_rate);
     PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_error_rate);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 37, __pyx_L1_error)
+    __PYX_ERR(0, 40, __pyx_L1_error)
 
-    /* "bloomfilter/_bloomfilter.pyx":36
+    /* "bloomfilter/_bloomfilter.pyx":39
  *             raise ValueError("BloomFilter capacity must be a positive number (%s passed)", capacity)
  * 
  *         if error_rate <= 0 or error_rate >= 1:             # <<<<<<<<<<<<<<
@@ -1289,14 +1493,14 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":39
+  /* "bloomfilter/_bloomfilter.pyx":42
  *             raise ValueError("BloomFilter error rate must be in the range 0 < error rate < 1 (%s passed)", error_rate)
  * 
  *         log_error_rate = log(error_rate)             # <<<<<<<<<<<<<<
  *         hash_count = max(round(- log_error_rate / log2), 1)
  *         bit_count = ceil(- hash_count / log(1 - exp(log_error_rate / hash_count)) * capacity)
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_6 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -1309,25 +1513,25 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_error_rate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_error_rate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 39, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
     __Pyx_INCREF(__pyx_v_error_rate);
     __Pyx_GIVEREF(__pyx_v_error_rate);
     PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_error_rate);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_log_error_rate = __pyx_t_3;
 
-  /* "bloomfilter/_bloomfilter.pyx":40
+  /* "bloomfilter/_bloomfilter.pyx":43
  * 
  *         log_error_rate = log(error_rate)
  *         hash_count = max(round(- log_error_rate / log2), 1)             # <<<<<<<<<<<<<<
@@ -1338,26 +1542,26 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   __pyx_t_3 = (-__pyx_v_log_error_rate);
   if (unlikely(__pyx_v_log2 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 40, __pyx_L1_error)
+    __PYX_ERR(0, 43, __pyx_L1_error)
   }
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_t_3 / __pyx_v_log2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_t_3 / __pyx_v_log2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyObject_RichCompare(__pyx_t_7, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_6 = PyObject_RichCompare(__pyx_t_7, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (__pyx_t_5) {
-    __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_t_8); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 40, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_t_8); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 43, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_1 = __pyx_t_6;
     __pyx_t_6 = 0;
@@ -1366,30 +1570,30 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     __pyx_t_1 = __pyx_t_2;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_hash_count = __pyx_t_8;
 
-  /* "bloomfilter/_bloomfilter.pyx":41
+  /* "bloomfilter/_bloomfilter.pyx":44
  *         log_error_rate = log(error_rate)
  *         hash_count = max(round(- log_error_rate / log2), 1)
  *         bit_count = ceil(- hash_count / log(1 - exp(log_error_rate / hash_count)) * capacity)             # <<<<<<<<<<<<<<
  *         # Since we are using very simplistic re-hash algorithm, we have a pathological
  *         # case when `bit_count` is power of 2. We alleviate it by making `bit_count` always
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ceil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ceil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyInt_From_long((-__pyx_v_hash_count)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_long((-__pyx_v_hash_count)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_log); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_log); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_exp); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_exp); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (unlikely(__pyx_v_hash_count == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 41, __pyx_L1_error)
+    __PYX_ERR(0, 44, __pyx_L1_error)
   }
-  __pyx_t_12 = PyFloat_FromDouble((__pyx_v_log_error_rate / __pyx_v_hash_count)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_12 = PyFloat_FromDouble((__pyx_v_log_error_rate / __pyx_v_hash_count)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_13 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_11))) {
@@ -1402,22 +1606,22 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     }
   }
   if (!__pyx_t_13) {
-    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_12); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_GOTREF(__pyx_t_10);
   } else {
-    __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_13); __pyx_t_13 = NULL;
     __Pyx_GIVEREF(__pyx_t_12);
     PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_t_12);
     __pyx_t_12 = 0;
-    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_14, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_14, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  __pyx_t_11 = __Pyx_PyInt_SubtractCObj(__pyx_int_1, __pyx_t_10, 1, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_SubtractCObj(__pyx_int_1, __pyx_t_10, 1, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_t_10 = NULL;
@@ -1431,26 +1635,26 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     }
   }
   if (!__pyx_t_10) {
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_GOTREF(__pyx_t_7);
   } else {
-    __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_10); __pyx_t_10 = NULL;
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_14, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_14, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyNumber_Divide(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyNumber_Divide(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyNumber_Multiply(__pyx_t_9, __pyx_v_capacity); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Multiply(__pyx_t_9, __pyx_v_capacity); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_9 = NULL;
@@ -1464,26 +1668,26 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     }
   }
   if (!__pyx_t_9) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_9); __pyx_t_9 = NULL;
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_bit_count = __pyx_t_8;
 
-  /* "bloomfilter/_bloomfilter.pyx":45
+  /* "bloomfilter/_bloomfilter.pyx":48
  *         # case when `bit_count` is power of 2. We alleviate it by making `bit_count` always
  *         # an odd number.
  *         bit_count |= 1             # <<<<<<<<<<<<<<
@@ -1492,7 +1696,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   __pyx_v_bit_count = (__pyx_v_bit_count | 1);
 
-  /* "bloomfilter/_bloomfilter.pyx":46
+  /* "bloomfilter/_bloomfilter.pyx":49
  *         # an odd number.
  *         bit_count |= 1
  *         acc = ''             # <<<<<<<<<<<<<<
@@ -1502,7 +1706,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   __Pyx_INCREF(__pyx_kp_s__3);
   __pyx_v_acc = __pyx_kp_s__3;
 
-  /* "bloomfilter/_bloomfilter.pyx":47
+  /* "bloomfilter/_bloomfilter.pyx":50
  *         bit_count |= 1
  *         acc = ''
  *         for i in xrange(hash_count):             # <<<<<<<<<<<<<<
@@ -1513,47 +1717,47 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_8; __pyx_t_15+=1) {
     __pyx_v_i = __pyx_t_15;
 
-    /* "bloomfilter/_bloomfilter.pyx":48
+    /* "bloomfilter/_bloomfilter.pyx":51
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')
  */
-    __pyx_t_1 = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___genexpr(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_t_1 = __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9__cinit___genexpr(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s__3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s__3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_random_string, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "bloomfilter/_bloomfilter.pyx":50
+    /* "bloomfilter/_bloomfilter.pyx":53
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')             # <<<<<<<<<<<<<<
  *             hasher.update(random_string)
  *             acc += hasher.digest()
  */
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_hashlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_hashlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_new); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_new); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_hasher, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "bloomfilter/_bloomfilter.pyx":51
+    /* "bloomfilter/_bloomfilter.pyx":54
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')
  *             hasher.update(random_string)             # <<<<<<<<<<<<<<
  *             acc += hasher.digest()
  *         seeds = acc
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_update); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_update); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_6 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -1566,30 +1770,30 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_random_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_random_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
     } else {
-      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 51, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
       __Pyx_INCREF(__pyx_v_random_string);
       __Pyx_GIVEREF(__pyx_v_random_string);
       PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_random_string);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "bloomfilter/_bloomfilter.pyx":52
+    /* "bloomfilter/_bloomfilter.pyx":55
  *             hasher = hashlib.new('md5')
  *             hasher.update(random_string)
  *             acc += hasher.digest()             # <<<<<<<<<<<<<<
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_digest); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hasher, __pyx_n_s_digest); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -1602,31 +1806,31 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_acc, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_acc, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF_SET(__pyx_v_acc, __pyx_t_1);
     __pyx_t_1 = 0;
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":53
+  /* "bloomfilter/_bloomfilter.pyx":56
  *             hasher.update(random_string)
  *             acc += hasher.digest()
  *         seeds = acc             # <<<<<<<<<<<<<<
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:
  */
-  __pyx_t_16 = __Pyx_PyObject_AsString(__pyx_v_acc); if (unlikely((!__pyx_t_16) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_AsString(__pyx_v_acc); if (unlikely((!__pyx_t_16) && PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L1_error)
   __pyx_v_seeds = __pyx_t_16;
 
-  /* "bloomfilter/_bloomfilter.pyx":54
+  /* "bloomfilter/_bloomfilter.pyx":57
  *             acc += hasher.digest()
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)             # <<<<<<<<<<<<<<
@@ -1635,7 +1839,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   __pyx_v_cbf = CBloomFilter_Create(__pyx_v_hash_count, __pyx_v_bit_count, __pyx_v_seeds);
 
-  /* "bloomfilter/_bloomfilter.pyx":55
+  /* "bloomfilter/_bloomfilter.pyx":58
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:             # <<<<<<<<<<<<<<
@@ -1645,14 +1849,14 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   __pyx_t_5 = ((__pyx_v_cbf == NULL) != 0);
   if (__pyx_t_5) {
 
-    /* "bloomfilter/_bloomfilter.pyx":56
+    /* "bloomfilter/_bloomfilter.pyx":59
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:
  *             raise ValueError("BloomFilter cannot allocate memory for capacity=%s and error_rate=%s", capacity, error_rate)             # <<<<<<<<<<<<<<
  *         self.cbf = cbf
  * 
  */
-    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_kp_s_BloomFilter_cannot_allocate_memo);
     __Pyx_GIVEREF(__pyx_kp_s_BloomFilter_cannot_allocate_memo);
@@ -1663,14 +1867,14 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
     __Pyx_INCREF(__pyx_v_error_rate);
     __Pyx_GIVEREF(__pyx_v_error_rate);
     PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_error_rate);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 56, __pyx_L1_error)
+    __PYX_ERR(0, 59, __pyx_L1_error)
 
-    /* "bloomfilter/_bloomfilter.pyx":55
+    /* "bloomfilter/_bloomfilter.pyx":58
  *         seeds = acc
  *         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
  *         if cbf == NULL:             # <<<<<<<<<<<<<<
@@ -1679,7 +1883,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":57
+  /* "bloomfilter/_bloomfilter.pyx":60
  *         if cbf == NULL:
  *             raise ValueError("BloomFilter cannot allocate memory for capacity=%s and error_rate=%s", capacity, error_rate)
  *         self.cbf = cbf             # <<<<<<<<<<<<<<
@@ -1688,7 +1892,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
  */
   __pyx_v_self->cbf = __pyx_v_cbf;
 
-  /* "bloomfilter/_bloomfilter.pyx":20
+  /* "bloomfilter/_bloomfilter.pyx":23
  *     cdef cbloomfilter.CBloomFilter* cbf
  * 
  *     def __cinit__(self, capacity=0, error_rate=0, _build=True):             # <<<<<<<<<<<<<<
@@ -1720,7 +1924,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter___cinit__(struct 
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":59
+/* "bloomfilter/_bloomfilter.pyx":62
  *         self.cbf = cbf
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1743,7 +1947,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":61
+  /* "bloomfilter/_bloomfilter.pyx":64
  *     def __dealloc__(self):
  *         '''Free up filter's data'''
  *         cbloomfilter.CBloomFilter_Destroy(self.cbf)             # <<<<<<<<<<<<<<
@@ -1752,7 +1956,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
  */
   CBloomFilter_Destroy(__pyx_v_self->cbf);
 
-  /* "bloomfilter/_bloomfilter.pyx":62
+  /* "bloomfilter/_bloomfilter.pyx":65
  *         '''Free up filter's data'''
  *         cbloomfilter.CBloomFilter_Destroy(self.cbf)
  *         self.cbf = NULL             # <<<<<<<<<<<<<<
@@ -1761,7 +1965,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
  */
   __pyx_v_self->cbf = NULL;
 
-  /* "bloomfilter/_bloomfilter.pyx":59
+  /* "bloomfilter/_bloomfilter.pyx":62
  *         self.cbf = cbf
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1773,7 +1977,7 @@ static void __pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_2__dealloc__(str
   __Pyx_RefNannyFinishContext();
 }
 
-/* "bloomfilter/_bloomfilter.pyx":65
+/* "bloomfilter/_bloomfilter.pyx":68
  * 
  *     @property
  *     def byte_size(self):             # <<<<<<<<<<<<<<
@@ -1800,7 +2004,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9byte_size_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":67
+  /* "bloomfilter/_bloomfilter.pyx":70
  *     def byte_size(self):
  *         '''Size of the filter in bytes'''
  *         return cbloomfilter.CBloomFilter_ByteSize(self.cbf)             # <<<<<<<<<<<<<<
@@ -1808,13 +2012,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9byte_size_
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_FromSize_t(CBloomFilter_ByteSize(__pyx_v_self->cbf)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_FromSize_t(CBloomFilter_ByteSize(__pyx_v_self->cbf)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":65
+  /* "bloomfilter/_bloomfilter.pyx":68
  * 
  *     @property
  *     def byte_size(self):             # <<<<<<<<<<<<<<
@@ -1833,7 +2037,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9byte_size_
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":70
+/* "bloomfilter/_bloomfilter.pyx":73
  * 
  *     @property
  *     def hash_count(self):             # <<<<<<<<<<<<<<
@@ -1860,7 +2064,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_coun
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":72
+  /* "bloomfilter/_bloomfilter.pyx":75
  *     def hash_count(self):
  *         '''Number of hashes in the filter'''
  *         return self.cbf.hash_count             # <<<<<<<<<<<<<<
@@ -1868,13 +2072,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_coun
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->hash_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->hash_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":70
+  /* "bloomfilter/_bloomfilter.pyx":73
  * 
  *     @property
  *     def hash_count(self):             # <<<<<<<<<<<<<<
@@ -1893,7 +2097,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10hash_coun
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":75
+/* "bloomfilter/_bloomfilter.pyx":78
  * 
  *     @property
  *     def bit_count(self):             # <<<<<<<<<<<<<<
@@ -1920,7 +2124,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":77
+  /* "bloomfilter/_bloomfilter.pyx":80
  *     def bit_count(self):
  *         '''Number of bits in the filter'''
  *         return self.cbf.bit_count             # <<<<<<<<<<<<<<
@@ -1928,13 +2132,13 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
  *     def add_by_hash(self, x):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->bit_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->cbf->bit_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":75
+  /* "bloomfilter/_bloomfilter.pyx":78
  * 
  *     @property
  *     def bit_count(self):             # <<<<<<<<<<<<<<
@@ -1953,17 +2157,17 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_9bit_count_
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":79
+/* "bloomfilter/_bloomfilter.pyx":82
  *         return self.cbf.bit_count
  * 
  *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item using its Python hash to the filter'''
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+ *         '''Add item using its Python hash to the filter, return True if added'''
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash[] = "Add item using its Python hash to the filter";
+static char __pyx_doc_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_hash[] = "Add item using its Python hash to the filter, return True if added";
 static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_11BloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1980,29 +2184,34 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_has
   __Pyx_RefNannyDeclarations
   Py_hash_t __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_3;
   __Pyx_RefNannySetupContext("add_by_hash", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":81
+  /* "bloomfilter/_bloomfilter.pyx":84
  *     def add_by_hash(self, x):
- *         '''Add item using its Python hash to the filter'''
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))             # <<<<<<<<<<<<<<
+ *         '''Add item using its Python hash to the filter, return True if added'''
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))             # <<<<<<<<<<<<<<
  * 
  *     def test_by_hash(self, x):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 81, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_void_to_None(CBloomFilter_AddHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(CBloomFilter_AddHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_3))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":79
+  /* "bloomfilter/_bloomfilter.pyx":82
  *         return self.cbf.bit_count
  * 
  *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
- *         '''Add item using its Python hash to the filter'''
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+ *         '''Add item using its Python hash to the filter, return True if added'''
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  */
 
   /* function exit code */
@@ -2016,8 +2225,8 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_4add_by_has
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":83
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+/* "bloomfilter/_bloomfilter.pyx":86
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  * 
  *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
  *         '''Test whether item is in the filter using its Python hash'''
@@ -2046,7 +2255,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_ha
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("test_by_hash", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":85
+  /* "bloomfilter/_bloomfilter.pyx":88
  *     def test_by_hash(self, x):
  *         '''Test whether item is in the filter using its Python hash'''
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))             # <<<<<<<<<<<<<<
@@ -2054,19 +2263,19 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_ha
  *     def serialize(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 85, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_From_int(CBloomFilter_TestHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Hash(__pyx_v_x); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(CBloomFilter_TestHash(__pyx_v_self->cbf, __pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_3))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong((!(!__pyx_t_3))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":83
- *         return cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x))
+  /* "bloomfilter/_bloomfilter.pyx":86
+ *         return bool(cbloomfilter.CBloomFilter_AddHash(self.cbf, hash(x)))
  * 
  *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
  *         '''Test whether item is in the filter using its Python hash'''
@@ -2084,7 +2293,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_ha
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":87
+/* "bloomfilter/_bloomfilter.pyx":90
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  * 
  *     def serialize(self):             # <<<<<<<<<<<<<<
@@ -2119,7 +2328,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("serialize", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":89
+  /* "bloomfilter/_bloomfilter.pyx":92
  *     def serialize(self):
  *         '''Serialize the filter'''
  *         return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))             # <<<<<<<<<<<<<<
@@ -2127,21 +2336,21 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(
  *     @classmethod
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_base64); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_base64); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_b64encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_b64encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compress); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_compress); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_6 - 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_6 - 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_7 = NULL;
   __pyx_t_6 = 0;
@@ -2155,7 +2364,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_8 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   if (__pyx_t_7) {
     __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -2166,7 +2375,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(
   __Pyx_GIVEREF(__pyx_int_9);
   PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_6, __pyx_int_9);
   __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -2181,17 +2390,17 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
@@ -2200,7 +2409,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":87
+  /* "bloomfilter/_bloomfilter.pyx":90
  *         return bool(cbloomfilter.CBloomFilter_TestHash(self.cbf, hash(x)))
  * 
  *     def serialize(self):             # <<<<<<<<<<<<<<
@@ -2225,7 +2434,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":92
+/* "bloomfilter/_bloomfilter.pyx":95
  * 
  *     @classmethod
  *     def deserialize(self, serialized_filter):             # <<<<<<<<<<<<<<
@@ -2263,21 +2472,21 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
   int __pyx_t_9;
   __Pyx_RefNannySetupContext("deserialize", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":94
+  /* "bloomfilter/_bloomfilter.pyx":97
  *     def deserialize(self, serialized_filter):
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(base64.b64decode(serialized_filter))             # <<<<<<<<<<<<<<
  * 
  *         cbf = BloomFilter(_build=False)
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_zlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_decompress); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_decompress); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_base64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_base64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_b64decode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_b64decode); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -2291,16 +2500,16 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_serialized_filter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_serialized_filter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
     __Pyx_INCREF(__pyx_v_serialized_filter);
     __Pyx_GIVEREF(__pyx_v_serialized_filter);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_serialized_filter);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -2316,17 +2525,17 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -2334,34 +2543,34 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
   __pyx_v_data = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "bloomfilter/_bloomfilter.pyx":96
+  /* "bloomfilter/_bloomfilter.pyx":99
  *         data = zlib.decompress(base64.b64decode(serialized_filter))
  * 
  *         cbf = BloomFilter(_build=False)             # <<<<<<<<<<<<<<
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_build, Py_False) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_build, Py_False) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_cbf = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "bloomfilter/_bloomfilter.pyx":97
+  /* "bloomfilter/_bloomfilter.pyx":100
  * 
  *         cbf = BloomFilter(_build=False)
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))             # <<<<<<<<<<<<<<
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")
  */
-  __pyx_t_7 = __Pyx_PyObject_AsString(__pyx_v_data); if (unlikely((!__pyx_t_7) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
-  __pyx_t_8 = PyObject_Length(__pyx_v_data); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_AsString(__pyx_v_data); if (unlikely((!__pyx_t_7) && PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_8 = PyObject_Length(__pyx_v_data); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 100, __pyx_L1_error)
   __pyx_v_cbf->cbf = CBloomFilter_FromData(((char *)__pyx_t_7), __pyx_t_8);
 
-  /* "bloomfilter/_bloomfilter.pyx":98
+  /* "bloomfilter/_bloomfilter.pyx":101
  *         cbf = BloomFilter(_build=False)
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:             # <<<<<<<<<<<<<<
@@ -2371,20 +2580,20 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
   __pyx_t_9 = ((__pyx_v_cbf->cbf == NULL) != 0);
   if (__pyx_t_9) {
 
-    /* "bloomfilter/_bloomfilter.pyx":99
+    /* "bloomfilter/_bloomfilter.pyx":102
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")             # <<<<<<<<<<<<<<
  *         return cbf
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 102, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 99, __pyx_L1_error)
+    __PYX_ERR(0, 102, __pyx_L1_error)
 
-    /* "bloomfilter/_bloomfilter.pyx":98
+    /* "bloomfilter/_bloomfilter.pyx":101
  *         cbf = BloomFilter(_build=False)
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:             # <<<<<<<<<<<<<<
@@ -2393,7 +2602,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
  */
   }
 
-  /* "bloomfilter/_bloomfilter.pyx":100
+  /* "bloomfilter/_bloomfilter.pyx":103
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")
  *         return cbf             # <<<<<<<<<<<<<<
@@ -2405,7 +2614,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
   __pyx_r = ((PyObject *)__pyx_v_cbf);
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":92
+  /* "bloomfilter/_bloomfilter.pyx":95
  * 
  *     @classmethod
  *     def deserialize(self, serialized_filter):             # <<<<<<<<<<<<<<
@@ -2431,7 +2640,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deseriali
   return __pyx_r;
 }
 
-/* "bloomfilter/_bloomfilter.pyx":103
+/* "bloomfilter/_bloomfilter.pyx":106
  * 
  * 
  *     def raw_data(self):             # <<<<<<<<<<<<<<
@@ -2460,24 +2669,25 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(
   Py_ssize_t __pyx_t_2;
   __Pyx_RefNannySetupContext("raw_data", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":105
+  /* "bloomfilter/_bloomfilter.pyx":108
  *     def raw_data(self):
  *         '''Raw filter data, primary for debug purpose'''
  *         return (<char*>self.cbf)[:self.byte_size]             # <<<<<<<<<<<<<<
  * 
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_byte_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_2 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_2 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_2 - 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBytes_FromStringAndSize(((char *)__pyx_v_self->cbf) + 0, __pyx_t_2 - 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "bloomfilter/_bloomfilter.pyx":103
+  /* "bloomfilter/_bloomfilter.pyx":106
  * 
  * 
  *     def raw_data(self):             # <<<<<<<<<<<<<<
@@ -2491,6 +2701,1248 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(
   __Pyx_AddTraceback("bloomfilter._bloomfilter.BloomFilter.raw_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":128
+ *     cdef object bloom
+ * 
+ *     def __init__(self, capacity, error_rate, count):             # <<<<<<<<<<<<<<
+ *         self.capacity = capacity
+ *         self.error_rate = error_rate
+ */
+
+/* Python wrapper */
+static int __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_capacity = 0;
+  PyObject *__pyx_v_error_rate = 0;
+  PyObject *__pyx_v_count = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_capacity,&__pyx_n_s_error_rate,&__pyx_n_s_count,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_capacity)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_error_rate)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 3, 3, 1); __PYX_ERR(0, 128, __pyx_L3_error)
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_count)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 3, 3, 2); __PYX_ERR(0, 128, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 128, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v_capacity = values[0];
+    __pyx_v_error_rate = values[1];
+    __pyx_v_count = values[2];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 128, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), __pyx_v_capacity, __pyx_v_error_rate, __pyx_v_count);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_capacity, PyObject *__pyx_v_error_rate, PyObject *__pyx_v_count) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  uint64_t __pyx_t_1;
+  double __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  __Pyx_RefNannySetupContext("__init__", 0);
+
+  /* "bloomfilter/_bloomfilter.pyx":129
+ * 
+ *     def __init__(self, capacity, error_rate, count):
+ *         self.capacity = capacity             # <<<<<<<<<<<<<<
+ *         self.error_rate = error_rate
+ *         self.count = count
+ */
+  __pyx_t_1 = __Pyx_PyInt_As_uint64_t(__pyx_v_capacity); if (unlikely((__pyx_t_1 == (uint64_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_v_self->capacity = __pyx_t_1;
+
+  /* "bloomfilter/_bloomfilter.pyx":130
+ *     def __init__(self, capacity, error_rate, count):
+ *         self.capacity = capacity
+ *         self.error_rate = error_rate             # <<<<<<<<<<<<<<
+ *         self.count = count
+ *         self.remaining = 0
+ */
+  __pyx_t_2 = __pyx_PyFloat_AsDouble(__pyx_v_error_rate); if (unlikely((__pyx_t_2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_v_self->error_rate = __pyx_t_2;
+
+  /* "bloomfilter/_bloomfilter.pyx":131
+ *         self.capacity = capacity
+ *         self.error_rate = error_rate
+ *         self.count = count             # <<<<<<<<<<<<<<
+ *         self.remaining = 0
+ *         self.blooms = deque()
+ */
+  __pyx_t_1 = __Pyx_PyInt_As_uint64_t(__pyx_v_count); if (unlikely((__pyx_t_1 == (uint64_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_v_self->count = __pyx_t_1;
+
+  /* "bloomfilter/_bloomfilter.pyx":132
+ *         self.error_rate = error_rate
+ *         self.count = count
+ *         self.remaining = 0             # <<<<<<<<<<<<<<
+ *         self.blooms = deque()
+ *         self.bloom = None
+ */
+  __pyx_v_self->remaining = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":133
+ *         self.count = count
+ *         self.remaining = 0
+ *         self.blooms = deque()             # <<<<<<<<<<<<<<
+ *         self.bloom = None
+ *         self.rotate()
+ */
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_deque); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  if (__pyx_t_5) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  } else {
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_GIVEREF(__pyx_t_3);
+  __Pyx_GOTREF(__pyx_v_self->blooms);
+  __Pyx_DECREF(__pyx_v_self->blooms);
+  __pyx_v_self->blooms = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":134
+ *         self.remaining = 0
+ *         self.blooms = deque()
+ *         self.bloom = None             # <<<<<<<<<<<<<<
+ *         self.rotate()
+ * 
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->bloom);
+  __Pyx_DECREF(__pyx_v_self->bloom);
+  __pyx_v_self->bloom = Py_None;
+
+  /* "bloomfilter/_bloomfilter.pyx":135
+ *         self.blooms = deque()
+ *         self.bloom = None
+ *         self.rotate()             # <<<<<<<<<<<<<<
+ * 
+ *     property blooms:
+ */
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_rotate); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  if (__pyx_t_5) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  } else {
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+  }
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":128
+ *     cdef object bloom
+ * 
+ *     def __init__(self, capacity, error_rate, count):             # <<<<<<<<<<<<<<
+ *         self.capacity = capacity
+ *         self.error_rate = error_rate
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":138
+ * 
+ *     property blooms:
+ *         def __get__(self):             # <<<<<<<<<<<<<<
+ *             return self.blooms
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_6blooms_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_6blooms_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6blooms___get__(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6blooms___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+
+  /* "bloomfilter/_bloomfilter.pyx":139
+ *     property blooms:
+ *         def __get__(self):
+ *             return self.blooms             # <<<<<<<<<<<<<<
+ * 
+ *     def rotate(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->blooms);
+  __pyx_r = __pyx_v_self->blooms;
+  goto __pyx_L0;
+
+  /* "bloomfilter/_bloomfilter.pyx":138
+ * 
+ *     property blooms:
+ *         def __get__(self):             # <<<<<<<<<<<<<<
+ *             return self.blooms
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":141
+ *             return self.blooms
+ * 
+ *     def rotate(self):             # <<<<<<<<<<<<<<
+ *         '''Add a new bloom filter to our deque and remove any old bloom filters.'''
+ *         self.bloom = BloomFilter(self.capacity, self.error_rate)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_3rotate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_2rotate[] = "Add a new bloom filter to our deque and remove any old bloom filters.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_3rotate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("rotate (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  Py_ssize_t __pyx_t_5;
+  int __pyx_t_6;
+  uint64_t __pyx_t_7;
+  __Pyx_RefNannySetupContext("rotate", 0);
+
+  /* "bloomfilter/_bloomfilter.pyx":143
+ *     def rotate(self):
+ *         '''Add a new bloom filter to our deque and remove any old bloom filters.'''
+ *         self.bloom = BloomFilter(self.capacity, self.error_rate)             # <<<<<<<<<<<<<<
+ *         self.blooms.append(self.bloom)
+ *         while len(self.blooms) > self.count:
+ */
+  __pyx_t_1 = __Pyx_PyInt_From_uint64_t(__pyx_v_self->capacity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->error_rate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
+  __pyx_t_1 = 0;
+  __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_GIVEREF(__pyx_t_2);
+  __Pyx_GOTREF(__pyx_v_self->bloom);
+  __Pyx_DECREF(__pyx_v_self->bloom);
+  __pyx_v_self->bloom = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":144
+ *         '''Add a new bloom filter to our deque and remove any old bloom filters.'''
+ *         self.bloom = BloomFilter(self.capacity, self.error_rate)
+ *         self.blooms.append(self.bloom)             # <<<<<<<<<<<<<<
+ *         while len(self.blooms) > self.count:
+ *             self.blooms.popleft()
+ */
+  __pyx_t_4 = __Pyx_PyObject_Append(__pyx_v_self->blooms, __pyx_v_self->bloom); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 144, __pyx_L1_error)
+
+  /* "bloomfilter/_bloomfilter.pyx":145
+ *         self.bloom = BloomFilter(self.capacity, self.error_rate)
+ *         self.blooms.append(self.bloom)
+ *         while len(self.blooms) > self.count:             # <<<<<<<<<<<<<<
+ *             self.blooms.popleft()
+ *         self.remaining = self.capacity
+ */
+  while (1) {
+    __pyx_t_2 = __pyx_v_self->blooms;
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_t_5 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_5 == -1)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_6 = ((__pyx_t_5 > __pyx_v_self->count) != 0);
+    if (!__pyx_t_6) break;
+
+    /* "bloomfilter/_bloomfilter.pyx":146
+ *         self.blooms.append(self.bloom)
+ *         while len(self.blooms) > self.count:
+ *             self.blooms.popleft()             # <<<<<<<<<<<<<<
+ *         self.remaining = self.capacity
+ * 
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->blooms, __pyx_n_s_popleft); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_3, function);
+      }
+    }
+    if (__pyx_t_1) {
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    } else {
+      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+    }
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+
+  /* "bloomfilter/_bloomfilter.pyx":147
+ *         while len(self.blooms) > self.count:
+ *             self.blooms.popleft()
+ *         self.remaining = self.capacity             # <<<<<<<<<<<<<<
+ * 
+ *     def add_by_hash(self, x):
+ */
+  __pyx_t_7 = __pyx_v_self->capacity;
+  __pyx_v_self->remaining = __pyx_t_7;
+
+  /* "bloomfilter/_bloomfilter.pyx":141
+ *             return self.blooms
+ * 
+ *     def rotate(self):             # <<<<<<<<<<<<<<
+ *         '''Add a new bloom filter to our deque and remove any old bloom filters.'''
+ *         self.bloom = BloomFilter(self.capacity, self.error_rate)
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.rotate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":149
+ *         self.remaining = self.capacity
+ * 
+ *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Add item using its Python hash to the filter.'''
+ *         if self.test_by_hash(x):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash[] = "Add item using its Python hash to the filter.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("add_by_hash (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), ((PyObject *)__pyx_v_x));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
+  __Pyx_RefNannySetupContext("add_by_hash", 0);
+
+  /* "bloomfilter/_bloomfilter.pyx":151
+ *     def add_by_hash(self, x):
+ *         '''Add item using its Python hash to the filter.'''
+ *         if self.test_by_hash(x):             # <<<<<<<<<<<<<<
+ *             return False
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_test_by_hash); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
+    __Pyx_INCREF(__pyx_v_x);
+    __Pyx_GIVEREF(__pyx_v_x);
+    PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_x);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_5) {
+
+    /* "bloomfilter/_bloomfilter.pyx":152
+ *         '''Add item using its Python hash to the filter.'''
+ *         if self.test_by_hash(x):
+ *             return False             # <<<<<<<<<<<<<<
+ * 
+ *         self.bloom.add_by_hash(x)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_INCREF(Py_False);
+    __pyx_r = Py_False;
+    goto __pyx_L0;
+
+    /* "bloomfilter/_bloomfilter.pyx":151
+ *     def add_by_hash(self, x):
+ *         '''Add item using its Python hash to the filter.'''
+ *         if self.test_by_hash(x):             # <<<<<<<<<<<<<<
+ *             return False
+ * 
+ */
+  }
+
+  /* "bloomfilter/_bloomfilter.pyx":154
+ *             return False
+ * 
+ *         self.bloom.add_by_hash(x)             # <<<<<<<<<<<<<<
+ *         self.remaining -= 1
+ *         if self.remaining <= 0:
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->bloom, __pyx_n_s_add_by_hash); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_x); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 154, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    __Pyx_INCREF(__pyx_v_x);
+    __Pyx_GIVEREF(__pyx_v_x);
+    PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_x);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":155
+ * 
+ *         self.bloom.add_by_hash(x)
+ *         self.remaining -= 1             # <<<<<<<<<<<<<<
+ *         if self.remaining <= 0:
+ *             self.rotate()
+ */
+  __pyx_v_self->remaining = (__pyx_v_self->remaining - 1);
+
+  /* "bloomfilter/_bloomfilter.pyx":156
+ *         self.bloom.add_by_hash(x)
+ *         self.remaining -= 1
+ *         if self.remaining <= 0:             # <<<<<<<<<<<<<<
+ *             self.rotate()
+ *         return True
+ */
+  __pyx_t_5 = ((__pyx_v_self->remaining <= 0) != 0);
+  if (__pyx_t_5) {
+
+    /* "bloomfilter/_bloomfilter.pyx":157
+ *         self.remaining -= 1
+ *         if self.remaining <= 0:
+ *             self.rotate()             # <<<<<<<<<<<<<<
+ *         return True
+ * 
+ */
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_rotate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_3)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    if (__pyx_t_3) {
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    } else {
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
+    }
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "bloomfilter/_bloomfilter.pyx":156
+ *         self.bloom.add_by_hash(x)
+ *         self.remaining -= 1
+ *         if self.remaining <= 0:             # <<<<<<<<<<<<<<
+ *             self.rotate()
+ *         return True
+ */
+  }
+
+  /* "bloomfilter/_bloomfilter.pyx":158
+ *         if self.remaining <= 0:
+ *             self.rotate()
+ *         return True             # <<<<<<<<<<<<<<
+ * 
+ *     def test_by_hash(self, x):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(Py_True);
+  __pyx_r = Py_True;
+  goto __pyx_L0;
+
+  /* "bloomfilter/_bloomfilter.pyx":149
+ *         self.remaining = self.capacity
+ * 
+ *     def add_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Add item using its Python hash to the filter.'''
+ *         if self.test_by_hash(x):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.add_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":160
+ *         return True
+ * 
+ *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Test whether item is in the filter using its Python hash.'''
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash[] = "Test whether item is in the filter using its Python hash.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("test_by_hash (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), ((PyObject *)__pyx_v_x));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_2generator1(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+
+/* "bloomfilter/_bloomfilter.pyx":162
+ *     def test_by_hash(self, x):
+ *         '''Test whether item is in the filter using its Python hash.'''
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)             # <<<<<<<<<<<<<<
+ * 
+ *     def dedup(self, items, key=None):
+ */
+
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_genexpr(PyObject *__pyx_self) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("genexpr", 0);
+  __pyx_cur_scope = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *)__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *) __pyx_self;
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  {
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_2generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_test_by_hash_locals_genexpr); if (unlikely(!gen)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_cur_scope);
+    __Pyx_RefNannyFinishContext();
+    return (PyObject *) gen;
+  }
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.test_by_hash.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_2generator1(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+{
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *__pyx_cur_scope = ((struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *)__pyx_generator->closure);
+  PyObject *__pyx_r = NULL;
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  PyObject *(*__pyx_t_3)(PyObject *);
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  int __pyx_t_8;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("None", 0);
+  switch (__pyx_generator->resume_label) {
+    case 0: goto __pyx_L3_first_run;
+    default: /* CPython raises the right error here */
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __pyx_L3_first_run:;
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 162, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 162, __pyx_L1_error) }
+  if (likely(PyList_CheckExact(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->blooms)) || PyTuple_CheckExact(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->blooms)) {
+    __pyx_t_1 = __pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->blooms; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
+    __pyx_t_3 = NULL;
+  } else {
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->blooms); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+  }
+  for (;;) {
+    if (likely(!__pyx_t_3)) {
+      if (likely(PyList_CheckExact(__pyx_t_1))) {
+        if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+        #else
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        #endif
+      } else {
+        if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+        #else
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        #endif
+      }
+    } else {
+      __pyx_t_4 = __pyx_t_3(__pyx_t_1);
+      if (unlikely(!__pyx_t_4)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 162, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_4);
+    }
+    __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_bloom);
+    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_bloom, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_4);
+    __pyx_t_4 = 0;
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_bloom, __pyx_n_s_test_by_hash); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_x)) { __Pyx_RaiseClosureNameError("x"); __PYX_ERR(0, 162, __pyx_L1_error) }
+    __pyx_t_6 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_6)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_6);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+      }
+    }
+    if (!__pyx_t_6) {
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_x); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+    } else {
+      __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
+      __Pyx_INCREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_x);
+      __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_x);
+      PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_cur_scope->__pyx_outer_scope->__pyx_v_x);
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (__pyx_t_8) {
+      __Pyx_XDECREF(__pyx_r);
+      __Pyx_INCREF(Py_True);
+      __pyx_r = Py_True;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      goto __pyx_L0;
+    }
+  }
+  /*else*/ {
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_INCREF(Py_False);
+    __pyx_r = Py_False;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    goto __pyx_L0;
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __pyx_generator->resume_label = -1;
+  __Pyx_Coroutine_clear((PyObject*)__pyx_generator);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":160
+ *         return True
+ * 
+ *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Test whether item is in the filter using its Python hash.'''
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ */
+
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("test_by_hash", 0);
+  __pyx_cur_scope = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *)__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __pyx_cur_scope->__pyx_v_x = __pyx_v_x;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_x);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_x);
+
+  /* "bloomfilter/_bloomfilter.pyx":162
+ *     def test_by_hash(self, x):
+ *         '''Test whether item is in the filter using its Python hash.'''
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)             # <<<<<<<<<<<<<<
+ * 
+ *     def dedup(self, items, key=None):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_Generator_Next(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "bloomfilter/_bloomfilter.pyx":160
+ *         return True
+ * 
+ *     def test_by_hash(self, x):             # <<<<<<<<<<<<<<
+ *         '''Test whether item is in the filter using its Python hash.'''
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.test_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":164
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ * 
+ *     def dedup(self, items, key=None):             # <<<<<<<<<<<<<<
+ *         '''Generator of the unique items.'''
+ *         predicate = self.add_by_hash
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_8dedup[] = "Generator of the unique items.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_items = 0;
+  PyObject *__pyx_v_key = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("dedup (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_items,&__pyx_n_s_key,0};
+    PyObject* values[2] = {0,0};
+    values[1] = ((PyObject *)Py_None);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_items)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_key);
+          if (value) { values[1] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "dedup") < 0)) __PYX_ERR(0, 164, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_items = values[0];
+    __pyx_v_key = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("dedup", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 164, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.dedup", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), __pyx_v_items, __pyx_v_key);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":168
+ *         predicate = self.add_by_hash
+ *         if key is not None:
+ *             def predicate(item):             # <<<<<<<<<<<<<<
+ *                 return self.add_by_hash(key(item))
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate(PyObject *__pyx_self, PyObject *__pyx_v_item); /*proto*/
+static PyMethodDef __pyx_mdef_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate = {"predicate", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate, METH_O, 0};
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate(PyObject *__pyx_self, PyObject *__pyx_v_item) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("predicate (wrapper)", 0);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicate(__pyx_self, ((PyObject *)__pyx_v_item));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicate(PyObject *__pyx_self, PyObject *__pyx_v_item) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *__pyx_cur_scope;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *__pyx_outer_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  __Pyx_RefNannySetupContext("predicate", 0);
+  __pyx_outer_scope = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope = __pyx_outer_scope;
+
+  /* "bloomfilter/_bloomfilter.pyx":169
+ *         if key is not None:
+ *             def predicate(item):
+ *                 return self.add_by_hash(key(item))             # <<<<<<<<<<<<<<
+ * 
+ *         return itertools.ifilter(predicate, items)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 169, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_add_by_hash); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (unlikely(!__pyx_cur_scope->__pyx_v_key)) { __Pyx_RaiseClosureNameError("key"); __PYX_ERR(0, 169, __pyx_L1_error) }
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
+  __pyx_t_4 = __pyx_cur_scope->__pyx_v_key; __pyx_t_5 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  if (!__pyx_t_5) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_item); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+  } else {
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
+    __Pyx_INCREF(__pyx_v_item);
+    __Pyx_GIVEREF(__pyx_v_item);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_v_item);
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "bloomfilter/_bloomfilter.pyx":168
+ *         predicate = self.add_by_hash
+ *         if key is not None:
+ *             def predicate(item):             # <<<<<<<<<<<<<<
+ *                 return self.add_by_hash(key(item))
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.dedup.predicate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bloomfilter/_bloomfilter.pyx":164
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ * 
+ *     def dedup(self, items, key=None):             # <<<<<<<<<<<<<<
+ *         '''Generator of the unique items.'''
+ *         predicate = self.add_by_hash
+ */
+
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_items, PyObject *__pyx_v_key) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *__pyx_cur_scope;
+  PyObject *__pyx_v_predicate = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  Py_ssize_t __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  __Pyx_RefNannySetupContext("dedup", 0);
+  __pyx_cur_scope = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *)__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup(__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __pyx_cur_scope->__pyx_v_key = __pyx_v_key;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_key);
+
+  /* "bloomfilter/_bloomfilter.pyx":166
+ *     def dedup(self, items, key=None):
+ *         '''Generator of the unique items.'''
+ *         predicate = self.add_by_hash             # <<<<<<<<<<<<<<
+ *         if key is not None:
+ *             def predicate(item):
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_add_by_hash); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_predicate = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":167
+ *         '''Generator of the unique items.'''
+ *         predicate = self.add_by_hash
+ *         if key is not None:             # <<<<<<<<<<<<<<
+ *             def predicate(item):
+ *                 return self.add_by_hash(key(item))
+ */
+  __pyx_t_2 = (__pyx_cur_scope->__pyx_v_key != Py_None);
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "bloomfilter/_bloomfilter.pyx":168
+ *         predicate = self.add_by_hash
+ *         if key is not None:
+ *             def predicate(item):             # <<<<<<<<<<<<<<
+ *                 return self.add_by_hash(key(item))
+ * 
+ */
+    __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate, 0, __pyx_n_s_dedup_locals_predicate, ((PyObject*)__pyx_cur_scope), __pyx_n_s_bloomfilter__bloomfilter, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF_SET(__pyx_v_predicate, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "bloomfilter/_bloomfilter.pyx":167
+ *         '''Generator of the unique items.'''
+ *         predicate = self.add_by_hash
+ *         if key is not None:             # <<<<<<<<<<<<<<
+ *             def predicate(item):
+ *                 return self.add_by_hash(key(item))
+ */
+  }
+
+  /* "bloomfilter/_bloomfilter.pyx":171
+ *                 return self.add_by_hash(key(item))
+ * 
+ *         return itertools.ifilter(predicate, items)             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_itertools); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_ifilter); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
+  __pyx_t_6 = 0;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __pyx_t_6 = 1;
+    }
+  }
+  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (__pyx_t_4) {
+    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
+  }
+  __Pyx_INCREF(__pyx_v_predicate);
+  __Pyx_GIVEREF(__pyx_v_predicate);
+  PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_v_predicate);
+  __Pyx_INCREF(__pyx_v_items);
+  __Pyx_GIVEREF(__pyx_v_items);
+  PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_items);
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "bloomfilter/_bloomfilter.pyx":164
+ *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
+ * 
+ *     def dedup(self, items, key=None):             # <<<<<<<<<<<<<<
+ *         '''Generator of the unique items.'''
+ *         predicate = self.add_by_hash
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.dedup", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_predicate);
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -2613,6 +4065,133 @@ static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter_BloomFilter = {
   #endif
 };
 
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_Rotating(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p;
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o);
+  p->blooms = Py_None; Py_INCREF(Py_None);
+  p->bloom = Py_None; Py_INCREF(Py_None);
+  return o;
+}
+
+static void __pyx_tp_dealloc_11bloomfilter_12_bloomfilter_Rotating(PyObject *o) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o;
+  #if PY_VERSION_HEX >= 0x030400a1
+  if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->blooms);
+  Py_CLEAR(p->bloom);
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static int __pyx_tp_traverse_11bloomfilter_12_bloomfilter_Rotating(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o;
+  if (p->blooms) {
+    e = (*v)(p->blooms, a); if (e) return e;
+  }
+  if (p->bloom) {
+    e = (*v)(p->bloom, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_11bloomfilter_12_bloomfilter_Rotating(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o;
+  tmp = ((PyObject*)p->blooms);
+  p->blooms = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->bloom);
+  p->bloom = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyObject *__pyx_getprop_11bloomfilter_12_bloomfilter_8Rotating_blooms(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_6blooms_1__get__(o);
+}
+
+static PyMethodDef __pyx_methods_11bloomfilter_12_bloomfilter_Rotating[] = {
+  {"rotate", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_3rotate, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_2rotate},
+  {"add_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5add_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash},
+  {"test_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_7test_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash},
+  {"dedup", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_8dedup},
+  {0, 0, 0, 0}
+};
+
+static struct PyGetSetDef __pyx_getsets_11bloomfilter_12_bloomfilter_Rotating[] = {
+  {(char *)"blooms", __pyx_getprop_11bloomfilter_12_bloomfilter_8Rotating_blooms, 0, (char *)0, 0},
+  {0, 0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter_Rotating = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "bloomfilter._bloomfilter.Rotating", /*tp_name*/
+  sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_11bloomfilter_12_bloomfilter_Rotating, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  "\n    Use `count` bloom filters, each configured with `capacity` and `error`. As the\n    combined capacity is reached, the oldest bloom filter is removed and a new one is\n    created. As such, it keeps track of roughly the most recent `count * capacity` unique\n    objects:\n\n        (count - 1) * capacity <= remembered entries <= count * capacity\n    ", /*tp_doc*/
+  __pyx_tp_traverse_11bloomfilter_12_bloomfilter_Rotating, /*tp_traverse*/
+  __pyx_tp_clear_11bloomfilter_12_bloomfilter_Rotating, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_11bloomfilter_12_bloomfilter_Rotating, /*tp_methods*/
+  0, /*tp_members*/
+  __pyx_getsets_11bloomfilter_12_bloomfilter_Rotating, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_1__init__, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_11bloomfilter_12_bloomfilter_Rotating, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
 static struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr *__pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr[8];
 static int __pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr = 0;
 
@@ -2695,6 +4274,339 @@ static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__
   #endif
 };
 
+static struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *__pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash[8];
+static int __pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash = 0;
+
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash)))) {
+    o = (PyObject*)__pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash[--__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash];
+    memset(o, 0, sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(PyObject *o) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_self);
+  Py_CLEAR(p->__pyx_v_x);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash)))) {
+    __pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash[__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash++] = ((struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *)o;
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject*)p->__pyx_v_self), a); if (e) return e;
+  }
+  if (p->__pyx_v_x) {
+    e = (*v)(p->__pyx_v_x, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *)o;
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_x);
+  p->__pyx_v_x = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "bloomfilter._bloomfilter.__pyx_scope_struct_1_test_by_hash", /*tp_name*/
+  sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash, /*tp_traverse*/
+  __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *__pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr[8];
+static int __pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr = 0;
+
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr)))) {
+    o = (PyObject*)__pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr[--__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr];
+    memset(o, 0, sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(PyObject *o) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_bloom);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr)))) {
+    __pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr[__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr++] = ((struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_bloom) {
+    e = (*v)(p->__pyx_v_bloom, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_bloom);
+  p->__pyx_v_bloom = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "bloomfilter._bloomfilter.__pyx_scope_struct_2_genexpr", /*tp_name*/
+  sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr, /*tp_traverse*/
+  __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *__pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup[8];
+static int __pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup = 0;
+
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup)))) {
+    o = (PyObject*)__pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup[--__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup];
+    memset(o, 0, sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup(PyObject *o) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_key);
+  Py_CLEAR(p->__pyx_v_self);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup)))) {
+    __pyx_freelist_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup[__pyx_freecount_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup++] = ((struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *)o;
+  if (p->__pyx_v_key) {
+    e = (*v)(p->__pyx_v_key, a); if (e) return e;
+  }
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject*)p->__pyx_v_self), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *)o;
+  tmp = ((PyObject*)p->__pyx_v_key);
+  p->__pyx_v_key = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "bloomfilter._bloomfilter.__pyx_scope_struct_3_dedup", /*tp_name*/
+  sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup, /*tp_traverse*/
+  __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
 static PyMethodDef __pyx_methods[] = {
   {0, 0, 0, 0}
 };
@@ -2724,10 +4636,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_BloomFilter_serialized_data_are, __pyx_k_BloomFilter_serialized_data_are, sizeof(__pyx_k_BloomFilter_serialized_data_are), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
+  {&__pyx_n_s_add_by_hash, __pyx_k_add_by_hash, sizeof(__pyx_k_add_by_hash), 0, 0, 1, 1},
+  {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_b64decode, __pyx_k_b64decode, sizeof(__pyx_k_b64decode), 0, 0, 1, 1},
   {&__pyx_n_s_b64encode, __pyx_k_b64encode, sizeof(__pyx_k_b64encode), 0, 0, 1, 1},
   {&__pyx_n_s_base64, __pyx_k_base64, sizeof(__pyx_k_base64), 0, 0, 1, 1},
+  {&__pyx_n_s_bloomfilter__bloomfilter, __pyx_k_bloomfilter__bloomfilter, sizeof(__pyx_k_bloomfilter__bloomfilter), 0, 0, 1, 1},
   {&__pyx_n_s_build, __pyx_k_build, sizeof(__pyx_k_build), 0, 0, 1, 1},
   {&__pyx_n_s_byte_size, __pyx_k_byte_size, sizeof(__pyx_k_byte_size), 0, 0, 1, 1},
   {&__pyx_n_s_capacity, __pyx_k_capacity, sizeof(__pyx_k_capacity), 0, 0, 1, 1},
@@ -2735,43 +4650,58 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_chr, __pyx_k_chr, sizeof(__pyx_k_chr), 0, 0, 1, 1},
   {&__pyx_n_s_cinit___locals_genexpr, __pyx_k_cinit___locals_genexpr, sizeof(__pyx_k_cinit___locals_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
+  {&__pyx_n_s_collections, __pyx_k_collections, sizeof(__pyx_k_collections), 0, 0, 1, 1},
   {&__pyx_n_s_compress, __pyx_k_compress, sizeof(__pyx_k_compress), 0, 0, 1, 1},
+  {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
   {&__pyx_n_s_decompress, __pyx_k_decompress, sizeof(__pyx_k_decompress), 0, 0, 1, 1},
+  {&__pyx_n_s_dedup_locals_predicate, __pyx_k_dedup_locals_predicate, sizeof(__pyx_k_dedup_locals_predicate), 0, 0, 1, 1},
+  {&__pyx_n_s_deque, __pyx_k_deque, sizeof(__pyx_k_deque), 0, 0, 1, 1},
   {&__pyx_n_s_deserialize, __pyx_k_deserialize, sizeof(__pyx_k_deserialize), 0, 0, 1, 1},
   {&__pyx_n_s_digest, __pyx_k_digest, sizeof(__pyx_k_digest), 0, 0, 1, 1},
   {&__pyx_n_s_error_rate, __pyx_k_error_rate, sizeof(__pyx_k_error_rate), 0, 0, 1, 1},
   {&__pyx_n_s_exp, __pyx_k_exp, sizeof(__pyx_k_exp), 0, 0, 1, 1},
   {&__pyx_n_s_genexpr, __pyx_k_genexpr, sizeof(__pyx_k_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_hashlib, __pyx_k_hashlib, sizeof(__pyx_k_hashlib), 0, 0, 1, 1},
+  {&__pyx_n_s_ifilter, __pyx_k_ifilter, sizeof(__pyx_k_ifilter), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_item, __pyx_k_item, sizeof(__pyx_k_item), 0, 0, 1, 1},
+  {&__pyx_n_s_items, __pyx_k_items, sizeof(__pyx_k_items), 0, 0, 1, 1},
+  {&__pyx_n_s_itertools, __pyx_k_itertools, sizeof(__pyx_k_itertools), 0, 0, 1, 1},
   {&__pyx_n_s_join, __pyx_k_join, sizeof(__pyx_k_join), 0, 0, 1, 1},
+  {&__pyx_n_s_key, __pyx_k_key, sizeof(__pyx_k_key), 0, 0, 1, 1},
   {&__pyx_n_s_log, __pyx_k_log, sizeof(__pyx_k_log), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_math, __pyx_k_math, sizeof(__pyx_k_math), 0, 0, 1, 1},
   {&__pyx_n_s_md5, __pyx_k_md5, sizeof(__pyx_k_md5), 0, 0, 1, 1},
   {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
+  {&__pyx_n_s_popleft, __pyx_k_popleft, sizeof(__pyx_k_popleft), 0, 0, 1, 1},
+  {&__pyx_n_s_predicate, __pyx_k_predicate, sizeof(__pyx_k_predicate), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
   {&__pyx_n_s_randrange, __pyx_k_randrange, sizeof(__pyx_k_randrange), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_rotate, __pyx_k_rotate, sizeof(__pyx_k_rotate), 0, 0, 1, 1},
   {&__pyx_n_s_round, __pyx_k_round, sizeof(__pyx_k_round), 0, 0, 1, 1},
   {&__pyx_n_s_send, __pyx_k_send, sizeof(__pyx_k_send), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_test_by_hash, __pyx_k_test_by_hash, sizeof(__pyx_k_test_by_hash), 0, 0, 1, 1},
+  {&__pyx_n_s_test_by_hash_locals_genexpr, __pyx_k_test_by_hash_locals_genexpr, sizeof(__pyx_k_test_by_hash_locals_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
+  {&__pyx_kp_s_vagrant_bloomfilter__bloomfilte, __pyx_k_vagrant_bloomfilter__bloomfilte, sizeof(__pyx_k_vagrant_bloomfilter__bloomfilte), 0, 0, 1, 0},
   {&__pyx_n_s_version, __pyx_k_version, sizeof(__pyx_k_version), 0, 0, 1, 1},
   {&__pyx_n_s_xrange, __pyx_k_xrange, sizeof(__pyx_k_xrange), 0, 0, 1, 1},
   {&__pyx_n_s_zlib, __pyx_k_zlib, sizeof(__pyx_k_zlib), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 34, __pyx_L1_error)
-  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) __PYX_ERR(0, 43, __pyx_L1_error)
   #if PY_MAJOR_VERSION >= 3
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) __PYX_ERR(0, 50, __pyx_L1_error)
   #else
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) __PYX_ERR(0, 50, __pyx_L1_error)
   #endif
-  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 51, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2781,60 +4711,72 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "bloomfilter/_bloomfilter.pyx":48
+  /* "bloomfilter/_bloomfilter.pyx":51
  *         acc = ''
  *         for i in xrange(hash_count):
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))             # <<<<<<<<<<<<<<
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_256); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_256); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "bloomfilter/_bloomfilter.pyx":23
+  /* "bloomfilter/_bloomfilter.pyx":26
  *         cdef long hash_count
  *         cdef long bit_count
  *         cdef double log2 = log(2.0)             # <<<<<<<<<<<<<<
  *         cdef double log_error_rate
  *         cdef cbloomfilter.CBloomFilter* cbf
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_float_2_0); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_float_2_0); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "bloomfilter/_bloomfilter.pyx":50
+  /* "bloomfilter/_bloomfilter.pyx":53
  *             random_string = "".join(chr(random.randrange(256)) for j in xrange(8))
  *             # we are using simplistic rehasher, so we better have pretty good seeds.
  *             hasher = hashlib.new('md5')             # <<<<<<<<<<<<<<
  *             hasher.update(random_string)
  *             acc += hasher.digest()
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_md5); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_md5); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "bloomfilter/_bloomfilter.pyx":99
+  /* "bloomfilter/_bloomfilter.pyx":102
  *         cbf.cbf = cbloomfilter.CBloomFilter_FromData(<char*> data, len(data))
  *         if cbf.cbf == NULL:
  *             raise ValueError("BloomFilter: serialized data are corrupted, or cannot allocate memory")             # <<<<<<<<<<<<<<
  *         return cbf
  * 
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_BloomFilter_serialized_data_are); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_BloomFilter_serialized_data_are); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "bloomfilter/_bloomfilter.pyx":13
+  /* "bloomfilter/_bloomfilter.pyx":168
+ *         predicate = self.add_by_hash
+ *         if key is not None:
+ *             def predicate(item):             # <<<<<<<<<<<<<<
+ *                 return self.add_by_hash(key(item))
+ * 
+ */
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_n_s_item); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_vagrant_bloomfilter__bloomfilte, __pyx_n_s_predicate, 168, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 168, __pyx_L1_error)
+
+  /* "bloomfilter/_bloomfilter.pyx":16
  * 
  * 
  * __version__ = (0, 1, 0)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_tuple__6 = PyTuple_Pack(3, __pyx_int_0, __pyx_int_1, __pyx_int_0); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__8 = PyTuple_Pack(3, __pyx_int_0, __pyx_int_1, __pyx_int_0); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2939,13 +4881,26 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __pyx_type_11bloomfilter_12_bloomfilter_BloomFilter.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "BloomFilter", (PyObject *)&__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "BloomFilter", (PyObject *)&__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter = &__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter;
-  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter_Rotating) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_type_11bloomfilter_12_bloomfilter_Rotating.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "Rotating", (PyObject *)&__pyx_type_11bloomfilter_12_bloomfilter_Rotating) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_ptype_11bloomfilter_12_bloomfilter_Rotating = &__pyx_type_11bloomfilter_12_bloomfilter_Rotating;
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr.tp_print = 0;
   __pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr = &__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr;
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash.tp_print = 0;
+  __pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash = &__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash;
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr.tp_print = 0;
+  __pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr = &__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr;
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup) < 0) __PYX_ERR(0, 164, __pyx_L1_error)
+  __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup.tp_print = 0;
+  __pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup = &__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
@@ -2958,8 +4913,8 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
  * '''Simple and fast implementation of Bloom filter'''
  * 
  * import base64             # <<<<<<<<<<<<<<
+ * from collections import deque
  * import hashlib
- * import random
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_base64, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2969,105 +4924,138 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
   /* "bloomfilter/_bloomfilter.pyx":4
  * 
  * import base64
- * import hashlib             # <<<<<<<<<<<<<<
- * import random
- * import zlib
+ * from collections import deque             # <<<<<<<<<<<<<<
+ * import hashlib
+ * import itertools
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_hashlib, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hashlib, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_deque);
+  __Pyx_GIVEREF(__pyx_n_s_deque);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_deque);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_collections, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_deque); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_deque, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "bloomfilter/_bloomfilter.pyx":5
  * import base64
+ * from collections import deque
+ * import hashlib             # <<<<<<<<<<<<<<
+ * import itertools
+ * import random
+ */
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_hashlib, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hashlib, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":6
+ * from collections import deque
  * import hashlib
+ * import itertools             # <<<<<<<<<<<<<<
+ * import random
+ * import zlib
+ */
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_itertools, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_itertools, __pyx_t_2) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "bloomfilter/_bloomfilter.pyx":7
+ * import hashlib
+ * import itertools
  * import random             # <<<<<<<<<<<<<<
  * import zlib
  * 
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_2) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "bloomfilter/_bloomfilter.pyx":6
- * import hashlib
+  /* "bloomfilter/_bloomfilter.pyx":8
+ * import itertools
  * import random
  * import zlib             # <<<<<<<<<<<<<<
  * 
  * cimport cython.math as math
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_zlib, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_zlib, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_zlib, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_zlib, __pyx_t_2) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "bloomfilter/_bloomfilter.pyx":9
+  /* "bloomfilter/_bloomfilter.pyx":11
  * 
  * cimport cython.math as math
  * from math import ceil, exp, log             # <<<<<<<<<<<<<<
  * cimport cbloomfilter
- * 
+ * from libc.stdint cimport uint64_t
  */
-  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_ceil);
   __Pyx_GIVEREF(__pyx_n_s_ceil);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_ceil);
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ceil);
   __Pyx_INCREF(__pyx_n_s_exp);
   __Pyx_GIVEREF(__pyx_n_s_exp);
-  PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_exp);
+  PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_exp);
   __Pyx_INCREF(__pyx_n_s_log);
   __Pyx_GIVEREF(__pyx_n_s_log);
-  PyList_SET_ITEM(__pyx_t_1, 2, __pyx_n_s_log);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_math, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_ceil); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_2, 2, __pyx_n_s_log);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_math, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ceil, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_exp); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_exp, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_log, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_ceil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ceil, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_exp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_exp, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_log); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_log, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "bloomfilter/_bloomfilter.pyx":13
+  /* "bloomfilter/_bloomfilter.pyx":16
  * 
  * 
  * __version__ = (0, 1, 0)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_tuple__6) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_tuple__8) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
 
-  /* "bloomfilter/_bloomfilter.pyx":92
+  /* "bloomfilter/_bloomfilter.pyx":95
  * 
  *     @classmethod
  *     def deserialize(self, serialized_filter):             # <<<<<<<<<<<<<<
  *         '''Create a filter from previously serialized data'''
  *         data = zlib.decompress(base64.b64decode(serialized_filter))
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter, __pyx_n_s_deserialize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter, __pyx_n_s_deserialize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
 
-  /* "bloomfilter/_bloomfilter.pyx":91
+  /* "bloomfilter/_bloomfilter.pyx":94
  *         return base64.b64encode(zlib.compress((<char*>self.cbf)[:self.byte_size], 9))
  * 
  *     @classmethod             # <<<<<<<<<<<<<<
  *     def deserialize(self, serialized_filter):
  *         '''Create a filter from previously serialized data'''
  */
-  __pyx_t_1 = __Pyx_Method_ClassMethod(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter->tp_dict, __pyx_n_s_deserialize, __pyx_t_1) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Method_ClassMethod(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter->tp_dict, __pyx_n_s_deserialize, __pyx_t_2) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter);
 
   /* "bloomfilter/_bloomfilter.pyx":1
@@ -3075,10 +5063,10 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
  * 
  * import base64
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /*--- Wrapped vars code ---*/
 
@@ -3678,8 +5666,664 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 }
 #endif
 
+/* PyObjectCallMethod1 */
+        static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
+    PyObject *method, *result = NULL;
+    method = __Pyx_PyObject_GetAttrStr(obj, method_name);
+    if (unlikely(!method)) goto bad;
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (likely(PyMethod_Check(method))) {
+        PyObject *self = PyMethod_GET_SELF(method);
+        if (likely(self)) {
+            PyObject *args;
+            PyObject *function = PyMethod_GET_FUNCTION(method);
+            args = PyTuple_New(2);
+            if (unlikely(!args)) goto bad;
+            Py_INCREF(self);
+            PyTuple_SET_ITEM(args, 0, self);
+            Py_INCREF(arg);
+            PyTuple_SET_ITEM(args, 1, arg);
+            Py_INCREF(function);
+            Py_DECREF(method); method = NULL;
+            result = __Pyx_PyObject_Call(function, args, NULL);
+            Py_DECREF(args);
+            Py_DECREF(function);
+            return result;
+        }
+    }
+#endif
+    result = __Pyx_PyObject_CallOneArg(method, arg);
+bad:
+    Py_XDECREF(method);
+    return result;
+}
+
+/* append */
+        static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
+    if (likely(PyList_CheckExact(L))) {
+        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
+    } else {
+        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
+        if (unlikely(!retval))
+            return -1;
+        Py_DECREF(retval);
+    }
+    return 0;
+}
+
+/* None */
+        static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname) {
+    PyErr_Format(PyExc_NameError, "free variable '%s' referenced before assignment in enclosing scope", varname);
+}
+
+/* FetchCommonType */
+        static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+    PyObject* fake_module;
+    PyTypeObject* cached_type = NULL;
+    fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
+    if (!fake_module) return NULL;
+    Py_INCREF(fake_module);
+    cached_type = (PyTypeObject*) PyObject_GetAttrString(fake_module, type->tp_name);
+    if (cached_type) {
+        if (!PyType_Check((PyObject*)cached_type)) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s is not a type object",
+                type->tp_name);
+            goto bad;
+        }
+        if (cached_type->tp_basicsize != type->tp_basicsize) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s has the wrong size, try recompiling",
+                type->tp_name);
+            goto bad;
+        }
+    } else {
+        if (!PyErr_ExceptionMatches(PyExc_AttributeError)) goto bad;
+        PyErr_Clear();
+        if (PyType_Ready(type) < 0) goto bad;
+        if (PyObject_SetAttrString(fake_module, type->tp_name, (PyObject*) type) < 0)
+            goto bad;
+        Py_INCREF(type);
+        cached_type = type;
+    }
+done:
+    Py_DECREF(fake_module);
+    return cached_type;
+bad:
+    Py_XDECREF(cached_type);
+    cached_type = NULL;
+    goto done;
+}
+
+/* CythonFunction */
+        static PyObject *
+__Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
+{
+    if (unlikely(op->func_doc == NULL)) {
+        if (op->func.m_ml->ml_doc) {
+#if PY_MAJOR_VERSION >= 3
+            op->func_doc = PyUnicode_FromString(op->func.m_ml->ml_doc);
+#else
+            op->func_doc = PyString_FromString(op->func.m_ml->ml_doc);
+#endif
+            if (unlikely(op->func_doc == NULL))
+                return NULL;
+        } else {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+    }
+    Py_INCREF(op->func_doc);
+    return op->func_doc;
+}
+static int
+__Pyx_CyFunction_set_doc(__pyx_CyFunctionObject *op, PyObject *value)
+{
+    PyObject *tmp = op->func_doc;
+    if (value == NULL) {
+        value = Py_None;
+    }
+    Py_INCREF(value);
+    op->func_doc = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_name(__pyx_CyFunctionObject *op)
+{
+    if (unlikely(op->func_name == NULL)) {
+#if PY_MAJOR_VERSION >= 3
+        op->func_name = PyUnicode_InternFromString(op->func.m_ml->ml_name);
+#else
+        op->func_name = PyString_InternFromString(op->func.m_ml->ml_name);
+#endif
+        if (unlikely(op->func_name == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_name);
+    return op->func_name;
+}
+static int
+__Pyx_CyFunction_set_name(__pyx_CyFunctionObject *op, PyObject *value)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value))) {
+#else
+    if (unlikely(value == NULL || !PyString_Check(value))) {
+#endif
+        PyErr_SetString(PyExc_TypeError,
+                        "__name__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_name;
+    Py_INCREF(value);
+    op->func_name = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_qualname(__pyx_CyFunctionObject *op)
+{
+    Py_INCREF(op->func_qualname);
+    return op->func_qualname;
+}
+static int
+__Pyx_CyFunction_set_qualname(__pyx_CyFunctionObject *op, PyObject *value)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value))) {
+#else
+    if (unlikely(value == NULL || !PyString_Check(value))) {
+#endif
+        PyErr_SetString(PyExc_TypeError,
+                        "__qualname__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_qualname;
+    Py_INCREF(value);
+    op->func_qualname = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_self(__pyx_CyFunctionObject *m, CYTHON_UNUSED void *closure)
+{
+    PyObject *self;
+    self = m->func_closure;
+    if (self == NULL)
+        self = Py_None;
+    Py_INCREF(self);
+    return self;
+}
+static PyObject *
+__Pyx_CyFunction_get_dict(__pyx_CyFunctionObject *op)
+{
+    if (unlikely(op->func_dict == NULL)) {
+        op->func_dict = PyDict_New();
+        if (unlikely(op->func_dict == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_dict);
+    return op->func_dict;
+}
+static int
+__Pyx_CyFunction_set_dict(__pyx_CyFunctionObject *op, PyObject *value)
+{
+    PyObject *tmp;
+    if (unlikely(value == NULL)) {
+        PyErr_SetString(PyExc_TypeError,
+               "function's dictionary may not be deleted");
+        return -1;
+    }
+    if (unlikely(!PyDict_Check(value))) {
+        PyErr_SetString(PyExc_TypeError,
+               "setting function's dictionary to a non-dict");
+        return -1;
+    }
+    tmp = op->func_dict;
+    Py_INCREF(value);
+    op->func_dict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_globals(__pyx_CyFunctionObject *op)
+{
+    Py_INCREF(op->func_globals);
+    return op->func_globals;
+}
+static PyObject *
+__Pyx_CyFunction_get_closure(CYTHON_UNUSED __pyx_CyFunctionObject *op)
+{
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+static PyObject *
+__Pyx_CyFunction_get_code(__pyx_CyFunctionObject *op)
+{
+    PyObject* result = (op->func_code) ? op->func_code : Py_None;
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_init_defaults(__pyx_CyFunctionObject *op) {
+    int result = 0;
+    PyObject *res = op->defaults_getter((PyObject *) op);
+    if (unlikely(!res))
+        return -1;
+    #if CYTHON_COMPILING_IN_CPYTHON
+    op->defaults_tuple = PyTuple_GET_ITEM(res, 0);
+    Py_INCREF(op->defaults_tuple);
+    op->defaults_kwdict = PyTuple_GET_ITEM(res, 1);
+    Py_INCREF(op->defaults_kwdict);
+    #else
+    op->defaults_tuple = PySequence_ITEM(res, 0);
+    if (unlikely(!op->defaults_tuple)) result = -1;
+    else {
+        op->defaults_kwdict = PySequence_ITEM(res, 1);
+        if (unlikely(!op->defaults_kwdict)) result = -1;
+    }
+    #endif
+    Py_DECREF(res);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_defaults(__pyx_CyFunctionObject *op, PyObject* value) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyTuple_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__defaults__ must be set to a tuple object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_tuple;
+    op->defaults_tuple = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_defaults(__pyx_CyFunctionObject *op) {
+    PyObject* result = op->defaults_tuple;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_tuple;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_kwdefaults(__pyx_CyFunctionObject *op, PyObject* value) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__kwdefaults__ must be set to a dict object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_kwdict;
+    op->defaults_kwdict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_kwdefaults(__pyx_CyFunctionObject *op) {
+    PyObject* result = op->defaults_kwdict;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_kwdict;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_annotations(__pyx_CyFunctionObject *op, PyObject* value) {
+    PyObject* tmp;
+    if (!value || value == Py_None) {
+        value = NULL;
+    } else if (!PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__annotations__ must be set to a dict object");
+        return -1;
+    }
+    Py_XINCREF(value);
+    tmp = op->func_annotations;
+    op->func_annotations = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_annotations(__pyx_CyFunctionObject *op) {
+    PyObject* result = op->func_annotations;
+    if (unlikely(!result)) {
+        result = PyDict_New();
+        if (unlikely(!result)) return NULL;
+        op->func_annotations = result;
+    }
+    Py_INCREF(result);
+    return result;
+}
+static PyGetSetDef __pyx_CyFunction_getsets[] = {
+    {(char *) "func_doc", (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "__doc__",  (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "func_name", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__name__", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__qualname__", (getter)__Pyx_CyFunction_get_qualname, (setter)__Pyx_CyFunction_set_qualname, 0, 0},
+    {(char *) "__self__", (getter)__Pyx_CyFunction_get_self, 0, 0, 0},
+    {(char *) "func_dict", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "__dict__", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "func_globals", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "__globals__", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "func_closure", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "__closure__", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "func_code", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "__code__", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "func_defaults", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__defaults__", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__kwdefaults__", (getter)__Pyx_CyFunction_get_kwdefaults, (setter)__Pyx_CyFunction_set_kwdefaults, 0, 0},
+    {(char *) "__annotations__", (getter)__Pyx_CyFunction_get_annotations, (setter)__Pyx_CyFunction_set_annotations, 0, 0},
+    {0, 0, 0, 0, 0}
+};
+static PyMemberDef __pyx_CyFunction_members[] = {
+    {(char *) "__module__", T_OBJECT, offsetof(__pyx_CyFunctionObject, func.m_module), PY_WRITE_RESTRICTED, 0},
+    {0, 0, 0,  0, 0}
+};
+static PyObject *
+__Pyx_CyFunction_reduce(__pyx_CyFunctionObject *m, CYTHON_UNUSED PyObject *args)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromString(m->func.m_ml->ml_name);
+#else
+    return PyString_FromString(m->func.m_ml->ml_name);
+#endif
+}
+static PyMethodDef __pyx_CyFunction_methods[] = {
+    {"__reduce__", (PyCFunction)__Pyx_CyFunction_reduce, METH_VARARGS, 0},
+    {0, 0, 0, 0}
+};
+#if PY_VERSION_HEX < 0x030500A0
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func_weakreflist)
+#else
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func.m_weakreflist)
+#endif
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *type, PyMethodDef *ml, int flags, PyObject* qualname,
+                                      PyObject *closure, PyObject *module, PyObject* globals, PyObject* code) {
+    __pyx_CyFunctionObject *op = PyObject_GC_New(__pyx_CyFunctionObject, type);
+    if (op == NULL)
+        return NULL;
+    op->flags = flags;
+    __Pyx_CyFunction_weakreflist(op) = NULL;
+    op->func.m_ml = ml;
+    op->func.m_self = (PyObject *) op;
+    Py_XINCREF(closure);
+    op->func_closure = closure;
+    Py_XINCREF(module);
+    op->func.m_module = module;
+    op->func_dict = NULL;
+    op->func_name = NULL;
+    Py_INCREF(qualname);
+    op->func_qualname = qualname;
+    op->func_doc = NULL;
+    op->func_classobj = NULL;
+    op->func_globals = globals;
+    Py_INCREF(op->func_globals);
+    Py_XINCREF(code);
+    op->func_code = code;
+    op->defaults_pyobjects = 0;
+    op->defaults = NULL;
+    op->defaults_tuple = NULL;
+    op->defaults_kwdict = NULL;
+    op->defaults_getter = NULL;
+    op->func_annotations = NULL;
+    PyObject_GC_Track(op);
+    return (PyObject *) op;
+}
+static int
+__Pyx_CyFunction_clear(__pyx_CyFunctionObject *m)
+{
+    Py_CLEAR(m->func_closure);
+    Py_CLEAR(m->func.m_module);
+    Py_CLEAR(m->func_dict);
+    Py_CLEAR(m->func_name);
+    Py_CLEAR(m->func_qualname);
+    Py_CLEAR(m->func_doc);
+    Py_CLEAR(m->func_globals);
+    Py_CLEAR(m->func_code);
+    Py_CLEAR(m->func_classobj);
+    Py_CLEAR(m->defaults_tuple);
+    Py_CLEAR(m->defaults_kwdict);
+    Py_CLEAR(m->func_annotations);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_XDECREF(pydefaults[i]);
+        PyObject_Free(m->defaults);
+        m->defaults = NULL;
+    }
+    return 0;
+}
+static void __Pyx_CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    PyObject_GC_UnTrack(m);
+    if (__Pyx_CyFunction_weakreflist(m) != NULL)
+        PyObject_ClearWeakRefs((PyObject *) m);
+    __Pyx_CyFunction_clear(m);
+    PyObject_GC_Del(m);
+}
+static int __Pyx_CyFunction_traverse(__pyx_CyFunctionObject *m, visitproc visit, void *arg)
+{
+    Py_VISIT(m->func_closure);
+    Py_VISIT(m->func.m_module);
+    Py_VISIT(m->func_dict);
+    Py_VISIT(m->func_name);
+    Py_VISIT(m->func_qualname);
+    Py_VISIT(m->func_doc);
+    Py_VISIT(m->func_globals);
+    Py_VISIT(m->func_code);
+    Py_VISIT(m->func_classobj);
+    Py_VISIT(m->defaults_tuple);
+    Py_VISIT(m->defaults_kwdict);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_VISIT(pydefaults[i]);
+    }
+    return 0;
+}
+static PyObject *__Pyx_CyFunction_descr_get(PyObject *func, PyObject *obj, PyObject *type)
+{
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    if (m->flags & __Pyx_CYFUNCTION_STATICMETHOD) {
+        Py_INCREF(func);
+        return func;
+    }
+    if (m->flags & __Pyx_CYFUNCTION_CLASSMETHOD) {
+        if (type == NULL)
+            type = (PyObject *)(Py_TYPE(obj));
+        return __Pyx_PyMethod_New(func, type, (PyObject *)(Py_TYPE(type)));
+    }
+    if (obj == Py_None)
+        obj = NULL;
+    return __Pyx_PyMethod_New(func, obj, type);
+}
+static PyObject*
+__Pyx_CyFunction_repr(__pyx_CyFunctionObject *op)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromFormat("<cyfunction %U at %p>",
+                                op->func_qualname, (void *)op);
+#else
+    return PyString_FromFormat("<cyfunction %s at %p>",
+                               PyString_AsString(op->func_qualname), (void *)op);
+#endif
+}
+#if CYTHON_COMPILING_IN_PYPY
+static PyObject * __Pyx_CyFunction_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyCFunctionObject* f = (PyCFunctionObject*)func;
+    PyCFunction meth = f->m_ml->ml_meth;
+    PyObject *self = f->m_self;
+    Py_ssize_t size;
+    switch (f->m_ml->ml_flags & (METH_VARARGS | METH_KEYWORDS | METH_NOARGS | METH_O)) {
+    case METH_VARARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0))
+            return (*meth)(self, arg);
+        break;
+    case METH_VARARGS | METH_KEYWORDS:
+        return (*(PyCFunctionWithKeywords)meth)(self, arg, kw);
+    case METH_NOARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 0))
+                return (*meth)(self, NULL);
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes no arguments (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    case METH_O:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 1)) {
+                PyObject *result, *arg0 = PySequence_ITEM(arg, 0);
+                if (unlikely(!arg0)) return NULL;
+                result = (*meth)(self, arg0);
+                Py_DECREF(arg0);
+                return result;
+            }
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes exactly one argument (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    default:
+        PyErr_SetString(PyExc_SystemError, "Bad call flags in "
+                        "__Pyx_CyFunction_Call. METH_OLDARGS is no "
+                        "longer supported!");
+        return NULL;
+    }
+    PyErr_Format(PyExc_TypeError, "%.200s() takes no keyword arguments",
+                 f->m_ml->ml_name);
+    return NULL;
+}
+#else
+static PyObject * __Pyx_CyFunction_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+	return PyCFunction_Call(func, arg, kw);
+}
+#endif
+static PyTypeObject __pyx_CyFunctionType_type = {
+    PyVarObject_HEAD_INIT(0, 0)
+    "cython_function_or_method",
+    sizeof(__pyx_CyFunctionObject),
+    0,
+    (destructor) __Pyx_CyFunction_dealloc,
+    0,
+    0,
+    0,
+#if PY_MAJOR_VERSION < 3
+    0,
+#else
+    0,
+#endif
+    (reprfunc) __Pyx_CyFunction_repr,
+    0,
+    0,
+    0,
+    0,
+    __Pyx_CyFunction_Call,
+    0,
+    0,
+    0,
+    0,
+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,
+    0,
+    (traverseproc) __Pyx_CyFunction_traverse,
+    (inquiry) __Pyx_CyFunction_clear,
+    0,
+#if PY_VERSION_HEX < 0x030500A0
+    offsetof(__pyx_CyFunctionObject, func_weakreflist),
+#else
+    offsetof(PyCFunctionObject, m_weakreflist),
+#endif
+    0,
+    0,
+    __pyx_CyFunction_methods,
+    __pyx_CyFunction_members,
+    __pyx_CyFunction_getsets,
+    0,
+    0,
+    __Pyx_CyFunction_descr_get,
+    0,
+    offsetof(__pyx_CyFunctionObject, func_dict),
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+#if PY_VERSION_HEX >= 0x030400a1
+    0,
+#endif
+};
+static int __pyx_CyFunction_init(void) {
+#if !CYTHON_COMPILING_IN_PYPY
+    __pyx_CyFunctionType_type.tp_call = PyCFunction_Call;
+#endif
+    __pyx_CyFunctionType = __Pyx_FetchCommonType(&__pyx_CyFunctionType_type);
+    if (__pyx_CyFunctionType == NULL) {
+        return -1;
+    }
+    return 0;
+}
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *func, size_t size, int pyobjects) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults = PyObject_Malloc(size);
+    if (!m->defaults)
+        return PyErr_NoMemory();
+    memset(m->defaults, 0, size);
+    m->defaults_pyobjects = pyobjects;
+    return m->defaults;
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *func, PyObject *tuple) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_tuple = tuple;
+    Py_INCREF(tuple);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_kwdict = dict;
+    Py_INCREF(dict);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->func_annotations = dict;
+    Py_INCREF(dict);
+}
+
 /* Import */
-        static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+            static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
     PyObject *empty_list = 0;
     PyObject *module = 0;
     PyObject *global_dict = 0;
@@ -3753,7 +6397,7 @@ bad:
 }
 
 /* ImportFrom */
-        static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
+            static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
     PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
     if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
         PyErr_Format(PyExc_ImportError,
@@ -3767,7 +6411,7 @@ bad:
 }
 
 /* GetNameInClass */
-        static PyObject *__Pyx_GetNameInClass(PyObject *nmspace, PyObject *name) {
+            static PyObject *__Pyx_GetNameInClass(PyObject *nmspace, PyObject *name) {
     PyObject *result;
     result = __Pyx_PyObject_GetAttrStr(nmspace, name);
     if (!result)
@@ -3776,7 +6420,7 @@ bad:
 }
 
 /* CodeObjectCache */
-        static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
+            static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
     if (end >= 0 && code_line > entries[end].code_line) {
         return count;
@@ -3856,7 +6500,7 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object) {
 }
 
 /* AddTraceback */
-        #include "compile.h"
+            #include "compile.h"
 #include "frameobject.h"
 #include "traceback.h"
 static PyCodeObject* __Pyx_CreateCodeObjectForTraceback(
@@ -3937,7 +6581,7 @@ bad:
 }
 
 /* CIntToPy */
-        static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -3964,7 +6608,7 @@ bad:
 }
 
 /* CIntFromPyVerify */
-        #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
+            #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
 #define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
@@ -3986,7 +6630,7 @@ bad:
     }
 
 /* CIntToPy */
-        static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -4012,8 +6656,35 @@ bad:
     }
 }
 
+/* CIntToPy */
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_uint64_t(uint64_t value) {
+    const uint64_t neg_one = (uint64_t) -1, const_zero = (uint64_t) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(uint64_t) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(uint64_t) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(uint64_t) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+        }
+    } else {
+        if (sizeof(uint64_t) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(uint64_t) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(uint64_t),
+                                     little, !is_unsigned);
+    }
+}
+
 /* ClassMethod */
-        static PyObject* __Pyx_Method_ClassMethod(PyObject *method) {
+            static PyObject* __Pyx_Method_ClassMethod(PyObject *method) {
 #if CYTHON_COMPILING_IN_PYPY
     if (PyObject_TypeCheck(method, &PyWrapperDescr_Type)) {
         return PyClassMethod_New(method);
@@ -4054,7 +6725,7 @@ bad:
 }
 
 /* CIntFromPy */
-        static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
+            static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -4239,7 +6910,192 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-        static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
+            static CYTHON_INLINE uint64_t __Pyx_PyInt_As_uint64_t(PyObject *x) {
+    const uint64_t neg_one = (uint64_t) -1, const_zero = (uint64_t) 0;
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(uint64_t) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(uint64_t, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (uint64_t) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (uint64_t) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(uint64_t, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(uint64_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) >= 2 * PyLong_SHIFT) {
+                            return (uint64_t) (((((uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(uint64_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) >= 3 * PyLong_SHIFT) {
+                            return (uint64_t) (((((((uint64_t)digits[2]) << PyLong_SHIFT) | (uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(uint64_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) >= 4 * PyLong_SHIFT) {
+                            return (uint64_t) (((((((((uint64_t)digits[3]) << PyLong_SHIFT) | (uint64_t)digits[2]) << PyLong_SHIFT) | (uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (uint64_t) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(uint64_t) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(uint64_t, unsigned long, PyLong_AsUnsignedLong(x))
+            } else if (sizeof(uint64_t) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(uint64_t, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (uint64_t) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(uint64_t, sdigit, (sdigit) (-(sdigit)digits[0]))
+                case  1: __PYX_VERIFY_RETURN_INT(uint64_t,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(uint64_t) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (uint64_t) (((uint64_t)-1)*(((((uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(uint64_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (uint64_t) ((((((uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(uint64_t) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (uint64_t) (((uint64_t)-1)*(((((((uint64_t)digits[2]) << PyLong_SHIFT) | (uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(uint64_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (uint64_t) ((((((((uint64_t)digits[2]) << PyLong_SHIFT) | (uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(uint64_t) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (uint64_t) (((uint64_t)-1)*(((((((((uint64_t)digits[3]) << PyLong_SHIFT) | (uint64_t)digits[2]) << PyLong_SHIFT) | (uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(uint64_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(uint64_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(uint64_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (uint64_t) ((((((((((uint64_t)digits[3]) << PyLong_SHIFT) | (uint64_t)digits[2]) << PyLong_SHIFT) | (uint64_t)digits[1]) << PyLong_SHIFT) | (uint64_t)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(uint64_t) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(uint64_t, long, PyLong_AsLong(x))
+            } else if (sizeof(uint64_t) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(uint64_t, PY_LONG_LONG, PyLong_AsLongLong(x))
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            uint64_t val;
+            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (uint64_t) -1;
+        }
+    } else {
+        uint64_t val;
+        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
+        if (!tmp) return (uint64_t) -1;
+        val = __Pyx_PyInt_As_uint64_t(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to uint64_t");
+    return (uint64_t) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to uint64_t");
+    return (uint64_t) -1;
+}
+
+/* CIntFromPy */
+            static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -4423,47 +7279,8 @@ raise_neg_overflow:
     return (int) -1;
 }
 
-/* FetchCommonType */
-        static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
-    PyObject* fake_module;
-    PyTypeObject* cached_type = NULL;
-    fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
-    if (!fake_module) return NULL;
-    Py_INCREF(fake_module);
-    cached_type = (PyTypeObject*) PyObject_GetAttrString(fake_module, type->tp_name);
-    if (cached_type) {
-        if (!PyType_Check((PyObject*)cached_type)) {
-            PyErr_Format(PyExc_TypeError,
-                "Shared Cython type %.200s is not a type object",
-                type->tp_name);
-            goto bad;
-        }
-        if (cached_type->tp_basicsize != type->tp_basicsize) {
-            PyErr_Format(PyExc_TypeError,
-                "Shared Cython type %.200s has the wrong size, try recompiling",
-                type->tp_name);
-            goto bad;
-        }
-    } else {
-        if (!PyErr_ExceptionMatches(PyExc_AttributeError)) goto bad;
-        PyErr_Clear();
-        if (PyType_Ready(type) < 0) goto bad;
-        if (PyObject_SetAttrString(fake_module, type->tp_name, (PyObject*) type) < 0)
-            goto bad;
-        Py_INCREF(type);
-        cached_type = type;
-    }
-done:
-    Py_DECREF(fake_module);
-    return cached_type;
-bad:
-    Py_XDECREF(cached_type);
-    cached_type = NULL;
-    goto done;
-}
-
 /* SwapException */
-        #if CYTHON_COMPILING_IN_CPYTHON
+            #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
     PyObject *tmp_type, *tmp_value, *tmp_tb;
     tmp_type = tstate->exc_type;
@@ -4487,40 +7304,8 @@ static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value,
 }
 #endif
 
-/* PyObjectCallMethod1 */
-        static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
-    PyObject *method, *result = NULL;
-    method = __Pyx_PyObject_GetAttrStr(obj, method_name);
-    if (unlikely(!method)) goto bad;
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (likely(PyMethod_Check(method))) {
-        PyObject *self = PyMethod_GET_SELF(method);
-        if (likely(self)) {
-            PyObject *args;
-            PyObject *function = PyMethod_GET_FUNCTION(method);
-            args = PyTuple_New(2);
-            if (unlikely(!args)) goto bad;
-            Py_INCREF(self);
-            PyTuple_SET_ITEM(args, 0, self);
-            Py_INCREF(arg);
-            PyTuple_SET_ITEM(args, 1, arg);
-            Py_INCREF(function);
-            Py_DECREF(method); method = NULL;
-            result = __Pyx_PyObject_Call(function, args, NULL);
-            Py_DECREF(args);
-            Py_DECREF(function);
-            return result;
-        }
-    }
-#endif
-    result = __Pyx_PyObject_CallOneArg(method, arg);
-bad:
-    Py_XDECREF(method);
-    return result;
-}
-
 /* CoroutineBase */
-        #include <structmember.h>
+            #include <structmember.h>
 #include <frameobject.h>
 static PyObject *__Pyx_Coroutine_Send(PyObject *self, PyObject *value);
 static PyObject *__Pyx_Coroutine_Close(PyObject *self);
@@ -5044,7 +7829,7 @@ static __pyx_CoroutineObject *__Pyx__Coroutine_New(PyTypeObject* type, __pyx_cor
 }
 
 /* PatchModuleWithCoroutine */
-            static PyObject* __Pyx_Coroutine_patch_module(PyObject* module, const char* py_code) {
+                static PyObject* __Pyx_Coroutine_patch_module(PyObject* module, const char* py_code) {
 #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
     int result;
     PyObject *globals, *result_obj;
@@ -5084,7 +7869,7 @@ ignore:
 }
 
 /* PatchGeneratorABC */
-            #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
+                #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
 static PyObject* __Pyx_patch_abc_module(PyObject *module);
 static PyObject* __Pyx_patch_abc_module(PyObject *module) {
     module = __Pyx_Coroutine_patch_module(
@@ -5138,7 +7923,7 @@ static int __Pyx_patch_abc(void) {
 }
 
 /* Generator */
-            static PyMethodDef __pyx_Generator_methods[] = {
+                static PyMethodDef __pyx_Generator_methods[] = {
     {"send", (PyCFunction) __Pyx_Coroutine_Send, METH_O,
      (char*) PyDoc_STR("send(arg) -> send 'arg' into generator,\nreturn next yielded value or raise StopIteration.")},
     {"throw", (PyCFunction) __Pyx_Coroutine_Throw, METH_VARARGS,
@@ -5227,7 +8012,7 @@ static int __pyx_Generator_init(void) {
 }
 
 /* CheckBinaryVersion */
-            static int __Pyx_check_binary_version(void) {
+                static int __Pyx_check_binary_version(void) {
     char ctversion[4], rtversion[4];
     PyOS_snprintf(ctversion, 4, "%d.%d", PY_MAJOR_VERSION, PY_MINOR_VERSION);
     PyOS_snprintf(rtversion, 4, "%s", Py_GetVersion());
@@ -5243,7 +8028,7 @@ static int __pyx_Generator_init(void) {
 }
 
 /* InitStrings */
-            static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
+                static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
     while (t->p) {
         #if PY_MAJOR_VERSION < 3
         if (t->is_unicode) {

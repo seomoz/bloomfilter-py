@@ -2,8 +2,8 @@ bloomfilter-py
 ==============
 ![Status: Incubating](https://img.shields.io/badge/status-incubating-blue.svg?style=flat)
 ![Team: Big Data](https://img.shields.io/badge/team-big_data-green.svg?style=flat)
-![Scope: Internal](https://img.shields.io/badge/scope-internal-green.svg?style=flat)
-![Open Source: No](https://img.shields.io/badge/open_source-no-red.svg?style=flat)
+![Scope: External](https://img.shields.io/badge/scope-external-green.svg?style=flat)
+![Open Source: Yes](https://img.shields.io/badge/open_source-MIT-green.svg?style=flat)
 ![Critical: Yes](https://img.shields.io/badge/critical-yes-red.svg?style=flat)
 ![Replaces: pybloomfiltermmap](https://img.shields.io/badge/replaces-pybloomfiltermmap-blue.svg?style=flat)
 
@@ -17,14 +17,14 @@ Goals
     of unused functionality, and virtually not maintained. Fixing the bugs might
     be obstructed by the data compatibility requirements (e.g., those that we do
     not have at all).
-    
+
     We can considerably simplify things by implementing core functionality and
     taking responsibility for maintenance.
 
 1. Align with development process.
 
     * Ensure coding standard compliance (on all levels).
-    
+
     * Use standard `Vagrant` / `make` based workflow.
 
 
@@ -43,7 +43,7 @@ bf.add_by_hash(u'def')
 assert bf.test_by_hash('abc')
 assert bf.test_by_hash(u'def')
 
-# Because in Python `'abc' == u'abc'`, 
+# Because in Python `'abc' == u'abc'`,
 # this means the following are also true:
 assert bf.test_by_hash(u'abc')
 assert bf.test_by_hash('def')
@@ -89,7 +89,7 @@ Tests are run with the top-level `Makefile`:
 make test
 ```
 
-It is also possible to run then as 
+It is also possible to run then as
 
 ```bash
 python setup.py test

@@ -1,6 +1,7 @@
 #ifndef CBLOOMFILTER__H
 #define CBLOOMFILTER__H
 
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -80,27 +81,27 @@ void CBloomFilter_Destroy(CBloomFilter* filter)
     free(filter);
 }
 
-int  CBloomFilter_AddHash(CBloomFilter* filter, uint64_t hash64)
+bool CBloomFilter_AddHash(CBloomFilter* filter, uint64_t hash64)
 {
     uint64_t hash_count = filter->hash_count;
     uint64_t bit_count = filter->bit_count;
     uint64_t* bits = bits_array(filter);
     uint64_t* seeds = seeds_array(filter);
     int ix;
-    uint64_t added = 0;
+    bool already_in_filter = true;
 
     for (ix = 0; ix < hash_count; ++ix) {
         uint64_t hash = rehash(seeds[ix], hash64) % bit_count;
         uint64_t mask = ((uint64_t)1) << (hash % BITS_PER_WORD);
-        uint64_t bit = (bits[hash / BITS_PER_WORD] & mask) >> (hash % BITS_PER_WORD);
-        added = bit ? added : 1;
-        bits[hash / BITS_PER_WORD] |= mask;
+        uint64_t* pword = &bits[hash / BITS_PER_WORD];
+        already_in_filter = already_in_filter && (*pword & mask);
+        *pword |= mask;
     }
 
-    return added ? 1 : 0;
+    return !already_in_filter;
 }
 
-int  CBloomFilter_TestHash(CBloomFilter* filter, uint64_t hash64)
+bool CBloomFilter_TestHash(CBloomFilter* filter, uint64_t hash64)
 {
     uint64_t hash_count = filter->hash_count;
     uint64_t bit_count = filter->bit_count;
@@ -114,11 +115,11 @@ int  CBloomFilter_TestHash(CBloomFilter* filter, uint64_t hash64)
             continue;
         }
         else {
-            return 0;
+            return false;
         }
 
     }
-    return 1;
+    return true;
 }
 
 size_t CBloomFilter_ByteSize(CBloomFilter* filter)

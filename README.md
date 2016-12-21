@@ -72,16 +72,23 @@ Development is done in `vagrant`. To launch the `vagrant` image, we only need to
 vagrant up
 ```
 
-With a running `vagrant` instance, you can log in and run tests:
+Teleport to `vagrant` VM:
 
 ```bash
 vagrant ssh
+```
+
+With a running `vagrant` instance, you can log in and run tests:
+
+```bash
 cd /vagrant
+
+source venv/bin/activate
 
 make test
 ```
 
-Running Tests
+Running Tests & checks
 -------------
 Tests are run with the top-level `Makefile`:
 
@@ -89,7 +96,13 @@ Tests are run with the top-level `Makefile`:
 make test
 ```
 
-It is also possible to run then as
+Code style checks:
+
+```bash
+make lint
+```
+
+It is also possible to run tests as
 
 ```bash
 python setup.py test

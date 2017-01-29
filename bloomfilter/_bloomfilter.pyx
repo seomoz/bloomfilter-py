@@ -113,7 +113,7 @@ cdef class BloomFilter:
         return (<char*>self.cbf)[:self.byte_size]
 
 
-cdef class Rotating:
+cdef class RotatingBloomFilter:
     '''
     Use `count` bloom filters, each configured with `capacity` and `error`. As the
     combined capacity is reached, the oldest bloom filter is removed and a new one is

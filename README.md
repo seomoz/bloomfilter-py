@@ -1,5 +1,7 @@
 bloomfilter-py
 ==============
+[![Build Status](https://travis-ci.org/seomoz/bloomfilter-py.svg?branch=master)](https://travis-ci.org/seomoz/bloomfilter-py)
+
 ![Status: Incubating](https://img.shields.io/badge/status-incubating-blue.svg?style=flat)
 ![Team: Big Data](https://img.shields.io/badge/team-big_data-green.svg?style=flat)
 ![Scope: External](https://img.shields.io/badge/scope-external-green.svg?style=flat)
@@ -31,6 +33,8 @@ Goals
 Usage
 =====
 
+### Simple Bloom filter:
+
 ```py
 from bloomfilter import BloomFilter
 
@@ -59,6 +63,36 @@ assert new_bf.test_by_hash(u'abc')
 assert new_bf.test_by_hash('def')
 ```
 
+### Rotating Bloom filter:
+
+Rotating bloom filter exposes the same interface as a simple one. It is
+better suited for data streaming applications, when number of tests is
+practically unlimited. To handle the situation, up to `count` simple
+filters are created. Only the last created filter is updated, but all
+the filters are checked. Once the last filter reaches its capacity, the
+oldest one is removed, and a new one is created. So, unlike simple bloom
+filter, the rotating bloom filter check against last `count * capacity`
+samples, not against all in its history.
+
+For now, rotating bloom filters cannot be serialized/deserialized.
+
+```py
+from bloomfilter import RotatingBloomFilter
+
+# basic use
+bf = RotatingBloomFilter(capacity=100, error_rate=1e-4, count=3)
+
+bf.add_by_hash('abc')
+bf.add_by_hash(u'def')
+
+assert bf.test_by_hash('abc')
+assert bf.test_by_hash(u'def')
+
+# Because in Python `'abc' == u'abc'`,
+# this means the following are also true:
+assert bf.test_by_hash(u'abc')
+assert bf.test_by_hash('def')
+```
 
 Development
 ===========

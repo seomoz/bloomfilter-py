@@ -1,6 +1,7 @@
 '''package bloomfilter'''
 
-from ._bloomfilter import BloomFilter, Rotating  # pylint: disable=no-name-in-module
+# pylint: disable=no-name-in-module
+from ._bloomfilter import BloomFilter, RotatingBloomFilter
 
 
-__all__ = ['BloomFilter', 'Rotating']
+__all__ = ['BloomFilter', 'RotatingBloomFilter']

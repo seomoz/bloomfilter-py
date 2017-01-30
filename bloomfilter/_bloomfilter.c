@@ -748,28 +748,41 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
 #define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
 #endif
 
-/* ListAppend.proto */
+/* PyObjectCallMethod0.proto */
+static PyObject* __Pyx_PyObject_CallMethod0(PyObject* obj, PyObject* method_name);
+
+/* pop.proto */
+static CYTHON_INLINE PyObject* __Pyx__PyObject_Pop(PyObject* L);
 #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
-    PyListObject* L = (PyListObject*) list;
-    Py_ssize_t len = Py_SIZE(list);
-    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
-        Py_INCREF(x);
-        PyList_SET_ITEM(list, len, x);
-        Py_SIZE(list) = len+1;
-        return 0;
-    }
-    return PyList_Append(list, x);
-}
+static CYTHON_INLINE PyObject* __Pyx_PyList_Pop(PyObject* L);
+#define __Pyx_PyObject_Pop(L) (likely(PyList_CheckExact(L)) ?\
+    __Pyx_PyList_Pop(L) : __Pyx__PyObject_Pop(L))
 #else
-#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
+#define __Pyx_PyList_Pop(L)  __Pyx__PyObject_Pop(L)
+#define __Pyx_PyObject_Pop(L)  __Pyx__PyObject_Pop(L)
 #endif
 
-/* PyObjectCallMethod1.proto */
-static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
+/* UnpackUnboundCMethod.proto */
+typedef struct {
+    PyObject *type;
+    PyObject **method_name;
+    PyCFunction func;
+    PyObject *method;
+    int flag;
+} __Pyx_CachedCFunction;
 
-/* append.proto */
-static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
+/* CallUnboundCMethod0.proto */
+static PyObject* __Pyx__CallUnboundCMethod0(__Pyx_CachedCFunction* cfunc, PyObject* self);
+#if CYTHON_COMPILING_IN_CPYTHON
+#define __Pyx_CallUnboundCMethod0(cfunc, self)\
+    ((likely((cfunc)->func)) ?\
+        (likely((cfunc)->flag == METH_NOARGS) ?  (*((cfunc)->func))(self, NULL) :\
+         (likely((cfunc)->flag == (METH_VARARGS | METH_KEYWORDS)) ?  ((*(PyCFunctionWithKeywords)(cfunc)->func)(self, __pyx_empty_tuple, NULL)) :\
+             ((cfunc)->flag == METH_VARARGS ?  (*((cfunc)->func))(self, __pyx_empty_tuple) : __Pyx__CallUnboundCMethod0(cfunc, self)))) :\
+        __Pyx__CallUnboundCMethod0(cfunc, self))
+#else
+#define __Pyx_CallUnboundCMethod0(cfunc, self)  __Pyx__CallUnboundCMethod0(cfunc, self)
+#endif
 
 /* None.proto */
 static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname);
@@ -892,6 +905,9 @@ static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject *
 static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
 #endif
 
+/* PyObjectCallMethod1.proto */
+static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
+
 /* CoroutineBase.proto */
 typedef PyObject *(*__pyx_coroutine_body_t)(PyObject *, PyObject *);
 typedef struct {
@@ -966,6 +982,7 @@ static const char __pyx_k_key[] = "key";
 static const char __pyx_k_log[] = "log";
 static const char __pyx_k_md5[] = "md5";
 static const char __pyx_k_new[] = "new";
+static const char __pyx_k_pop[] = "pop";
 static const char __pyx_k_args[] = "args";
 static const char __pyx_k_ceil[] = "ceil";
 static const char __pyx_k_item[] = "item";
@@ -983,7 +1000,6 @@ static const char __pyx_k_items[] = "items";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_round[] = "round";
 static const char __pyx_k_throw[] = "throw";
-static const char __pyx_k_append[] = "append";
 static const char __pyx_k_base64[] = "base64";
 static const char __pyx_k_digest[] = "digest";
 static const char __pyx_k_import[] = "__import__";
@@ -994,7 +1010,6 @@ static const char __pyx_k_xrange[] = "xrange";
 static const char __pyx_k_genexpr[] = "genexpr";
 static const char __pyx_k_hashlib[] = "hashlib";
 static const char __pyx_k_ifilter[] = "ifilter";
-static const char __pyx_k_popleft[] = "popleft";
 static const char __pyx_k_version[] = "__version__";
 static const char __pyx_k_capacity[] = "capacity";
 static const char __pyx_k_compress[] = "compress";
@@ -1005,6 +1020,7 @@ static const char __pyx_k_itertools[] = "itertools";
 static const char __pyx_k_predicate[] = "predicate";
 static const char __pyx_k_randrange[] = "randrange";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_appendleft[] = "appendleft";
 static const char __pyx_k_decompress[] = "decompress";
 static const char __pyx_k_error_rate[] = "error_rate";
 static const char __pyx_k_add_by_hash[] = "add_by_hash";
@@ -1028,7 +1044,7 @@ static PyObject *__pyx_kp_s_BloomFilter_serialized_data_are;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_s__3;
 static PyObject *__pyx_n_s_add_by_hash;
-static PyObject *__pyx_n_s_append;
+static PyObject *__pyx_n_s_appendleft;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_b64decode;
 static PyObject *__pyx_n_s_b64encode;
@@ -1065,7 +1081,7 @@ static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_math;
 static PyObject *__pyx_n_s_md5;
 static PyObject *__pyx_n_s_new;
-static PyObject *__pyx_n_s_popleft;
+static PyObject *__pyx_n_s_pop;
 static PyObject *__pyx_n_s_predicate;
 static PyObject *__pyx_n_s_random;
 static PyObject *__pyx_n_s_randrange;
@@ -1107,6 +1123,7 @@ static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct__g
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static __Pyx_CachedCFunction __pyx_umethod_PyList_Type_pop = {0, &__pyx_n_s_pop, 0, 0, 0};
 static PyObject *__pyx_float_2_0;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
@@ -3008,7 +3025,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2ro
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
-  int __pyx_t_4;
+  PyObject *__pyx_t_4 = NULL;
   Py_ssize_t __pyx_t_5;
   int __pyx_t_6;
   uint64_t __pyx_t_7;
@@ -3018,7 +3035,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2ro
  *     def rotate(self):
  *         '''Add a new bloom filter to our deque and remove any old bloom filters.'''
  *         self.bloom = BloomFilter(self.capacity, self.error_rate)             # <<<<<<<<<<<<<<
- *         self.blooms.append(self.bloom)
+ *         self.blooms.appendleft(self.bloom)
  *         while len(self.blooms) > self.count:
  */
   __pyx_t_1 = __Pyx_PyInt_From_uint64_t(__pyx_v_self->capacity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
@@ -3045,17 +3062,44 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2ro
   /* "bloomfilter/_bloomfilter.pyx":149
  *         '''Add a new bloom filter to our deque and remove any old bloom filters.'''
  *         self.bloom = BloomFilter(self.capacity, self.error_rate)
- *         self.blooms.append(self.bloom)             # <<<<<<<<<<<<<<
+ *         self.blooms.appendleft(self.bloom)             # <<<<<<<<<<<<<<
  *         while len(self.blooms) > self.count:
- *             self.blooms.popleft()
+ *             self.blooms.pop()
  */
-  __pyx_t_4 = __Pyx_PyObject_Append(__pyx_v_self->blooms, __pyx_v_self->bloom); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->blooms, __pyx_n_s_appendleft); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_1)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  if (!__pyx_t_1) {
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_self->bloom); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+  } else {
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1); __pyx_t_1 = NULL;
+    __Pyx_INCREF(__pyx_v_self->bloom);
+    __Pyx_GIVEREF(__pyx_v_self->bloom);
+    PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_self->bloom);
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "bloomfilter/_bloomfilter.pyx":150
  *         self.bloom = BloomFilter(self.capacity, self.error_rate)
- *         self.blooms.append(self.bloom)
+ *         self.blooms.appendleft(self.bloom)
  *         while len(self.blooms) > self.count:             # <<<<<<<<<<<<<<
- *             self.blooms.popleft()
+ *             self.blooms.pop()
  *         self.remaining = self.capacity
  */
   while (1) {
@@ -3067,38 +3111,20 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2ro
     if (!__pyx_t_6) break;
 
     /* "bloomfilter/_bloomfilter.pyx":151
- *         self.blooms.append(self.bloom)
+ *         self.blooms.appendleft(self.bloom)
  *         while len(self.blooms) > self.count:
- *             self.blooms.popleft()             # <<<<<<<<<<<<<<
+ *             self.blooms.pop()             # <<<<<<<<<<<<<<
  *         self.remaining = self.capacity
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->blooms, __pyx_n_s_popleft); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = NULL;
-    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-        __Pyx_INCREF(__pyx_t_1);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_3, function);
-      }
-    }
-    if (__pyx_t_1) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    } else {
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
-    }
+    __pyx_t_2 = __Pyx_PyObject_Pop(__pyx_v_self->blooms); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
   /* "bloomfilter/_bloomfilter.pyx":152
  *         while len(self.blooms) > self.count:
- *             self.blooms.popleft()
+ *             self.blooms.pop()
  *         self.remaining = self.capacity             # <<<<<<<<<<<<<<
  * 
  *     def add_by_hash(self, x):
@@ -3121,6 +3147,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2ro
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.rotate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -4637,7 +4664,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
   {&__pyx_n_s_add_by_hash, __pyx_k_add_by_hash, sizeof(__pyx_k_add_by_hash), 0, 0, 1, 1},
-  {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
+  {&__pyx_n_s_appendleft, __pyx_k_appendleft, sizeof(__pyx_k_appendleft), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_b64decode, __pyx_k_b64decode, sizeof(__pyx_k_b64decode), 0, 0, 1, 1},
   {&__pyx_n_s_b64encode, __pyx_k_b64encode, sizeof(__pyx_k_b64encode), 0, 0, 1, 1},
@@ -4674,7 +4701,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_math, __pyx_k_math, sizeof(__pyx_k_math), 0, 0, 1, 1},
   {&__pyx_n_s_md5, __pyx_k_md5, sizeof(__pyx_k_md5), 0, 0, 1, 1},
   {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
-  {&__pyx_n_s_popleft, __pyx_k_popleft, sizeof(__pyx_k_popleft), 0, 0, 1, 1},
+  {&__pyx_n_s_pop, __pyx_k_pop, sizeof(__pyx_k_pop), 0, 0, 1, 1},
   {&__pyx_n_s_predicate, __pyx_k_predicate, sizeof(__pyx_k_predicate), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
   {&__pyx_n_s_randrange, __pyx_k_randrange, sizeof(__pyx_k_randrange), 0, 0, 1, 1},
@@ -4785,6 +4812,7 @@ static int __Pyx_InitCachedConstants(void) {
 }
 
 static int __Pyx_InitGlobals(void) {
+  __pyx_umethod_PyList_Type_pop.type = (PyObject*)&PyList_Type;
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_float_2_0 = PyFloat_FromDouble(2.0); if (unlikely(!__pyx_float_2_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -5666,8 +5694,8 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 }
 #endif
 
-/* PyObjectCallMethod1 */
-        static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
+/* PyObjectCallMethod0 */
+        static PyObject* __Pyx_PyObject_CallMethod0(PyObject* obj, PyObject* method_name) {
     PyObject *method, *result = NULL;
     method = __Pyx_PyObject_GetAttrStr(obj, method_name);
     if (unlikely(!method)) goto bad;
@@ -5675,41 +5703,76 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
     if (likely(PyMethod_Check(method))) {
         PyObject *self = PyMethod_GET_SELF(method);
         if (likely(self)) {
-            PyObject *args;
             PyObject *function = PyMethod_GET_FUNCTION(method);
-            args = PyTuple_New(2);
-            if (unlikely(!args)) goto bad;
-            Py_INCREF(self);
-            PyTuple_SET_ITEM(args, 0, self);
-            Py_INCREF(arg);
-            PyTuple_SET_ITEM(args, 1, arg);
-            Py_INCREF(function);
-            Py_DECREF(method); method = NULL;
-            result = __Pyx_PyObject_Call(function, args, NULL);
-            Py_DECREF(args);
-            Py_DECREF(function);
+            result = __Pyx_PyObject_CallOneArg(function, self);
+            Py_DECREF(method);
             return result;
         }
     }
 #endif
-    result = __Pyx_PyObject_CallOneArg(method, arg);
+    result = __Pyx_PyObject_CallNoArg(method);
+    Py_DECREF(method);
 bad:
-    Py_XDECREF(method);
     return result;
 }
 
-/* append */
-        static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
-    if (likely(PyList_CheckExact(L))) {
-        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
-    } else {
-        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
-        if (unlikely(!retval))
-            return -1;
-        Py_DECREF(retval);
+/* UnpackUnboundCMethod */
+        static int __Pyx_TryUnpackUnboundCMethod(__Pyx_CachedCFunction* target) {
+    PyObject *method;
+    method = __Pyx_PyObject_GetAttrStr(target->type, *target->method_name);
+    if (unlikely(!method))
+        return -1;
+    target->method = method;
+#if CYTHON_COMPILING_IN_CPYTHON
+    #if PY_MAJOR_VERSION >= 3
+    if (likely(PyObject_TypeCheck(method, &PyMethodDescr_Type)))
+    #endif
+    {
+        PyMethodDescrObject *descr = (PyMethodDescrObject*) method;
+        target->func = descr->d_method->ml_meth;
+        target->flag = descr->d_method->ml_flags & (METH_VARARGS | METH_KEYWORDS | METH_O | METH_NOARGS);
     }
+#endif
     return 0;
 }
+
+/* CallUnboundCMethod0 */
+        static PyObject* __Pyx__CallUnboundCMethod0(__Pyx_CachedCFunction* cfunc, PyObject* self) {
+    PyObject *args, *result = NULL;
+    if (unlikely(!cfunc->method) && unlikely(__Pyx_TryUnpackUnboundCMethod(cfunc) < 0)) return NULL;
+#if CYTHON_COMPILING_IN_CPYTHON
+    args = PyTuple_New(1);
+    if (unlikely(!args)) goto bad;
+    Py_INCREF(self);
+    PyTuple_SET_ITEM(args, 0, self);
+#else
+    args = PyTuple_Pack(1, self);
+    if (unlikely(!args)) goto bad;
+#endif
+    result = __Pyx_PyObject_Call(cfunc->method, args, NULL);
+    Py_DECREF(args);
+bad:
+    return result;
+}
+
+/* pop */
+        static CYTHON_INLINE PyObject* __Pyx__PyObject_Pop(PyObject* L) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (Py_TYPE(L) == &PySet_Type) {
+        return PySet_Pop(L);
+    }
+#endif
+    return __Pyx_PyObject_CallMethod0(L, __pyx_n_s_pop);
+}
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyList_Pop(PyObject* L) {
+    if (likely(PyList_GET_SIZE(L) > (((PyListObject*)L)->allocated >> 1))) {
+        Py_SIZE(L) -= 1;
+        return PyList_GET_ITEM(L, PyList_GET_SIZE(L));
+    }
+    return __Pyx_CallUnboundCMethod0(&__pyx_umethod_PyList_Type_pop, L);
+}
+#endif
 
 /* None */
         static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname) {
@@ -7303,6 +7366,38 @@ static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value,
     *tb = tmp_tb;
 }
 #endif
+
+/* PyObjectCallMethod1 */
+            static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
+    PyObject *method, *result = NULL;
+    method = __Pyx_PyObject_GetAttrStr(obj, method_name);
+    if (unlikely(!method)) goto bad;
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (likely(PyMethod_Check(method))) {
+        PyObject *self = PyMethod_GET_SELF(method);
+        if (likely(self)) {
+            PyObject *args;
+            PyObject *function = PyMethod_GET_FUNCTION(method);
+            args = PyTuple_New(2);
+            if (unlikely(!args)) goto bad;
+            Py_INCREF(self);
+            PyTuple_SET_ITEM(args, 0, self);
+            Py_INCREF(arg);
+            PyTuple_SET_ITEM(args, 1, arg);
+            Py_INCREF(function);
+            Py_DECREF(method); method = NULL;
+            result = __Pyx_PyObject_Call(function, args, NULL);
+            Py_DECREF(args);
+            Py_DECREF(function);
+            return result;
+        }
+    }
+#endif
+    result = __Pyx_PyObject_CallOneArg(method, arg);
+bad:
+    Py_XDECREF(method);
+    return result;
+}
 
 /* CoroutineBase */
             #include <structmember.h>

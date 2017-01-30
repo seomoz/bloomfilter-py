@@ -146,9 +146,9 @@ cdef class RotatingBloomFilter:
     def rotate(self):
         '''Add a new bloom filter to our deque and remove any old bloom filters.'''
         self.bloom = BloomFilter(self.capacity, self.error_rate)
-        self.blooms.append(self.bloom)
+        self.blooms.appendleft(self.bloom)
         while len(self.blooms) > self.count:
-            self.blooms.popleft()
+            self.blooms.pop()
         self.remaining = self.capacity
 
     def add_by_hash(self, x):

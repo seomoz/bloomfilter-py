@@ -482,7 +482,7 @@ static const char *__pyx_f[] = {
 
 /*--- Type declarations ---*/
 struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter;
-struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating;
+struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter;
 struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr;
 struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash;
 struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr;
@@ -504,11 +504,11 @@ struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter {
 /* "bloomfilter/_bloomfilter.pyx":116
  * 
  * 
- * cdef class Rotating:             # <<<<<<<<<<<<<<
+ * cdef class RotatingBloomFilter:             # <<<<<<<<<<<<<<
  *     '''
  *     Use `count` bloom filters, each configured with `capacity` and `error`. As the
  */
-struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating {
+struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter {
   PyObject_HEAD
   uint64_t capacity;
   double error_rate;
@@ -542,7 +542,7 @@ struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr {
  */
 struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash {
   PyObject_HEAD
-  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self;
   PyObject *__pyx_v_x;
 };
 
@@ -571,7 +571,7 @@ struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr {
 struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup {
   PyObject_HEAD
   PyObject *__pyx_v_key;
-  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self;
 };
 
 
@@ -946,7 +946,7 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'bloomfilter._bloomfilter' */
 static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter = 0;
-static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter_Rotating = 0;
+static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter_RotatingBloomFilter = 0;
 static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr = 0;
 static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash = 0;
 static PyTypeObject *__pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr = 0;
@@ -1093,16 +1093,16 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_6test_by_ha
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_8serialize(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_10deserialize(CYTHON_UNUSED PyTypeObject *__pyx_v_self, PyObject *__pyx_v_serialized_filter); /* proto */
 static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(struct __pyx_obj_11bloomfilter_12_bloomfilter_BloomFilter *__pyx_v_self); /* proto */
-static int __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_capacity, PyObject *__pyx_v_error_rate, PyObject *__pyx_v_count); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6blooms___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_genexpr(PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicate(PyObject *__pyx_self, PyObject *__pyx_v_item); /* proto */
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_items, PyObject *__pyx_v_key); /* proto */
+static int __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter___init__(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_capacity, PyObject *__pyx_v_error_rate, PyObject *__pyx_v_count); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6blooms___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2rotate(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_12test_by_hash_genexpr(PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_x); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_predicate(PyObject *__pyx_self, PyObject *__pyx_v_item); /* proto */
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_8dedup(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_items, PyObject *__pyx_v_key); /* proto */
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_BloomFilter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_Rotating(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_RotatingBloomFilter(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -2715,8 +2715,8 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_11BloomFilter_12raw_data(
  */
 
 /* Python wrapper */
-static int __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_capacity = 0;
   PyObject *__pyx_v_error_rate = 0;
   PyObject *__pyx_v_count = 0;
@@ -2770,18 +2770,18 @@ static int __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_1__init__(PyObject *_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 133, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), __pyx_v_capacity, __pyx_v_error_rate, __pyx_v_count);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter___init__(((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)__pyx_v_self), __pyx_v_capacity, __pyx_v_error_rate, __pyx_v_count);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_capacity, PyObject *__pyx_v_error_rate, PyObject *__pyx_v_count) {
+static int __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter___init__(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_capacity, PyObject *__pyx_v_error_rate, PyObject *__pyx_v_count) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   uint64_t __pyx_t_1;
@@ -2920,7 +2920,7 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(struct __pyx
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -2936,19 +2936,19 @@ static int __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating___init__(struct __pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_6blooms_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_6blooms_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6blooms_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6blooms_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6blooms___get__(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6blooms___get__(((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6blooms___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6blooms___get__(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__", 0);
@@ -2989,20 +2989,20 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6blooms___get__
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_3rotate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_2rotate[] = "Add a new bloom filter to our deque and remove any old bloom filters.";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_3rotate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_3rotate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2rotate[] = "Add a new bloom filter to our deque and remove any old bloom filters.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_3rotate(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("rotate (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2rotate(((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2rotate(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3121,7 +3121,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(struct 
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.rotate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.rotate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3138,20 +3138,20 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_2rotate(struct 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash[] = "Add item using its Python hash to the filter.";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_4add_by_hash[] = "Add item using its Python hash to the filter.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5add_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_by_hash (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), ((PyObject *)__pyx_v_x));
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_4add_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)__pyx_v_self), ((PyObject *)__pyx_v_x));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_4add_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3339,7 +3339,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(st
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.add_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.add_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3356,19 +3356,19 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash(st
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash[] = "Test whether item is in the filter using its Python hash.";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6test_by_hash[] = "Test whether item is in the filter using its Python hash.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_7test_by_hash(PyObject *__pyx_v_self, PyObject *__pyx_v_x) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("test_by_hash (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), ((PyObject *)__pyx_v_x));
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6test_by_hash(((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)__pyx_v_self), ((PyObject *)__pyx_v_x));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_2generator1(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_12test_by_hash_2generator1(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "bloomfilter/_bloomfilter.pyx":167
  *     def test_by_hash(self, x):
@@ -3378,7 +3378,7 @@ static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_
  *     def dedup(self, items, key=None):
  */
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_genexpr(PyObject *__pyx_self) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_12test_by_hash_genexpr(PyObject *__pyx_self) {
   struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3393,7 +3393,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_2generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_test_by_hash_locals_genexpr); if (unlikely(!gen)) __PYX_ERR(0, 167, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_12test_by_hash_2generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_test_by_hash_locals_genexpr); if (unlikely(!gen)) __PYX_ERR(0, 167, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -3401,7 +3401,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.test_by_hash.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.test_by_hash.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -3409,7 +3409,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_2generator1(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_12test_by_hash_2generator1(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *__pyx_cur_scope = ((struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_2_genexpr *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -3547,7 +3547,7 @@ static PyObject *__pyx_gb_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_
  *         return any(bloom.test_by_hash(x) for bloom in self.blooms)
  */
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_x) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6test_by_hash(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_x) {
   struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3575,7 +3575,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(s
  *     def dedup(self, items, key=None):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_12test_by_hash_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_12test_by_hash_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_Generator_Next(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -3596,7 +3596,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(s
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.test_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.test_by_hash", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
@@ -3614,9 +3614,9 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash(s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_8dedup[] = "Generator of the unique items.";
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_9dedup(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_8dedup[] = "Generator of the unique items.";
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_9dedup(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_items = 0;
   PyObject *__pyx_v_key = 0;
   PyObject *__pyx_r = 0;
@@ -3664,11 +3664,11 @@ static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup(PyObject
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("dedup", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 169, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.dedup", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.dedup", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)__pyx_v_self), __pyx_v_items, __pyx_v_key);
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_8dedup(((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)__pyx_v_self), __pyx_v_items, __pyx_v_key);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
@@ -3684,20 +3684,20 @@ static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup(PyObject
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate(PyObject *__pyx_self, PyObject *__pyx_v_item); /*proto*/
-static PyMethodDef __pyx_mdef_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate = {"predicate", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate, METH_O, 0};
-static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate(PyObject *__pyx_self, PyObject *__pyx_v_item) {
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_1predicate(PyObject *__pyx_self, PyObject *__pyx_v_item); /*proto*/
+static PyMethodDef __pyx_mdef_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_1predicate = {"predicate", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_1predicate, METH_O, 0};
+static PyObject *__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_1predicate(PyObject *__pyx_self, PyObject *__pyx_v_item) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("predicate (wrapper)", 0);
-  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicate(__pyx_self, ((PyObject *)__pyx_v_item));
+  __pyx_r = __pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_predicate(__pyx_self, ((PyObject *)__pyx_v_item));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicate(PyObject *__pyx_self, PyObject *__pyx_v_item) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_predicate(PyObject *__pyx_self, PyObject *__pyx_v_item) {
   struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *__pyx_cur_scope;
   struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *__pyx_outer_scope;
   PyObject *__pyx_r = NULL;
@@ -3796,7 +3796,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicat
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.dedup.predicate", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.dedup.predicate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3812,7 +3812,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_5dedup_predicat
  *         predicate = self.add_by_hash
  */
 
-static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *__pyx_v_self, PyObject *__pyx_v_items, PyObject *__pyx_v_key) {
+static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_8dedup(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *__pyx_v_self, PyObject *__pyx_v_items, PyObject *__pyx_v_key) {
   struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedup *__pyx_cur_scope;
   PyObject *__pyx_v_predicate = NULL;
   PyObject *__pyx_r = NULL;
@@ -3868,7 +3868,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(struct _
  *                 return self.add_by_hash(key(item))
  * 
  */
-    __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11bloomfilter_12_bloomfilter_8Rotating_5dedup_1predicate, 0, __pyx_n_s_dedup_locals_predicate, ((PyObject*)__pyx_cur_scope), __pyx_n_s_bloomfilter__bloomfilter, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5dedup_1predicate, 0, __pyx_n_s_dedup_locals_predicate, ((PyObject*)__pyx_cur_scope), __pyx_n_s_bloomfilter__bloomfilter, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF_SET(__pyx_v_predicate, __pyx_t_1);
     __pyx_t_1 = 0;
@@ -3938,7 +3938,7 @@ static PyObject *__pyx_pf_11bloomfilter_12_bloomfilter_8Rotating_8dedup(struct _
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("bloomfilter._bloomfilter.Rotating.dedup", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("bloomfilter._bloomfilter.RotatingBloomFilter.dedup", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_predicate);
@@ -4065,8 +4065,8 @@ static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter_BloomFilter = {
   #endif
 };
 
-static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_Rotating(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p;
+static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_RotatingBloomFilter(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -4074,14 +4074,14 @@ static PyObject *__pyx_tp_new_11bloomfilter_12_bloomfilter_Rotating(PyTypeObject
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o);
+  p = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)o);
   p->blooms = Py_None; Py_INCREF(Py_None);
   p->bloom = Py_None; Py_INCREF(Py_None);
   return o;
 }
 
-static void __pyx_tp_dealloc_11bloomfilter_12_bloomfilter_Rotating(PyObject *o) {
-  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o;
+static void __pyx_tp_dealloc_11bloomfilter_12_bloomfilter_RotatingBloomFilter(PyObject *o) {
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)o;
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -4093,9 +4093,9 @@ static void __pyx_tp_dealloc_11bloomfilter_12_bloomfilter_Rotating(PyObject *o) 
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static int __pyx_tp_traverse_11bloomfilter_12_bloomfilter_Rotating(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_11bloomfilter_12_bloomfilter_RotatingBloomFilter(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)o;
   if (p->blooms) {
     e = (*v)(p->blooms, a); if (e) return e;
   }
@@ -4105,9 +4105,9 @@ static int __pyx_tp_traverse_11bloomfilter_12_bloomfilter_Rotating(PyObject *o, 
   return 0;
 }
 
-static int __pyx_tp_clear_11bloomfilter_12_bloomfilter_Rotating(PyObject *o) {
+static int __pyx_tp_clear_11bloomfilter_12_bloomfilter_RotatingBloomFilter(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)o;
+  struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)o;
   tmp = ((PyObject*)p->blooms);
   p->blooms = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -4117,29 +4117,29 @@ static int __pyx_tp_clear_11bloomfilter_12_bloomfilter_Rotating(PyObject *o) {
   return 0;
 }
 
-static PyObject *__pyx_getprop_11bloomfilter_12_bloomfilter_8Rotating_blooms(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_6blooms_1__get__(o);
+static PyObject *__pyx_getprop_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_blooms(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6blooms_1__get__(o);
 }
 
-static PyMethodDef __pyx_methods_11bloomfilter_12_bloomfilter_Rotating[] = {
-  {"rotate", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_3rotate, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_2rotate},
-  {"add_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_5add_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_4add_by_hash},
-  {"test_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_7test_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_6test_by_hash},
-  {"dedup", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_9dedup, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11bloomfilter_12_bloomfilter_8Rotating_8dedup},
+static PyMethodDef __pyx_methods_11bloomfilter_12_bloomfilter_RotatingBloomFilter[] = {
+  {"rotate", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_3rotate, METH_NOARGS, __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_2rotate},
+  {"add_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_5add_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_4add_by_hash},
+  {"test_by_hash", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_7test_by_hash, METH_O, __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_6test_by_hash},
+  {"dedup", (PyCFunction)__pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_9dedup, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_8dedup},
   {0, 0, 0, 0}
 };
 
-static struct PyGetSetDef __pyx_getsets_11bloomfilter_12_bloomfilter_Rotating[] = {
-  {(char *)"blooms", __pyx_getprop_11bloomfilter_12_bloomfilter_8Rotating_blooms, 0, (char *)0, 0},
+static struct PyGetSetDef __pyx_getsets_11bloomfilter_12_bloomfilter_RotatingBloomFilter[] = {
+  {(char *)"blooms", __pyx_getprop_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_blooms, 0, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter_Rotating = {
+static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter_RotatingBloomFilter = {
   PyVarObject_HEAD_INIT(0, 0)
-  "bloomfilter._bloomfilter.Rotating", /*tp_name*/
-  sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating), /*tp_basicsize*/
+  "bloomfilter._bloomfilter.RotatingBloomFilter", /*tp_name*/
+  sizeof(struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11bloomfilter_12_bloomfilter_Rotating, /*tp_dealloc*/
+  __pyx_tp_dealloc_11bloomfilter_12_bloomfilter_RotatingBloomFilter, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -4161,23 +4161,23 @@ static PyTypeObject __pyx_type_11bloomfilter_12_bloomfilter_Rotating = {
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   "\n    Use `count` bloom filters, each configured with `capacity` and `error`. As the\n    combined capacity is reached, the oldest bloom filter is removed and a new one is\n    created. As such, it keeps track of roughly the most recent `count * capacity` unique\n    objects:\n\n        (count - 1) * capacity <= remembered entries <= count * capacity\n    ", /*tp_doc*/
-  __pyx_tp_traverse_11bloomfilter_12_bloomfilter_Rotating, /*tp_traverse*/
-  __pyx_tp_clear_11bloomfilter_12_bloomfilter_Rotating, /*tp_clear*/
+  __pyx_tp_traverse_11bloomfilter_12_bloomfilter_RotatingBloomFilter, /*tp_traverse*/
+  __pyx_tp_clear_11bloomfilter_12_bloomfilter_RotatingBloomFilter, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_11bloomfilter_12_bloomfilter_Rotating, /*tp_methods*/
+  __pyx_methods_11bloomfilter_12_bloomfilter_RotatingBloomFilter, /*tp_methods*/
   0, /*tp_members*/
-  __pyx_getsets_11bloomfilter_12_bloomfilter_Rotating, /*tp_getset*/
+  __pyx_getsets_11bloomfilter_12_bloomfilter_RotatingBloomFilter, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_11bloomfilter_12_bloomfilter_8Rotating_1__init__, /*tp_init*/
+  __pyx_pw_11bloomfilter_12_bloomfilter_19RotatingBloomFilter_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11bloomfilter_12_bloomfilter_Rotating, /*tp_new*/
+  __pyx_tp_new_11bloomfilter_12_bloomfilter_RotatingBloomFilter, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -4319,7 +4319,7 @@ static int __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test
   PyObject* tmp;
   struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *p = (struct __pyx_obj_11bloomfilter_12_bloomfilter___pyx_scope_struct_1_test_by_hash *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_v_self = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_x);
   p->__pyx_v_x = Py_None; Py_INCREF(Py_None);
@@ -4544,7 +4544,7 @@ static int __pyx_tp_clear_11bloomfilter_12_bloomfilter___pyx_scope_struct_3_dedu
   p->__pyx_v_key = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_Rotating *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_v_self = ((struct __pyx_obj_11bloomfilter_12_bloomfilter_RotatingBloomFilter *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -4885,10 +4885,10 @@ PyMODINIT_FUNC PyInit__bloomfilter(void)
   __pyx_type_11bloomfilter_12_bloomfilter_BloomFilter.tp_print = 0;
   if (PyObject_SetAttrString(__pyx_m, "BloomFilter", (PyObject *)&__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __pyx_ptype_11bloomfilter_12_bloomfilter_BloomFilter = &__pyx_type_11bloomfilter_12_bloomfilter_BloomFilter;
-  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter_Rotating) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
-  __pyx_type_11bloomfilter_12_bloomfilter_Rotating.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "Rotating", (PyObject *)&__pyx_type_11bloomfilter_12_bloomfilter_Rotating) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
-  __pyx_ptype_11bloomfilter_12_bloomfilter_Rotating = &__pyx_type_11bloomfilter_12_bloomfilter_Rotating;
+  if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter_RotatingBloomFilter) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_type_11bloomfilter_12_bloomfilter_RotatingBloomFilter.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "RotatingBloomFilter", (PyObject *)&__pyx_type_11bloomfilter_12_bloomfilter_RotatingBloomFilter) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_ptype_11bloomfilter_12_bloomfilter_RotatingBloomFilter = &__pyx_type_11bloomfilter_12_bloomfilter_RotatingBloomFilter;
   if (PyType_Ready(&__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   __pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr.tp_print = 0;
   __pyx_ptype_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr = &__pyx_type_11bloomfilter_12_bloomfilter___pyx_scope_struct__genexpr;

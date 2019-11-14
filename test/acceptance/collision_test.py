@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-'''Bloom filter collision tests'''
+"""Bloom filter collision tests"""
 
 # pylint: disable=invalid-name
 
@@ -9,10 +9,10 @@ from bloomfilter import BloomFilter
 
 
 class TestCollisions(unittest.TestCase):
-    '''Set of tests to ensure desirable collision rate'''
+    """Set of tests to ensure desirable collision rate"""
 
     def test_non_randoms_at_all(self):
-        '''Ensure that small bit differences do not play bad'''
+        """Ensure that small bit differences do not play bad"""
         bloom_filter = BloomFilter(1000000, 1e-5)
         collision_count = 0
         for ix in range(1000000):
@@ -23,7 +23,7 @@ class TestCollisions(unittest.TestCase):
         self.assertEqual(collision_count, 0)
 
     def test_objects(self):
-        '''Ensure that objects work well'''
+        """Ensure that objects work well"""
         # hash of object (with no __hash__) is its address, so it is
         # not overly random
         #
@@ -45,9 +45,9 @@ class TestCollisions(unittest.TestCase):
         self.assertEqual(collision_count, 0)
 
     def test_words(self):
-        '''Ensure that strings work well'''
-        vocabulary = self.load_words('words')
-        test_words = self.load_words('testwords')
+        """Ensure that strings work well"""
+        vocabulary = self.load_words("words")
+        test_words = self.load_words("testwords")
         bloom_filter = BloomFilter(100000, 1e-4)
 
         intersection = set(vocabulary) & set(test_words)
@@ -73,7 +73,7 @@ class TestCollisions(unittest.TestCase):
         self.assertLessEqual(false_positive_count, 6)
 
     def load_words(self, file_name):
-        '''Load word list from the local file'''
+        """Load word list from the local file"""
         test_dir = os.path.dirname(__file__)
-        with open(os.path.join(test_dir, file_name), 'r') as infile:
-            return [word for word in infile.read().split('\n') if word]
+        with open(os.path.join(test_dir, file_name), "r") as infile:
+            return [word for word in infile.read().split("\n") if word]

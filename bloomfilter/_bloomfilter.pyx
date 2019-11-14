@@ -3,7 +3,6 @@
 import base64
 from collections import deque
 import hashlib
-import itertools
 import random
 import zlib
 
@@ -33,10 +32,11 @@ cdef class BloomFilter:
         if not _build:
             return
 
-        if capacity <= 0:
+        if capacity is None or capacity <= 0:
             raise ValueError("BloomFilter capacity must be a positive number (%s passed)", capacity)
 
-        if error_rate <= 0 or error_rate >= 1:
+
+        if error_rate is None or error_rate <= 0 or error_rate >= 1:
             raise ValueError("BloomFilter error rate must be in the range 0 < error rate < 1 (%s passed)", error_rate)
 
         log_error_rate = log(error_rate)
@@ -46,12 +46,12 @@ cdef class BloomFilter:
         # case when `bit_count` is power of 2. We alleviate it by making `bit_count` always
         # an odd number.
         bit_count |= 1
-        acc = ''
-        for i in xrange(hash_count):
-            random_string = "".join(chr(random.randrange(256)) for j in xrange(8))
+        acc = bytes()
+        for i in range(hash_count):
+            random_string = "".join(chr(random.randrange(256)) for j in range(8))
             # we are using simplistic rehasher, so we better have pretty good seeds.
             hasher = hashlib.new('md5')
-            hasher.update(random_string)
+            hasher.update(random_string.encode('utf-8'))
             acc += hasher.digest()
         seeds = acc
         cbf = cbloomfilter.CBloomFilter_Create(hash_count, bit_count, seeds)
@@ -173,4 +173,4 @@ cdef class RotatingBloomFilter:
             def predicate(item):
                 return self.add_by_hash(key(item))
 
-        return itertools.ifilter(predicate, items)
+        return filter(predicate, items)

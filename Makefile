@@ -1,7 +1,7 @@
 .PHONY: lint
 lint:
 	pylint bloomfilter/ test/
-	pep8   bloomfilter/ test/
+	pycodestyle   bloomfilter/ test/
 
 .PHONY: build
 build:

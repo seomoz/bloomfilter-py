@@ -30,7 +30,7 @@ if sys.version_info[0] < 3 and sys.version_info[1] < 7:
 
 setup(
     name="bloomfilter",
-    version="0.1.0",
+    version="0.2.0",
     description="Bloom Filter (Python)",
     license="MIT License",
     url="http://github.com/seomoz/bloomfilter-py",

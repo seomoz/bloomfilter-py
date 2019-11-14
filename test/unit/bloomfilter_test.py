@@ -193,12 +193,16 @@ class TestRotatingBloomFilter(unittest.TestCase):
 
     def test_non_repeating(self):
         """Can identifiy non-repeating things."""
-        self.assertEqual(list(self.bloom_filter.dedup(range(100))), list(range(100)))
+        self.assertEqual(
+            list(self.bloom_filter.dedup(range(100))), list(range(100))
+        )
 
     def test_repeating(self):
         """Can identify repeating things."""
         items = itertools.islice(itertools.cycle(range(100)), 0, 500)
-        self.assertEqual(list(self.bloom_filter.dedup(items)), list(range(100)))
+        self.assertEqual(
+            list(self.bloom_filter.dedup(items)), list(range(100))
+        )
 
     def test_rotate(self):
         """Can rotate out the oldest bloom filter."""

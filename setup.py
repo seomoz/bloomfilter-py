@@ -18,7 +18,11 @@ else:
     print("*** info: Building from C")
     ext_files = ["bloomfilter/_bloomfilter.c"]
 
-ext_modules = [Extension("bloomfilter._bloomfilter", ext_files, include_dirs=["bloomfilter"])]
+ext_modules = [
+    Extension(
+        "bloomfilter._bloomfilter", ext_files, include_dirs=["bloomfilter"]
+    )
+]
 
 requirements = []
 if sys.version_info[0] < 3 and sys.version_info[1] < 7:

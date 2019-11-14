@@ -20,8 +20,7 @@ class TestUtilDerandomize(unittest.TestCase):
         with bloomfilter.util.derandomize():
             bloom_filter_2 = bloomfilter.BloomFilter(10, 0.1)
 
-        self.assertEqual(bloom_filter_1.raw_data(),
-                         bloom_filter_2.raw_data())
+        self.assertEqual(bloom_filter_1.raw_data(), bloom_filter_2.raw_data())
 
     def test_derandomize_ensures_serialization_is_consistent(self):
         """Derandomize ensures that serialization_is_consistent."""
@@ -30,8 +29,9 @@ class TestUtilDerandomize(unittest.TestCase):
         with bloomfilter.util.derandomize(234):
             bloom_filter_2 = bloomfilter.BloomFilter(10, 0.1)
 
-        self.assertEqual(bloom_filter_1.serialize(),
-                         bloom_filter_2.serialize())
+        self.assertEqual(
+            bloom_filter_1.serialize(), bloom_filter_2.serialize()
+        )
 
     def test_derandomize_allows_exceptions(self):
         """Derandomize propagates exception, but restores random state."""
